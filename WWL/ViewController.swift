@@ -62,7 +62,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
 */
-    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         
