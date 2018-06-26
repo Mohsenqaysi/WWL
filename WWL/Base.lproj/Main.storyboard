@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aSI-a4-Gpr">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,6 +25,73 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="670" y="745"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Fxw-RB-p0E">
+            <objects>
+                <viewController id="aSI-a4-Gpr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fgk-a5-rnr">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jg0-4t-GaO" userLabel="Image and Buttons Stack View">
+                                <rect key="frame" x="0.0" y="57" width="667" height="318"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WWL logo" translatesAutoresizingMaskIntoConstraints="NO" id="0NY-ak-Voi">
+                                        <rect key="frame" x="158.5" y="0.0" width="350" height="152"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="350" id="Dro-69-79w"/>
+                                            <constraint firstAttribute="height" constant="152" id="dC0-X8-cs6"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B5Y-rF-Nc8" userLabel="Buttons Stack View">
+                                        <rect key="frame" x="0.0" y="172" width="667" height="146"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beB-MV-ttu">
+                                                <rect key="frame" x="0.0" y="0.0" width="667" height="73"/>
+                                                <color key="backgroundColor" red="0.75686274509803919" green="0.1764705882352941" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="73" id="DAI-eX-07v"/>
+                                                    <constraint firstAttribute="width" secondItem="beB-MV-ttu" secondAttribute="height" multiplier="667:73" id="mLj-RA-Djk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                <state key="normal" title="LOG IN">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCf-t4-b5R">
+                                                <rect key="frame" x="0.0" y="73" width="667" height="73"/>
+                                                <color key="backgroundColor" red="0.34509803919999998" green="0.6588235294" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="73" id="E0b-Zk-kQa"/>
+                                                    <constraint firstAttribute="width" secondItem="FCf-t4-b5R" secondAttribute="height" multiplier="667:73" id="eZz-lo-B2s"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                <state key="normal" title="SIGN UP">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jg0-4t-GaO" firstAttribute="leading" secondItem="Fgk-a5-rnr" secondAttribute="leading" id="Jgi-lG-2e6"/>
+                            <constraint firstItem="rX5-jp-OKO" firstAttribute="trailing" secondItem="jg0-4t-GaO" secondAttribute="trailing" id="kyd-Ik-O3n"/>
+                            <constraint firstItem="rX5-jp-OKO" firstAttribute="bottom" secondItem="jg0-4t-GaO" secondAttribute="bottom" id="w1J-65-oTE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rX5-jp-OKO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5m9-yE-LAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22.938530734632685" y="744.79999999999995"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="WWL logo" width="654" height="284"/>
+    </resources>
 </document>
