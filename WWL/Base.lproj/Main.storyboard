@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="670" y="745"/>
         </scene>
-        <!--View Controller-->
+        <!--Auth View Controller-->
         <scene sceneID="Fxw-RB-p0E">
             <objects>
-                <viewController id="aSI-a4-Gpr" sceneMemberID="viewController">
+                <viewController id="aSI-a4-Gpr" userLabel="Auth View Controller" customClass="AuthViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fgk-a5-rnr">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,6 +85,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rX5-jp-OKO"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButoon" destination="beB-MV-ttu" id="gvY-1e-xN9"/>
+                        <outlet property="signUpButton" destination="FCf-t4-b5R" id="Kct-WV-GAT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5m9-yE-LAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
