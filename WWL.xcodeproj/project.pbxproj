@@ -69,13 +69,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FC8A06E920E2ADEF002E367A /* Controllers */ = {
+		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				FC8A06EA20E2AE06002E367A /* Registration */,
 				FCD5AA6220E2951C00535845 /* ViewController.swift */,
 			);
-			path = Controllers;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		FC8A06EA20E2AE06002E367A /* Registration */ = {
@@ -117,9 +117,9 @@
 		FCD5AA5D20E2951B00535845 /* WWL */ = {
 			isa = PBXGroup;
 			children = (
-				FC8A06F120E2C01F002E367A /* Extensions */,
-				FC8A06E920E2ADEF002E367A /* Controllers */,
 				FCD5AA5E20E2951C00535845 /* AppDelegate.swift */,
+				FC8A06F120E2C01F002E367A /* Extensions */,
+				FC8A06E920E2ADEF002E367A /* Controller */,
 				FCD5AA6020E2951C00535845 /* art.scnassets */,
 				FCD5AA6420E2951C00535845 /* Main.storyboard */,
 				FCD5AA6720E2951D00535845 /* Assets.xcassets */,
