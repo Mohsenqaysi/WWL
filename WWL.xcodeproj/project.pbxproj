@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
 		FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA6220E2951C00535845 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.release.xcconfig"; sourceTree = "<group>"; };
+		94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.debug.xcconfig"; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		89F9579A62BEAEEE37FD480A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC848AD32736C035635D3516 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */,
+				383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FCD5AA5220E2951B00535845 = {
 			isa = PBXGroup;
 			children = (
 				FCD5AA5D20E2951B00535845 /* WWL */,
 				FCD5AA5C20E2951B00535845 /* Products */,
+				AC848AD32736C035635D3516 /* Pods */,
+				89F9579A62BEAEEE37FD480A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCD5AA6F20E2951D00535845 /* Build configuration list for PBXNativeTarget "WWL" */;
 			buildPhases = (
+				65FD04023E39B07C6558D9ED /* [CP] Check Pods Manifest.lock */,
 				FCD5AA5720E2951B00535845 /* Sources */,
 				FCD5AA5820E2951B00535845 /* Frameworks */,
 				FCD5AA5920E2951B00535845 /* Resources */,
+				E792364731D6AC7D06DD32B5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +159,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65FD04023E39B07C6558D9ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WWL-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E792364731D6AC7D06DD32B5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WWL/Pods-WWL-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WWL/Pods-WWL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FCD5AA5720E2951B00535845 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		FCD5AA7020E2951D00535845 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +370,7 @@
 		};
 		FCD5AA7120E2951D00535845 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
