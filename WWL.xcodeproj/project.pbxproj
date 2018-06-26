@@ -12,6 +12,7 @@
 		FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EB20E2AE45002E367A /* AuthViewController.swift */; };
 		FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */; };
 		FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */; };
+		FC8A06F320E2C044002E367A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06F220E2C044002E367A /* Extensions.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
 		FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA6220E2951C00535845 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		FC8A06EB20E2AE45002E367A /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FC8A06F220E2C044002E367A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 			path = Registration;
 			sourceTree = "<group>";
 		};
+		FC8A06F120E2C01F002E367A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FC8A06F220E2C044002E367A /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FCD5AA5220E2951B00535845 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		FCD5AA5D20E2951B00535845 /* WWL */ = {
 			isa = PBXGroup;
 			children = (
+				FC8A06F120E2C01F002E367A /* Extensions */,
 				FC8A06E920E2ADEF002E367A /* Controllers */,
 				FCD5AA5E20E2951C00535845 /* AppDelegate.swift */,
 				FCD5AA6020E2951C00535845 /* art.scnassets */,
@@ -238,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */,
+				FC8A06F320E2C044002E367A /* Extensions.swift in Sources */,
 				FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
 				FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */,

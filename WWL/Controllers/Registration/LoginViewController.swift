@@ -12,11 +12,12 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // chnage the navigation Bar Tint Color
-        navigationController?.navigationBar.tintColor = UIColor(named: "PinkColor")
     }
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(true)
-//        navigationController?.navigationBar.tintColor = UIColor.blue
-//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let title = "Logging"
+        let color = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
+        UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: color)
+    }
 }

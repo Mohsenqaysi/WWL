@@ -9,7 +9,7 @@
 import UIKit
 
 class AuthViewController: UIViewController {
-
+    
     // TODO: - Check is the user did logged in breofre
     // If did use the token to authanticated the user
     // else ask them to login.
@@ -18,8 +18,11 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
         setButtonsActions()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
     }
     fileprivate func setButtonsActions(){
         self.loginButoon.addTarget(self, action: #selector(handelLogin), for: .touchUpInside)
