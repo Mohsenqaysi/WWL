@@ -128,8 +128,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2I-ZX-4pr">
                                 <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Pp-v1P" userLabel="Outer Stack View">
-                                        <rect key="frame" x="16" y="8" width="635" height="271"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Pp-v1P" userLabel="Outer Stack View">
+                                        <rect key="frame" x="16" y="8" width="635" height="336"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Lp6-6s-9j5" userLabel="Sign Up title Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="635" height="32"/>
@@ -146,7 +146,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IUF-Qh-zgr" userLabel="Input Stack View">
-                                                <rect key="frame" x="0.0" y="37" width="635" height="156"/>
+                                                <rect key="frame" x="0.0" y="47" width="635" height="156"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7x-tA-fj8">
                                                         <rect key="frame" x="0.0" y="0.0" width="635" height="156"/>
@@ -194,8 +194,8 @@
                                                     </view>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vlq-ZK-PSj">
-                                                <rect key="frame" x="0.0" y="198" width="635" height="73"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vlq-ZK-PSj" userLabel="SingUp Stack View">
+                                                <rect key="frame" x="0.0" y="218" width="635" height="73"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxI-FO-XoZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="635" height="73"/>
@@ -213,7 +213,42 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jMR-rM-qg9" userLabel="Terms Stack View">
+                                                <rect key="frame" x="0.0" y="306" width="635" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5l-bb-mlV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="391" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="b3N-aR-E3E"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                        <state key="normal">
+                                                            <string key="title">By tapping "Sign Up" you agree
+to the</string>
+                                                        </state>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WR4-5q-sSJ">
+                                                        <rect key="frame" x="396" y="0.0" width="239" height="30"/>
+                                                        <color key="tintColor" red="0.34509803919999998" green="0.6588235294" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="terms &amp; conditions">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="Arial-BoldMT"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        <integer key="NSUnderline" value="1"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="ViewTermsAndConditions:" destination="wut-cJ-gtt" eventType="touchUpInside" id="pBr-Nb-dfI"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -249,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wa-8a-uo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1643.5" y="1109.5"/>
+            <point key="canvasLocation" x="1643.0284857571216" y="1108"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LbN-Nh-Yoi">
