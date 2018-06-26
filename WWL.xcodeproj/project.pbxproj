@@ -10,6 +10,8 @@
 		BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */; };
 		FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC76019220E29BBA007414B6 /* GoogleService-Info.plist */; };
 		FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EB20E2AE45002E367A /* AuthViewController.swift */; };
+		FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */; };
+		FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
 		FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA6220E2951C00535845 /* ViewController.swift */; };
@@ -24,6 +26,8 @@
 		F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.debug.xcconfig"; sourceTree = "<group>"; };
 		FC76019220E29BBA007414B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC8A06EB20E2AE45002E367A /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				FC8A06EB20E2AE45002E367A /* AuthViewController.swift */,
+				FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */,
+				FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -231,9 +237,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */,
 				FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
 				FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */,
+				FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

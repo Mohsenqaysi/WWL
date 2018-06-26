@@ -10,11 +10,15 @@ import UIKit
 
 class AuthViewController: UIViewController {
 
+    // TODO: - Check is the user did logged in breofre
+    // If did use the token to authanticated the user
+    // else ask them to login.
     @IBOutlet weak var loginButoon: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         setButtonsActions()
     }
     fileprivate func setButtonsActions(){
@@ -23,8 +27,10 @@ class AuthViewController: UIViewController {
     }
     @objc func handelLogin(){
         debugPrint("handelLogin was press")
+        self.navigationController?.navigationBar.isHidden = false
     }
     @objc func handelSignUp(){
         debugPrint("handelSignUp was press")
+        self.navigationController?.navigationBar.isHidden = false
     }
 }

@@ -34,7 +34,6 @@
                                         <rect key="frame" x="31.5" y="155" width="337" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="XMZ-gi-uOc" secondAttribute="height" multiplier="337:40" id="2DK-1m-3mt"/>
-                                            <constraint firstAttribute="width" constant="337" id="2aS-mb-68c"/>
                                             <constraint firstAttribute="height" constant="40" id="Ufm-P5-Nvc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
