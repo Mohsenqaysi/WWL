@@ -37,22 +37,39 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func longInUser(_ sender: UIButton) {
         
+        guard let email = emailInput.text else {return}
+        guard let password = passWordInput.text else {return}
         
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                if let errorMessage = error?.localizedDescription {
+                    let errorAlert = UIAlertController().alertMessages(title: AlertsMessages.Error, message: errorMessage)
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
+            }
+            
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uid = user.uid
+                let userEmail = user.email
+                debugPrint("uid: \(uid) and email: \(String(describing: userEmail))")
+            }
+        }
     }
     
     @IBAction func passwordReset(_ sender: UIButton) {
         //  Show an alert input view
-        let alertController = UIAlertController(title: "Reseat Password", message: "Enter the email you want to reseat:", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Reset Password", message: "Enter the email you want to Reset:", preferredStyle: .alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter email"
         }
         // ResetAction handeler
-        let resetAction = UIAlertAction(title: "Reseat", style: .default, handler: { alert -> Void in
+        let resetAction = UIAlertAction(title: "Reset", style: .default, handler: { alert -> Void in
             if let emailTextField = alertController.textFields?.first {
                 guard let email = emailTextField.text else {return}
                 print("emailTextField: \(email)")
                 // Send the request to the server
-                self.reseatPassword(for: email)
+                self.ResetPassword(for: email)
             }
         })
         // cancelAction handeler
@@ -62,14 +79,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    fileprivate func reseatPassword(for email: String){
+    fileprivate func ResetPassword(for email: String){
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error != nil {
-                debugPrint("reseat email error: \(error.debugDescription)")
-                let errorAlert = UIAlertController().alertMessages(title: AlertsMessages.Error, message: error.debugDescription)
-                self.present(errorAlert, animated: true, completion: nil)
+                if let errorMessage = error?.localizedDescription {
+                    let errorAlert = UIAlertController().alertMessages(title: AlertsMessages.Error, message: errorMessage)
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
             }
-            let successAlert = UIAlertController().alertMessages(title: AlertsMessages.Successful, message: AlertsMessages.successfulReseatMessage)
+            let successAlert = UIAlertController().alertMessages(title: AlertsMessages.Successful, message: AlertsMessages.successfulResetMessage)
             self.present(successAlert, animated: true, completion: nil)
         }
     }
