@@ -114,13 +114,13 @@
                                 <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="71t-86-oII" userLabel="LogIn Stack View">
-                                        <rect key="frame" x="219" y="12" width="230" height="240"/>
+                                        <rect key="frame" x="221.5" y="12" width="225.5" height="240"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sRR-Lo-ob4" userLabel="Lognin Stack View">
-                                                <rect key="frame" x="0.0" y="0.0" width="230" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="225.5" height="44"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LONG IN TO WWL SYSTEM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfT-ei-RbS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="230" height="44"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LONGIN TO WWL SYSTEM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfT-ei-RbS">
+                                                        <rect key="frame" x="0.0" y="0.0" width="225.5" height="44"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -128,10 +128,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Nmu-lZ-v6X" userLabel="Input Stack View">
-                                                <rect key="frame" x="0.0" y="54" width="230" height="88"/>
+                                                <rect key="frame" x="0.0" y="54" width="225.5" height="88"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOV-DH-TCv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="230" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="225.5" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="nka-RI-FTZ"/>
                                                         </constraints>
@@ -140,7 +140,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NTU-wf-SsE">
-                                                        <rect key="frame" x="0.0" y="44" width="230" height="44"/>
+                                                        <rect key="frame" x="0.0" y="44" width="225.5" height="44"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -148,10 +148,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Bfa-2k-grP" userLabel="LogIn Button Stack View">
-                                                <rect key="frame" x="0.0" y="152" width="230" height="88"/>
+                                                <rect key="frame" x="0.0" y="152" width="225.5" height="88"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xoy-GY-G3a">
-                                                        <rect key="frame" x="0.0" y="0.0" width="230" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="225.5" height="44"/>
                                                         <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="GJp-fG-RQg"/>
@@ -162,11 +162,15 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="createaAccountButton:" destination="wut-cJ-gtt" eventType="touchUpInside" id="Vls-Am-Xnc"/>
+                                                            <action selector="longInUser:" destination="kKw-8f-NY8" eventType="touchUpInside" id="wIq-qQ-oIU"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLl-Qk-Ihl">
-                                                        <rect key="frame" x="0.0" y="44" width="230" height="44"/>
+                                                        <rect key="frame" x="0.0" y="44" width="225.5" height="44"/>
                                                         <state key="normal" title="Forgot your password?"/>
+                                                        <connections>
+                                                            <action selector="passwordReset:" destination="kKw-8f-NY8" eventType="touchUpInside" id="ECO-d9-ZhX"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -195,6 +199,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Tf-lY-LP2"/>
                     </view>
+                    <connections>
+                        <outlet property="emailInput" destination="QOV-DH-TCv" id="im5-h2-HRG"/>
+                        <outlet property="logInButton" destination="Xoy-GY-G3a" id="cHY-Qq-e8j"/>
+                        <outlet property="passWordInput" destination="NTU-wf-SsE" id="hy3-SC-ug9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qd-hl-nFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

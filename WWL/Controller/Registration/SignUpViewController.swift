@@ -41,7 +41,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(true)
         // Set the cornerRadius
         self.containerView.layer.cornerRadius = 5
-        self.createaAccountButton.layer.cornerRadius = 5 //createaAccountButton.frame.height/3
+        self.createaAccountButton.layer.cornerRadius = 5
         
         let title = "Sign Up"
         let color = UIColor(red:0.35, green:0.66, blue:0.89, alpha:1.0)
@@ -94,18 +94,18 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                         self.navigationController?.popToRootViewController(animated: true)
                     }
                 })
+            }
         }
     }
-}
-
-@IBAction func ViewTermsAndConditions(_ sender: UIButton) {
-    let url = "http://www.wordsworthlearning.com/staticpage/terms_of_use"
-    guard let requestUrl = URL(string: url) else {
-        return
+    
+    @IBAction func ViewTermsAndConditions(_ sender: UIButton) {
+        let url = "http://www.wordsworthlearning.com/staticpage/terms_of_use"
+        guard let requestUrl = URL(string: url) else {
+            return
+        }
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let webPage = SFSafariViewController(url: requestUrl, configuration: config)
+        present(webPage, animated: true)
     }
-    let config = SFSafariViewController.Configuration()
-    config.entersReaderIfAvailable = true
-    let webPage = SFSafariViewController(url: requestUrl, configuration: config)
-    present(webPage, animated: true)
-}
 }

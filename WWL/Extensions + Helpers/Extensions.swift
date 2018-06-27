@@ -32,6 +32,7 @@ extension UIAlertController {
 struct AlertsMessages {
     static let Successful = "Successful"
     static let successfulMessage = "You have been registered to the system 😃 successfully"
+    static let successfulReseatMessage = "An email has being sent to you 😃 successfully"
     static let Error = "Error..."
     static let requiredFiled = "This filed is required"
     static let passwordLength = "The password must be 6 characters long or more."
