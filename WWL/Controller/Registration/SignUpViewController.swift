@@ -44,8 +44,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         self.createaAccountButton.layer.cornerRadius = 5
         
         let title = "Sign Up"
-        let color = UIColor(red:0.35, green:0.66, blue:0.89, alpha:1.0)
-        UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: color)
+        UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: blueColor)
     }
     
     @IBAction func createaAccountButton(_ sender: UIButton) {

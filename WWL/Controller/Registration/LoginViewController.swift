@@ -18,7 +18,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         self.emailInput.delegate = self
         self.passWordInput.delegate = self
+        //        passWordInput.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
+    
+    //    @objc func textFieldDidChange(_ textField: UITextField) {
+    //
+    //    }
     
     // Dissmiss the keyboard on the Done Button
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -28,6 +33,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.logInButton.backgroundColor = .lightGray
+        logInButton.isEnabled = false
         do {
             try Auth.auth().signOut()
         } catch let error {
@@ -35,26 +42,19 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         }
         self.logInButton.layer.cornerRadius = 5
         let title = "Logging"
-        let color = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
-        UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: color)
+        UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: PinkColor)
     }
     
     
     @IBAction func longInUser(_ sender: UIButton) {
         
         guard let email = emailInput.text, emailInput.text != "" else {
-            errorHighlightTextField(textField: emailInput)
-            emailInput.placeholder = AlertsMessages.requiredFiled
             return
         }
-        removeErrorHighlightTextField(textField: emailInput)
         guard let password = passWordInput.text, passWordInput.text != "" else {
-            errorHighlightTextField(textField: passWordInput)
-            passWordInput.placeholder = AlertsMessages.requiredFiled
             return
         }
         removeErrorHighlightTextField(textField: passWordInput)
-        
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 if let errorMessage = error?.localizedDescription {
@@ -112,12 +112,32 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 }
 
 extension LoginViewController {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+         sendButtonValidation()
+        print("shouldChangeCharactersIn")
+        return true
+    }
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == Identifiers.ViewController {
-    //            var vc = segue.destination as! ViewController
-    ////            vc.data = "Data you want to pass"
-    //            //Data has to be a variable name in your RandomViewController
-    //        }
-    //    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        sendButtonValidation()
+        print("textFieldDidEndEditing")
+    }
+    
+    fileprivate func sendButtonValidation() {
+        //        if (emailInput && passWordInput.text?.isEmpty) {
+        guard let email = emailInput.text else {return}
+        guard let password = passWordInput.text else {return}
+        debugPrint("Email: \(email) - Password: \(password)")
+        debugPrint("Email: \(email.count) - Password: \(password.count)")
+
+        if email.count > 0 && password.count > 5 {
+            //            if (email != "" && password != "") {
+            self.logInButton.backgroundColor = PinkColor
+            logInButton.isEnabled = true
+        } else {
+            self.logInButton.backgroundColor = .lightGray
+            logInButton.isEnabled = false
+        }
+        //    }
+    }
 }

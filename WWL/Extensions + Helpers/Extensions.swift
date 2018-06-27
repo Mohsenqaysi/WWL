@@ -60,8 +60,5 @@ func removeErrorHighlightTextField(textField: UITextField){
     textField.layer.cornerRadius = 5
 }
 
-extension UIColor {
-    class func greyPlaceholderColor() -> UIColor {
-        return UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
-    }
-}
+let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
+let blueColor = UIColor(red:0.35, green:0.66, blue:0.89, alpha:1.0)
