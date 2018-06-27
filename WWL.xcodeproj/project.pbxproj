@@ -82,18 +82,18 @@
 			isa = PBXGroup;
 			children = (
 				FC8A06EB20E2AE45002E367A /* AuthViewController.swift */,
-				FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */,
 				FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */,
+				FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
 		};
-		FC8A06F120E2C01F002E367A /* Extensions */ = {
+		FC8A06F120E2C01F002E367A /* Extensions + Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				FC8A06F220E2C044002E367A /* Extensions.swift */,
 			);
-			path = Extensions;
+			path = "Extensions + Helpers";
 			sourceTree = "<group>";
 		};
 		FCD5AA5220E2951B00535845 = {
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				FCD5AA5E20E2951C00535845 /* AppDelegate.swift */,
-				FC8A06F120E2C01F002E367A /* Extensions */,
+				FC8A06F120E2C01F002E367A /* Extensions + Helpers */,
 				FC8A06E920E2ADEF002E367A /* Controller */,
 				FCD5AA6020E2951C00535845 /* art.scnassets */,
 				FCD5AA6420E2951C00535845 /* Main.storyboard */,

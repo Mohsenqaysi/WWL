@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import SafariServices
+import Firebase
+//import FirebaseAuth
 
 class SignUpViewController: UIViewController,UITextFieldDelegate {
+    
     
     @IBOutlet weak var userNameInput: UITextField!
     @IBOutlet weak var emailInput: UITextField!
@@ -20,6 +24,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         setTextIputDelegate()
     }
+    
     func setTextIputDelegate() {
         self.userNameInput.delegate = self
         self.emailInput.delegate = self
@@ -44,7 +49,50 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func createaAccountButton(_ sender: UIButton) {
-        debugPrint("createaAccountButton was pressed")
+        //        debugPrint("createaAccountButton was pressed")
+        guard let userName = userNameInput.text else {return}
+        guard let email = emailInput.text else {return}
+        guard let password = passWordInput.text else {return}
+        
+        if userName == "" {
+            print("Please enter a userName")
+            userNameInput.placeholder = AlertsMessages.requiredFiled
+            errorHighlightTextField(textField: userNameInput)
+        } else if  email == "" {
+            removeErrorHighlightTextField(textField: userNameInput)
+            emailInput.placeholder = AlertsMessages.requiredFiled
+            errorHighlightTextField(textField: emailInput)
+        } else if password == "" {
+            removeErrorHighlightTextField(textField: emailInput)
+            passWordInput.placeholder = AlertsMessages.requiredFiled
+            errorHighlightTextField(textField: passWordInput)
+        } else {
+            removeErrorHighlightTextField(textField: passWordInput)
+            Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+                if error != nil {
+                    if let errorMessage = error?.localizedDescription {
+                        let errorAlert = UIAlertController().alertMessages(title: AlertsMessages.Error, message: errorMessage)
+                        
+                        if errorMessage == AlertsMessages.emilBadFormt {
+                            removeErrorHighlightTextField(textField: self.userNameInput)
+                            errorHighlightTextField(textField: self.emailInput)
+                        } else if errorMessage == AlertsMessages.passwordLength {
+                            removeErrorHighlightTextField(textField: self.userNameInput)
+                            removeErrorHighlightTextField(textField: self.emailInput)
+                            errorHighlightTextField(textField: self.passWordInput)
+                        } else {
+                            removeErrorHighlightTextField(textField: self.userNameInput)
+                            removeErrorHighlightTextField(textField: self.emailInput)
+                            removeErrorHighlightTextField(textField: self.passWordInput)
+                        }
+                        self.present(errorAlert, animated: true, completion: nil)
+                    }
+                }
+                let successAlert = UIAlertController().alertMessages(title: AlertsMessages.Successful, message: AlertsMessages.successfulMessage)
+                self.present(successAlert, animated: true, completion: nil)
+                print("authResult: \(String(describing: authResult?.uid))")
+            }
+        }
     }
     
     @IBAction func ViewTermsAndConditions(_ sender: UIButton) {
@@ -52,8 +100,9 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         guard let requestUrl = URL(string: url) else {
             return
         }
-        UIApplication.shared.open(requestUrl, options: [:], completionHandler: nil)
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let webPage = SFSafariViewController(url: requestUrl, configuration: config)
+        present(webPage, animated: true)
     }
-    
-    
 }
