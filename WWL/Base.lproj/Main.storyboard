@@ -26,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1628" y="-390"/>
+            <point key="canvasLocation" x="1643" y="-391"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="Fxw-RB-p0E">
@@ -203,6 +203,7 @@
                         <outlet property="emailInput" destination="QOV-DH-TCv" id="im5-h2-HRG"/>
                         <outlet property="logInButton" destination="Xoy-GY-G3a" id="cHY-Qq-e8j"/>
                         <outlet property="passWordInput" destination="NTU-wf-SsE" id="hy3-SC-ug9"/>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="ViewController" id="go8-iS-4yv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qd-hl-nFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

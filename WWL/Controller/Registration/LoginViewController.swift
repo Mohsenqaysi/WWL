@@ -54,6 +54,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 let userEmail = user.email
                 debugPrint("uid: \(uid) and email: \(String(describing: userEmail))")
             }
+            
+            // Navigate to main View Contoller 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.performSegue(withIdentifier: Identifiers.ViewController , sender: self)
+            }
         }
     }
     
@@ -91,4 +96,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             self.present(successAlert, animated: true, completion: nil)
         }
     }
+}
+
+extension LoginViewController {
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == Identifiers.ViewController {
+//            var vc = segue.destination as! ViewController
+////            vc.data = "Data you want to pass"
+//            //Data has to be a variable name in your RandomViewController
+//        }
+//    }
 }
