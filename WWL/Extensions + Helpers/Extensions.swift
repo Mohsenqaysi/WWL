@@ -39,6 +39,11 @@ struct AlertsMessages {
     static let emilBadFormt = "The email address is badly formatted."
 }
 
+// Identifiers IDs
+struct Identifiers {
+    static let LoginViewController = "LoginViewControllerID"
+}
+
 // Text Field is empty - show red border
 func errorHighlightTextField(textField: UITextField){
     textField.layer.borderColor = UIColor.red.cgColor

@@ -55,7 +55,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         guard let password = passWordInput.text else {return}
         
         if userName == "" {
-            print("Please enter a userName")
             userNameInput.placeholder = AlertsMessages.requiredFiled
             errorHighlightTextField(textField: userNameInput)
         } else if  email == "" {
@@ -72,7 +71,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                 if error != nil {
                     if let errorMessage = error?.localizedDescription {
                         let errorAlert = UIAlertController().alertMessages(title: AlertsMessages.Error, message: errorMessage)
-                        
                         if errorMessage == AlertsMessages.emilBadFormt {
                             removeErrorHighlightTextField(textField: self.userNameInput)
                             errorHighlightTextField(textField: self.emailInput)
@@ -88,21 +86,26 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                         self.present(errorAlert, animated: true, completion: nil)
                     }
                 }
+                // MARK: if successfully logged in a user ... naviagte the user to the login page
                 let successAlert = UIAlertController().alertMessages(title: AlertsMessages.Successful, message: AlertsMessages.successfulMessage)
-                self.present(successAlert, animated: true, completion: nil)
-                print("authResult: \(String(describing: authResult?.uid))")
-            }
+                self.present(successAlert, animated: true, completion: {
+                    // On complection push back to the root view
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                })
         }
     }
-    
-    @IBAction func ViewTermsAndConditions(_ sender: UIButton) {
-        let url = "http://www.wordsworthlearning.com/staticpage/terms_of_use"
-        guard let requestUrl = URL(string: url) else {
-            return
-        }
-        let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = true
-        let webPage = SFSafariViewController(url: requestUrl, configuration: config)
-        present(webPage, animated: true)
+}
+
+@IBAction func ViewTermsAndConditions(_ sender: UIButton) {
+    let url = "http://www.wordsworthlearning.com/staticpage/terms_of_use"
+    guard let requestUrl = URL(string: url) else {
+        return
     }
+    let config = SFSafariViewController.Configuration()
+    config.entersReaderIfAvailable = true
+    let webPage = SFSafariViewController(url: requestUrl, configuration: config)
+    present(webPage, animated: true)
+}
 }

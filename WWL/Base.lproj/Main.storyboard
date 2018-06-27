@@ -61,7 +61,7 @@
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="kKw-8f-NY8" kind="show" id="o6d-MU-nad"/>
+                                                    <segue destination="kKw-8f-NY8" kind="show" identifier="" id="o6d-MU-nad"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCf-t4-b5R">
@@ -105,7 +105,7 @@
         <!--Login View Controller-->
         <scene sceneID="MxE-eA-uC8">
             <objects>
-                <viewController id="kKw-8f-NY8" customClass="LoginViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewControllerID" id="kKw-8f-NY8" customClass="LoginViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VWG-QL-Xic">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
