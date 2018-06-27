@@ -28,6 +28,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print(error)
+        }
         self.logInButton.layer.cornerRadius = 5
         let title = "Logging"
         let color = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
@@ -37,8 +42,18 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func longInUser(_ sender: UIButton) {
         
-        guard let email = emailInput.text else {return}
-        guard let password = passWordInput.text else {return}
+        guard let email = emailInput.text, emailInput.text != "" else {
+            errorHighlightTextField(textField: emailInput)
+            emailInput.placeholder = AlertsMessages.requiredFiled
+            return
+        }
+        removeErrorHighlightTextField(textField: emailInput)
+        guard let password = passWordInput.text, passWordInput.text != "" else {
+            errorHighlightTextField(textField: passWordInput)
+            passWordInput.placeholder = AlertsMessages.requiredFiled
+            return
+        }
+        removeErrorHighlightTextField(textField: passWordInput)
         
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
@@ -49,13 +64,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             }
             
             let user = Auth.auth().currentUser
-            if let user = user {
-                let uid = user.uid
-                let userEmail = user.email
-                debugPrint("uid: \(uid) and email: \(String(describing: userEmail))")
-            }
-            
-            // Navigate to main View Contoller 
+            guard let currentUser = user, user != nil else {return}
+            let uid = currentUser.uid
+            let userEmail = currentUser.email
+            debugPrint("uid: \(uid) and email: \(String(describing: userEmail))")
+            // Navigate to main View Contoller
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.performSegue(withIdentifier: Identifiers.ViewController , sender: self)
             }
@@ -100,11 +113,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
 extension LoginViewController {
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == Identifiers.ViewController {
-//            var vc = segue.destination as! ViewController
-////            vc.data = "Data you want to pass"
-//            //Data has to be a variable name in your RandomViewController
-//        }
-//    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == Identifiers.ViewController {
+    //            var vc = segue.destination as! ViewController
+    ////            vc.data = "Data you want to pass"
+    //            //Data has to be a variable name in your RandomViewController
+    //        }
+    //    }
 }
