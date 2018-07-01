@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import Firebase
 // Chnage the navigation Bar Tint Color and title
 extension UINavigationController {
     func setTitleAndColor(for nav: UINavigationController, itme: UINavigationItem, title: String, color: UIColor){
@@ -59,6 +59,15 @@ func removeErrorHighlightTextField(textField: UITextField){
     textField.layer.borderColor = UIColor.gray.cgColor
     textField.layer.borderWidth = 0
     textField.layer.cornerRadius = 5
+}
+
+func logUserOut() {
+    let firebaseAuth = Auth.auth()
+    do {
+        try firebaseAuth.signOut()
+    } catch let signOutError as NSError {
+        print ("Error signing out: \(signOutError.localizedDescription)")
+    }
 }
 
 let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)

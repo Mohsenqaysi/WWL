@@ -13,17 +13,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var emailInput: UITextField!
     @IBOutlet weak var passWordInput: UITextField!
     @IBOutlet weak var logInButton: UIButton!
+    var navigationBarState: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emailInput.delegate = self
         self.passWordInput.delegate = self
-        //        passWordInput.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
-    
-    //    @objc func textFieldDidChange(_ textField: UITextField) {
-    //
-    //    }
     
     // Dissmiss the keyboard on the Done Button
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -32,10 +28,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = navigationBarState
         super.viewWillAppear(true)
         self.logInButton.backgroundColor = .lightGray
         logInButton.isEnabled = false
-        // TODO: check if user exists go to mani view
         do {
             try Auth.auth().signOut()
         } catch let error {
@@ -48,7 +44,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBAction func longInUser(_ sender: UIButton) {
-        
         guard let email = emailInput.text, emailInput.text != "" else {
             return
         }
@@ -114,7 +109,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
 extension LoginViewController {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-         sendButtonValidation()
+        sendButtonValidation()
         print("shouldChangeCharactersIn")
         return true
     }
@@ -125,20 +120,28 @@ extension LoginViewController {
     }
     
     fileprivate func sendButtonValidation() {
-        //        if (emailInput && passWordInput.text?.isEmpty) {
         guard let email = emailInput.text else {return}
         guard let password = passWordInput.text else {return}
         debugPrint("Email: \(email) - Password: \(password)")
         debugPrint("Email: \(email.count) - Password: \(password.count)")
-
+        
         if email.count > 0 && password.count > 5 {
-            //            if (email != "" && password != "") {
             self.logInButton.backgroundColor = PinkColor
             logInButton.isEnabled = true
         } else {
             self.logInButton.backgroundColor = .lightGray
             logInButton.isEnabled = false
         }
-        //    }
+    }
+    
+    @IBAction func unwindToLogin(_ sender: UIStoryboardSegue) {
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                print("User is signed in.")
+                // logUserOut()
+            } else {
+                print("User is unwindToLogin and signed out.")
+            }
+        }
     }
 }

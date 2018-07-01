@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ji-GY-Acl">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="71t-86-oII" userLabel="LogIn Stack View">
                                         <rect key="frame" x="221" y="0.0" width="225.5" height="240"/>
@@ -216,16 +216,16 @@
             </objects>
             <point key="canvasLocation" x="1643.9280359820091" y="404"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="vZk-tY-UtT">
             <objects>
-                <viewController id="2eg-zY-So5" sceneMemberID="viewController">
+                <viewController id="2eg-zY-So5" customClass="MainViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="01Q-Pu-JgT">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGround" translatesAutoresizingMaskIntoConstraints="NO" id="tCH-ap-BNr">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="VzY-wQ-1ms">
                                 <rect key="frame" x="16" y="105" width="635" height="254"/>
@@ -270,7 +270,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pdc-kR-QK5"/>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfV-wi-VYe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -368,8 +367,14 @@
                                                                 <state key="normal" title="SIGN OUT">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="signOutCurrentUser:" destination="xmz-XB-snR" eventType="touchUpInside" id="bnJ-BK-B81"/>
+                                                                    <segue destination="RGK-fX-F5U" kind="unwind" unwindAction="unwindToLogin:" id="RTn-Kv-ecF"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -386,6 +391,11 @@
                                             <constraint firstItem="lp0-ii-wzn" firstAttribute="leading" secondItem="XAd-vD-G2k" secondAttribute="leading" constant="16" id="RlZ-zY-nc0"/>
                                             <constraint firstAttribute="height" constant="300" id="xcX-cc-wKm"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -398,13 +408,11 @@
                         <viewLayoutGuide key="safeArea" id="LsM-lk-Tpu"/>
                     </view>
                     <navigationItem key="navigationItem" id="RJE-kN-leT"/>
-                    <connections>
-                        <segue destination="aSI-a4-Gpr" kind="show" identifier="AuthViewControllerScene" id="Z7C-yy-plD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW0-ND-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RGK-fX-F5U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1844" y="2202"/>
+            <point key="canvasLocation" x="2418" y="1316"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
@@ -415,7 +423,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2I-ZX-4pr">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Pp-v1P" userLabel="Outer Stack View">
                                         <rect key="frame" x="16" y="8" width="635" height="265"/>
@@ -602,7 +610,4 @@ to the</string>
         <image name="profile" width="47" height="48"/>
         <image name="settings" width="44" height="44"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Z7C-yy-plD"/>
-    </inferredMetricsTieBreakers>
 </document>

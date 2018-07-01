@@ -19,6 +19,7 @@
 		FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6420E2951C00535845 /* Main.storyboard */; };
 		FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6720E2951D00535845 /* Assets.xcassets */; };
 		FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */; };
+		FCDE6EEE20E93459004348F0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EED20E93459004348F0 /* MainViewController.swift */; };
 		FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF3CEAF20E915F500817259 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		FCD5AA6720E2951D00535845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCD5AA6A20E2951D00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCD5AA6C20E2951D00535845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCDE6EED20E93459004348F0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FCF3CEAF20E915F500817259 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +76,7 @@
 		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FCF3CEAE20E915D500817259 /* Settings */,
+				FCF3CEAE20E915D500817259 /* Main */,
 				FC8A06EA20E2AE06002E367A /* Registration */,
 				FCD5AA6220E2951C00535845 /* ViewController.swift */,
 			);
@@ -133,12 +135,13 @@
 			path = WWL;
 			sourceTree = "<group>";
 		};
-		FCF3CEAE20E915D500817259 /* Settings */ = {
+		FCF3CEAE20E915D500817259 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				FCF3CEAF20E915F500817259 /* SettingsViewController.swift */,
+				FCDE6EED20E93459004348F0 /* MainViewController.swift */,
 			);
-			path = Settings;
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +269,7 @@
 				FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */,
 				FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */,
 				FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */,
+				FCDE6EEE20E93459004348F0 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
