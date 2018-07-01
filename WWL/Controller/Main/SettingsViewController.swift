@@ -8,7 +8,11 @@
 
 import UIKit
 import Firebase
+
 class SettingsViewController: UIViewController {
+    
+    let userDefult = UserDefaults.standard
+    @IBOutlet weak var soundIsON: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,16 +21,17 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
+        soundIsON.setOn(userDefult.bool(forKey: Keys.MenuSoundKye), animated: true)
+        isSoundON(isON: userDefult.bool(forKey: Keys.MenuSoundKye))
     }
     
     @IBAction func dismissView(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     @IBAction func signOutCurrentUser(_ sender: UIButton) {
         dismiss(animated: true){
-             logUserOut()
+            logUserOut()
         }
     }
     
@@ -34,4 +39,14 @@ class SettingsViewController: UIViewController {
         let destinationVC = segue.destination as! LoginViewController
         destinationVC.navigationBarState = false
     }
+    
+    @IBAction func soundIsPlaying(_ sender: UISwitch) {
+        debugPrint("ISON:\(sender.isOn)")
+        soundIsON.setOn(sender.isOn, animated: true)
+        userDefult.set(sender.isOn, forKey: Keys.MenuSoundKye)
+        userDefult.synchronize()
+        isSoundON(isON: sender.isOn)
+    }
 }
+
+

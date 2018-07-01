@@ -9,9 +9,12 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    let userDefult = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        debugPrint(userDefult.bool(forKey: Keys.MenuSoundKye))
+        isSoundON(isON: userDefult.bool(forKey: Keys.MenuSoundKye))
     }
     
     override func viewWillAppear(_ animated: Bool) {

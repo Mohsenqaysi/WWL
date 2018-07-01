@@ -47,6 +47,10 @@ struct Identifiers {
     static let AuthViewControllerScene = "AuthViewControllerScene"
 }
 
+struct Keys {
+    static let MenuSoundKye = "MenuSoundKye"
+}
+
 // Text Field is empty - show red border
 func errorHighlightTextField(textField: UITextField){
     textField.layer.borderColor = UIColor.red.cgColor
@@ -67,6 +71,18 @@ func logUserOut() {
         try firebaseAuth.signOut()
     } catch let signOutError as NSError {
         print ("Error signing out: \(signOutError.localizedDescription)")
+    }
+}
+
+func isSoundON(isON: Bool){
+    if isON {
+        DispatchQueue.main.async {
+            MyAudioPlayer.playFile(name: "menuSound", type: "mp3")
+        }
+    } else {
+        DispatchQueue.main.async {
+            MyAudioPlayer.stopSound()
+        }
     }
 }
 

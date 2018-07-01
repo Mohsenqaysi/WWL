@@ -20,6 +20,8 @@
 		FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6720E2951D00535845 /* Assets.xcassets */; };
 		FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */; };
 		FCDE6EEE20E93459004348F0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EED20E93459004348F0 /* MainViewController.swift */; };
+		FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */; };
+		FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */; };
 		FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF3CEAF20E915F500817259 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		FCD5AA6A20E2951D00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCD5AA6C20E2951D00535845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCDE6EED20E93459004348F0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuSound.mp3; sourceTree = "<group>"; };
+		FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAudioPlayer.swift; sourceTree = "<group>"; };
 		FCF3CEAF20E915F500817259 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				FC8A06F220E2C044002E367A /* Extensions.swift */,
+				FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */,
 			);
 			path = "Extensions + Helpers";
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF3CEAF20E915F500817259 /* SettingsViewController.swift */,
+				FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */,
 				FCDE6EED20E93459004348F0 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -209,6 +215,7 @@
 				FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */,
 				FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */,
 				FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */,
+				FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +272,7 @@
 				FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */,
 				FC8A06F320E2C044002E367A /* Extensions.swift in Sources */,
 				FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */,
+				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
 				FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */,
 				FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */,

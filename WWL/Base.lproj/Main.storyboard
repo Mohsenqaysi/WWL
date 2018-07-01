@@ -334,6 +334,10 @@
                                                                     </label>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5P-Sp-dbd">
                                                                         <rect key="frame" x="198" y="0.0" width="51" height="44"/>
+                                                                        <color key="onTintColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <connections>
+                                                                            <action selector="soundIsPlaying:" destination="xmz-XB-snR" eventType="valueChanged" id="Ioa-sg-LjW"/>
+                                                                        </connections>
                                                                     </switch>
                                                                 </subviews>
                                                             </stackView>
@@ -348,6 +352,7 @@
                                                                     </label>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GxA-Cs-fLO">
                                                                         <rect key="frame" x="198" y="0.0" width="51" height="43.5"/>
+                                                                        <color key="onTintColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </switch>
                                                                 </subviews>
                                                             </stackView>
@@ -408,11 +413,14 @@
                         <viewLayoutGuide key="safeArea" id="LsM-lk-Tpu"/>
                     </view>
                     <navigationItem key="navigationItem" id="RJE-kN-leT"/>
+                    <connections>
+                        <outlet property="soundIsON" destination="q5P-Sp-dbd" id="ZkC-ss-QFB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW0-ND-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RGK-fX-F5U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2418" y="1316"/>
+            <point key="canvasLocation" x="2418" y="1289"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
