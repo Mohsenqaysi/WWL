@@ -59,6 +59,11 @@
                                                 <state key="normal" title="LOG IN">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <segue destination="kKw-8f-NY8" kind="show" identifier="" id="o6d-MU-nad"/>
                                                 </connections>
@@ -236,6 +241,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urw-uN-bzd" userLabel="Play Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="146"/>
                                                 <state key="normal" image="playButton"/>
+                                                <connections>
+                                                    <action selector="startPlayingButton:" destination="2eg-zY-So5" eventType="touchUpInside" id="JFy-NM-cEL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -246,6 +254,7 @@
                                                 <rect key="frame" x="0.0" y="2" width="47" height="44"/>
                                                 <state key="normal" image="settings"/>
                                                 <connections>
+                                                    <action selector="settingsButtonHandler:" destination="2eg-zY-So5" eventType="touchUpInside" id="YHu-sx-Z2Z"/>
                                                     <segue destination="xmz-XB-snR" kind="presentation" modalPresentationStyle="overCurrentContext" id="zkc-d3-lsy"/>
                                                 </connections>
                                             </button>

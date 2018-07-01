@@ -10,6 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     let userDefult = UserDefaults.standard
+//    playButton
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,4 +22,16 @@ class MainViewController: UIViewController {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
     }
+    
+    @IBAction func startPlayingButton(_ sender: UIButton) {
+        sender.bounceButtonEffect()
+
+    }
+    
+    @IBAction func settingsButtonHandler(_ sender: UIButton) {
+        debugPrint("playButtonHandler")
+        sender.bounceButtonEffect()
+    }
+    
+    
 }

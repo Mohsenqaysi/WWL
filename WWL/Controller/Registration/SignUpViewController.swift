@@ -49,6 +49,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func createaAccountButton(_ sender: UIButton) {
         //        debugPrint("createaAccountButton was pressed")
+        createaAccountButton.bounceButtonEffect()
         guard let userName = userNameInput.text else {return}
         guard let email = emailInput.text else {return}
         guard let password = passWordInput.text else {return}

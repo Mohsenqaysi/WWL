@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+
 // Chnage the navigation Bar Tint Color and title
 extension UINavigationController {
     func setTitleAndColor(for nav: UINavigationController, itme: UINavigationItem, title: String, color: UIColor){
@@ -74,6 +75,7 @@ func logUserOut() {
     }
 }
 
+
 func isSoundON(isON: Bool){
     if isON {
         DispatchQueue.main.async {
@@ -83,6 +85,16 @@ func isSoundON(isON: Bool){
         DispatchQueue.main.async {
             MyAudioPlayer.stopSound()
         }
+    }
+}
+extension UIButton {
+    func bounceButtonEffect() {
+        //MARK: make the button half its original size
+        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: { [weak self] in
+            self?.transform = .identity
+            self?.tintColor = self?.tintColor == UIColor.red ? UIColor.darkGray : UIColor.red
+            }, completion: nil)
     }
 }
 

@@ -32,11 +32,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(true)
         self.logInButton.backgroundColor = .lightGray
         logInButton.isEnabled = false
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print(error)
-        }
         self.logInButton.layer.cornerRadius = 5
         let title = "Logging"
         UINavigationController().setTitleAndColor(for: self.navigationController!, itme: self.navigationItem, title: title, color: PinkColor)
