@@ -35,6 +35,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(true)
         self.logInButton.backgroundColor = .lightGray
         logInButton.isEnabled = false
+        // TODO: check if user exists go to mani view
         do {
             try Auth.auth().signOut()
         } catch let error {

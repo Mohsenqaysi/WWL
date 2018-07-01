@@ -44,6 +44,7 @@ struct AlertsMessages {
 struct Identifiers {
     static let LoginViewController = "LoginViewControllerID"
     static let ViewController = "ViewController"
+    static let AuthViewControllerScene = "AuthViewControllerScene"
 }
 
 // Text Field is empty - show red border
