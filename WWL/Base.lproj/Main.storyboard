@@ -8,7 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -443,10 +442,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-wM-4tL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGround" translatesAutoresizingMaskIntoConstraints="NO" id="OUI-As-zMy">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-wM-4tL">
                                 <rect key="frame" x="0.0" y="123" width="667" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="BlueColor"/>
+                                <color key="backgroundColor" red="0.75700002909999997" green="0.17599999899999999" blue="0.48199999329999998" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hwd-vG-pSU">
                                     <size key="itemSize" width="184" height="144"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -471,12 +473,12 @@
                                                                 <constraint firstAttribute="width" constant="139" id="kcB-ec-Sj8"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGQ-uz-iel">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGQ-uz-iel">
                                                             <rect key="frame" x="0.0" y="115" width="139" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="NUf-7C-EkT"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -484,7 +486,6 @@
                                                 </stackView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" name="PinkColor"/>
                                         <constraints>
                                             <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" id="X7g-Ax-R05"/>
                                             <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" id="yxi-xC-wsk"/>
@@ -498,12 +499,18 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OUI-As-zMy" firstAttribute="leading" secondItem="f0J-Py-dE4" secondAttribute="leading" id="97d-su-7Vt"/>
+                            <constraint firstItem="f0J-Py-dE4" firstAttribute="bottom" secondItem="OUI-As-zMy" secondAttribute="bottom" id="D7z-cV-mPS"/>
+                            <constraint firstItem="OUI-As-zMy" firstAttribute="top" secondItem="f0J-Py-dE4" secondAttribute="top" id="Yh3-39-f0e"/>
+                            <constraint firstItem="f0J-Py-dE4" firstAttribute="trailing" secondItem="OUI-As-zMy" secondAttribute="trailing" id="uP4-hM-qNk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="f0J-Py-dE4"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uSx-uD-B0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2318.5907046476764" y="2164"/>
+            <point key="canvasLocation" x="1566" y="2113"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
@@ -701,12 +708,6 @@ to the</string>
         <image name="playButton" width="100" height="146"/>
         <image name="profile" width="47" height="48"/>
         <image name="settings" width="44" height="44"/>
-        <namedColor name="BlueColor">
-            <color red="0.3449999988079071" green="0.6589999794960022" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="PinkColor">
-            <color red="0.75700002908706665" green="0.17599999904632568" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yia-nL-Gks"/>
