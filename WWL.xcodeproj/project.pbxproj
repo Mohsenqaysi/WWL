@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */; };
+		FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC63031820EAD7C10087BF8A /* LevelsViewController.swift */; };
 		FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC76019220E29BBA007414B6 /* GoogleService-Info.plist */; };
 		FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EB20E2AE45002E367A /* AuthViewController.swift */; };
 		FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */; };
 		FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */; };
 		FC8A06F320E2C044002E367A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06F220E2C044002E367A /* Extensions.swift */; };
+		FCC73DA220EAC86800F015D9 /* GameLevelsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73DA120EAC86800F015D9 /* GameLevelsCollectionViewController.swift */; };
+		FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
 		FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA6220E2951C00535845 /* ViewController.swift */; };
@@ -29,11 +32,14 @@
 		383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.release.xcconfig"; sourceTree = "<group>"; };
 		94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.debug.xcconfig"; sourceTree = "<group>"; };
+		FC63031820EAD7C10087BF8A /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
 		FC76019220E29BBA007414B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC8A06EB20E2AE45002E367A /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FC8A06EF20E2B1ED002E367A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FC8A06F220E2C044002E367A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FCC73DA120EAC86800F015D9 /* GameLevelsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelsCollectionViewController.swift; sourceTree = "<group>"; };
+		FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -80,6 +86,7 @@
 		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FCC73DA020EAC83000F015D9 /* Levels */,
 				FCF3CEAE20E915D500817259 /* Main */,
 				FC8A06EA20E2AE06002E367A /* Registration */,
 				FCD5AA6220E2951C00535845 /* ViewController.swift */,
@@ -104,6 +111,16 @@
 				FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */,
 			);
 			path = "Extensions + Helpers";
+			sourceTree = "<group>";
+		};
+		FCC73DA020EAC83000F015D9 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				FCC73DA120EAC86800F015D9 /* GameLevelsCollectionViewController.swift */,
+				FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */,
+				FC63031820EAD7C10087BF8A /* LevelsViewController.swift */,
+			);
+			path = Levels;
 			sourceTree = "<group>";
 		};
 		FCD5AA5220E2951B00535845 = {
@@ -270,7 +287,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */,
+				FCC73DA220EAC86800F015D9 /* GameLevelsCollectionViewController.swift in Sources */,
 				FC8A06F320E2C044002E367A /* Extensions.swift in Sources */,
+				FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */,
+				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
 				FCD5AA6320E2951C00535845 /* ViewController.swift in Sources */,
 				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,

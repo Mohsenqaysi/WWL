@@ -49,6 +49,7 @@ struct Identifiers {
     static let MainViewController = "MainViewController"
     static let AlreadyLoggedIn = "AlreadyLoggedIn"
     static let LoggedOut = "LoggedOut"
+    static let CellID = "CellID"
 
 }
 

@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -244,6 +245,7 @@
                                                 <state key="normal" image="playButton"/>
                                                 <connections>
                                                     <action selector="startPlayingButton:" destination="2eg-zY-So5" eventType="touchUpInside" id="JFy-NM-cEL"/>
+                                                    <segue destination="ebq-RY-6SI" kind="show" id="tYs-E2-gJn"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -294,7 +296,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hSb-IR-pjT">
-                                <rect key="frame" x="194" y="37" width="279" height="300"/>
+                                <rect key="frame" x="194" y="37.5" width="279" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAd-vD-G2k">
                                         <rect key="frame" x="0.0" y="0.0" width="279" height="300"/>
@@ -431,7 +433,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW0-ND-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RGK-fX-F5U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2387" y="450"/>
+            <point key="canvasLocation" x="2328" y="417"/>
+        </scene>
+        <!--Levels View Controller-->
+        <scene sceneID="9CA-xf-bCh">
+            <objects>
+                <viewController id="ebq-RY-6SI" customClass="LevelsViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5bD-K5-GFs">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-wM-4tL">
+                                <rect key="frame" x="0.0" y="123" width="667" height="177"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="BlueColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hwd-vG-pSU">
+                                    <size key="itemSize" width="184" height="144"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="4yD-KJ-C2c">
+                                        <rect key="frame" x="0.0" y="16.5" width="184" height="144"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="184" height="144"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f6H-6s-9s8">
+                                                    <rect key="frame" x="20" y="0.0" width="139" height="115"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-1o-Wmd">
+                                                            <rect key="frame" x="0.0" y="0.0" width="139" height="115"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="115" id="ZBp-2a-VYq"/>
+                                                                <constraint firstAttribute="width" constant="139" id="kcB-ec-Sj8"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGQ-uz-iel">
+                                                            <rect key="frame" x="0.0" y="115" width="139" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="NUf-7C-EkT"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" name="PinkColor"/>
+                                        <constraints>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" id="X7g-Ax-R05"/>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" id="yxi-xC-wsk"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="ebq-RY-6SI" id="rwN-5Z-hPt"/>
+                                    <outlet property="delegate" destination="ebq-RY-6SI" id="Onz-Pe-FPB"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="f0J-Py-dE4"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uSx-uD-B0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2318.5907046476764" y="2164"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
@@ -625,9 +697,16 @@ to the</string>
         <image name="WWL logo" width="654" height="284"/>
         <image name="backGround" width="667" height="375"/>
         <image name="exit" width="33" height="33"/>
+        <image name="lock" width="240" height="240"/>
         <image name="playButton" width="100" height="146"/>
         <image name="profile" width="47" height="48"/>
         <image name="settings" width="44" height="44"/>
+        <namedColor name="BlueColor">
+            <color red="0.3449999988079071" green="0.6589999794960022" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PinkColor">
+            <color red="0.75700002908706665" green="0.17599999904632568" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yia-nL-Gks"/>
