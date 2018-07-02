@@ -26,18 +26,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1643" y="-391"/>
+            <point key="canvasLocation" x="2328" y="-319"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="Fxw-RB-p0E">
             <objects>
-                <viewController id="aSI-a4-Gpr" userLabel="Auth View Controller" customClass="AuthViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewControllerScene" id="aSI-a4-Gpr" userLabel="Auth View Controller" customClass="AuthViewController" customModule="WWL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fgk-a5-rnr">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jg0-4t-GaO" userLabel="Image and Buttons Stack View">
-                                <rect key="frame" x="0.0" y="103" width="667" height="260"/>
+                                <rect key="frame" x="0.0" y="98" width="667" height="265"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WWL logo" translatesAutoresizingMaskIntoConstraints="NO" id="0NY-ak-Voi">
                                         <rect key="frame" x="158.5" y="0.0" width="350" height="152"/>
@@ -46,8 +46,8 @@
                                             <constraint firstAttribute="height" constant="152" id="dC0-X8-cs6"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B5Y-rF-Nc8" userLabel="Buttons Stack View">
-                                        <rect key="frame" x="132.5" y="172" width="402" height="88"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B5Y-rF-Nc8" userLabel="Buttons Stack View">
+                                        <rect key="frame" x="132.5" y="172" width="402" height="93"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beB-MV-ttu">
                                                 <rect key="frame" x="0.0" y="0.0" width="402" height="44"/>
@@ -65,11 +65,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="kKw-8f-NY8" kind="show" identifier="" id="o6d-MU-nad"/>
+                                                    <segue destination="kKw-8f-NY8" kind="show" identifier="LoginViewControllerID" id="o6d-MU-nad"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCf-t4-b5R">
-                                                <rect key="frame" x="0.0" y="44" width="402" height="44"/>
+                                                <rect key="frame" x="0.0" y="49" width="402" height="44"/>
                                                 <color key="backgroundColor" red="0.34509803919999998" green="0.6588235294" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="E0b-Zk-kQa"/>
@@ -100,6 +100,7 @@
                     <connections>
                         <outlet property="loginButoon" destination="beB-MV-ttu" id="gvY-1e-xN9"/>
                         <outlet property="signUpButton" destination="FCf-t4-b5R" id="Kct-WV-GAT"/>
+                        <segue destination="2eg-zY-So5" kind="presentation" identifier="AlreadyLoggedIn" id="yia-nL-Gks"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5m9-yE-LAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -115,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ji-GY-Acl">
-                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="71t-86-oII" userLabel="LogIn Stack View">
                                         <rect key="frame" x="221" y="0.0" width="225.5" height="240"/>
@@ -214,12 +215,12 @@
                         <outlet property="emailInput" destination="QOV-DH-TCv" id="im5-h2-HRG"/>
                         <outlet property="logInButton" destination="Xoy-GY-G3a" id="cHY-Qq-e8j"/>
                         <outlet property="passWordInput" destination="NTU-wf-SsE" id="hy3-SC-ug9"/>
-                        <segue destination="2eg-zY-So5" kind="show" identifier="ViewController" id="2DG-xw-U0E"/>
+                        <segue destination="2eg-zY-So5" kind="presentation" identifier="MainViewController" id="2DG-xw-U0E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qd-hl-nFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1643.9280359820091" y="404"/>
+            <point key="canvasLocation" x="1566" y="-198"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="vZk-tY-UtT">
@@ -230,7 +231,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGround" translatesAutoresizingMaskIntoConstraints="NO" id="tCH-ap-BNr">
-                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="VzY-wQ-1ms">
                                 <rect key="frame" x="16" y="105" width="635" height="254"/>
@@ -282,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfV-wi-VYe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2418.440779610195" y="404"/>
+            <point key="canvasLocation" x="1566" y="1306"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="xPp-ot-sem">
@@ -388,7 +389,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="signOutCurrentUser:" destination="xmz-XB-snR" eventType="touchUpInside" id="bnJ-BK-B81"/>
-                                                                    <segue destination="RGK-fX-F5U" kind="unwind" unwindAction="unwindToLogin:" id="RTn-Kv-ecF"/>
+                                                                    <segue destination="RGK-fX-F5U" kind="unwind" unwindAction="unwindToLogin:" id="AhF-4j-fJi"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -424,12 +425,13 @@
                     <navigationItem key="navigationItem" id="RJE-kN-leT"/>
                     <connections>
                         <outlet property="soundIsON" destination="q5P-Sp-dbd" id="ZkC-ss-QFB"/>
+                        <segue destination="aSI-a4-Gpr" kind="presentation" identifier="LoggedOut" id="H7c-bI-LZT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW0-ND-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RGK-fX-F5U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2418" y="1289"/>
+            <point key="canvasLocation" x="2387" y="450"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
@@ -440,7 +442,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2I-ZX-4pr">
-                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Pp-v1P" userLabel="Outer Stack View">
                                         <rect key="frame" x="16" y="8" width="635" height="265"/>
@@ -598,7 +600,7 @@ to the</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wa-8a-uo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1643.0284857571216" y="1108"/>
+            <point key="canvasLocation" x="814" y="1697"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LbN-Nh-Yoi">
@@ -627,4 +629,8 @@ to the</string>
         <image name="profile" width="47" height="48"/>
         <image name="settings" width="44" height="44"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yia-nL-Gks"/>
+        <segue reference="H7c-bI-LZT"/>
+    </inferredMetricsTieBreakers>
 </document>

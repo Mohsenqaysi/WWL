@@ -46,10 +46,15 @@ struct Identifiers {
     static let LoginViewController = "LoginViewControllerID"
     static let ViewController = "ViewController"
     static let AuthViewControllerScene = "AuthViewControllerScene"
+    static let MainViewController = "MainViewController"
+    static let AlreadyLoggedIn = "AlreadyLoggedIn"
+    static let LoggedOut = "LoggedOut"
+
 }
 
-struct Keys {
-    static let MenuSoundKye = "MenuSoundKye"
+enum Keys: String {
+    case menuSoundKye = "MenuSoundKye"
+    case isLoggedIn = "IsLoggedIn"
 }
 
 // Text Field is empty - show red border
@@ -65,16 +70,6 @@ func removeErrorHighlightTextField(textField: UITextField){
     textField.layer.borderWidth = 0
     textField.layer.cornerRadius = 5
 }
-
-func logUserOut() {
-    let firebaseAuth = Auth.auth()
-    do {
-        try firebaseAuth.signOut()
-    } catch let signOutError as NSError {
-        print ("Error signing out: \(signOutError.localizedDescription)")
-    }
-}
-
 
 func isSoundON(isON: Bool){
     if isON {

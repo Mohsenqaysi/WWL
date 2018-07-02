@@ -28,6 +28,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = navigationBarState
         super.viewWillAppear(true)
         self.logInButton.backgroundColor = .lightGray
@@ -59,9 +60,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             let uid = currentUser.uid
             let userEmail = currentUser.email
             debugPrint("uid: \(uid) and email: \(String(describing: userEmail))")
-            // Navigate to main View Contoller
+            // Navigate to main View "MainViewController"
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.performSegue(withIdentifier: Identifiers.ViewController , sender: self)
+                UserDefaults.standard.set(true, forKey: Keys.isLoggedIn.rawValue)
+                UserDefaults.standard.synchronize()
+                self.performSegue(withIdentifier: Identifiers.MainViewController , sender: self)
             }
         }
     }
@@ -133,7 +136,6 @@ extension LoginViewController {
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
                 print("User is signed in.")
-                // logUserOut()
             } else {
                 print("User is unwindToLogin and signed out.")
             }

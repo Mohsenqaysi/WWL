@@ -14,8 +14,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debugPrint(userDefult.bool(forKey: Keys.MenuSoundKye))
-        isSoundON(isON: userDefult.bool(forKey: Keys.MenuSoundKye))
+        debugPrint(userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,7 +25,6 @@ class MainViewController: UIViewController {
     
     @IBAction func startPlayingButton(_ sender: UIButton) {
         sender.bounceButtonEffect()
-
     }
     
     @IBAction func settingsButtonHandler(_ sender: UIButton) {
