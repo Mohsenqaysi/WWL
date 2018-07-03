@@ -11,12 +11,4 @@ import UIKit
 class GameLevelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var levelLabel: UILabel!
-    
-//    override var isSelected: Bool {
-//        didSet {
-//            self.bounceCellEffect {
-//                self.isSelected = false
-//            }
-//        }
-//    }
 }

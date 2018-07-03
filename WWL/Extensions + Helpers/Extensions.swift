@@ -94,7 +94,8 @@ extension UIButton {
 }
 
 extension UICollectionViewCell {
-    func bounceCellEffect(completion: () -> Void) {
+    // completion: ((Bool) -> Swift.Void)? = nil)
+    func bounceCellEffect() {
         self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: { [weak self] in
             self?.transform = .identity
