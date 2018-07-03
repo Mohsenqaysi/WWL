@@ -116,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ji-GY-Acl">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="71t-86-oII" userLabel="LogIn Stack View">
                                         <rect key="frame" x="221" y="0.0" width="225.5" height="240"/>
@@ -426,13 +426,13 @@
                     <navigationItem key="navigationItem" id="RJE-kN-leT"/>
                     <connections>
                         <outlet property="soundIsON" destination="q5P-Sp-dbd" id="ZkC-ss-QFB"/>
-                        <segue destination="aSI-a4-Gpr" kind="presentation" identifier="LoggedOut" id="H7c-bI-LZT"/>
+                        <segue destination="RC2-Aq-85d" kind="show" identifier="LoggedOut" id="21T-0L-S1d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW0-ND-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RGK-fX-F5U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2328" y="417"/>
+            <point key="canvasLocation" x="2328" y="542"/>
         </scene>
         <!--Levels View Controller-->
         <scene sceneID="9CA-xf-bCh">
@@ -487,8 +487,8 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" id="X7g-Ax-R05"/>
-                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" id="yxi-xC-wsk"/>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" constant="-14.5" id="X7g-Ax-R05"/>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" constant="-2.5" id="yxi-xC-wsk"/>
                                         </constraints>
                                     </collectionViewCell>
                                 </cells>
@@ -497,10 +497,30 @@
                                     <outlet property="delegate" destination="ebq-RY-6SI" id="Onz-Pe-FPB"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-Gm-3ZH">
+                                <rect key="frame" x="8" y="5" width="48" height="48"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wzc-Gm-3ZH" secondAttribute="height" multiplier="1:1" id="jLW-mY-dIF"/>
+                                    <constraint firstAttribute="height" constant="48" id="kBt-fh-UKL"/>
+                                    <constraint firstAttribute="width" constant="48" id="tGq-IR-kFu"/>
+                                </constraints>
+                                <state key="normal" image="exit"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="exitGame:" destination="ebq-RY-6SI" eventType="touchUpInside" id="tDe-YZ-OVb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="wzc-Gm-3ZH" firstAttribute="top" secondItem="f0J-Py-dE4" secondAttribute="top" constant="5" id="0uQ-6R-F28"/>
                             <constraint firstItem="OUI-As-zMy" firstAttribute="leading" secondItem="f0J-Py-dE4" secondAttribute="leading" id="97d-su-7Vt"/>
+                            <constraint firstItem="wzc-Gm-3ZH" firstAttribute="leading" secondItem="f0J-Py-dE4" secondAttribute="leading" constant="8" id="9gT-tn-VAN"/>
                             <constraint firstItem="f0J-Py-dE4" firstAttribute="bottom" secondItem="OUI-As-zMy" secondAttribute="bottom" id="D7z-cV-mPS"/>
                             <constraint firstItem="OUI-As-zMy" firstAttribute="top" secondItem="f0J-Py-dE4" secondAttribute="top" id="Yh3-39-f0e"/>
                             <constraint firstItem="f0J-Py-dE4" firstAttribute="trailing" secondItem="OUI-As-zMy" secondAttribute="trailing" id="uP4-hM-qNk"/>
@@ -510,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uSx-uD-B0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1566" y="2113"/>
+            <point key="canvasLocation" x="1565.6671664167918" y="2112.8000000000002"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="wAa-rd-CjS">
@@ -521,7 +541,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2I-ZX-4pr">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Pp-v1P" userLabel="Outer Stack View">
                                         <rect key="frame" x="16" y="8" width="635" height="265"/>
@@ -710,7 +730,6 @@ to the</string>
         <image name="settings" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yia-nL-Gks"/>
-        <segue reference="H7c-bI-LZT"/>
+        <segue reference="2DG-xw-U0E"/>
     </inferredMetricsTieBreakers>
 </document>

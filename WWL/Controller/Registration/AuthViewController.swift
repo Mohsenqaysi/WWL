@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 class AuthViewController: UIViewController {
     
-    
     @IBOutlet weak var loginButoon: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-    
+    var navigationBarState: Bool = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setButtonsActions()
@@ -27,7 +27,7 @@ class AuthViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = navigationBarState
         // TODO: - Check is the user did logged in breofre
         // If did use the token to authanticated the user
         // else ask them to login.

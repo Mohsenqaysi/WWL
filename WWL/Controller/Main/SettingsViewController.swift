@@ -33,19 +33,21 @@ class SettingsViewController: UIViewController {
             try Auth.auth().signOut()
             UserDefaults.standard.set(false, forKey: Keys.isLoggedIn.rawValue)
             UserDefaults.standard.synchronize()
-            let newViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Identifiers.AuthViewControllerScene) as! AuthViewController
-            UIApplication.shared.keyWindow?.rootViewController?.navigationController?.setViewControllers([newViewController], animated: true)
-            self.present(newViewController, animated: true, completion: nil)
+            self.performSegue(withIdentifier: Identifiers.LoggedOut, sender: nil)
+//            let newViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Identifiers.AuthViewControllerScene) as! AuthViewController
+//            UIApplication.shared.keyWindow?.rootViewController?.navigationController?.setViewControllers([newViewController], animated: true)
+//            self.present(newViewController, animated: true, completion: nil)
+//            self.navigationController?.navigationBar.isHidden = false
 
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! LoginViewController
-        destinationVC.navigationBarState = false
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! AuthViewController
+//        destinationVC.navigationBarState = false
+//    }
     
     @IBAction func soundIsPlaying(_ sender: UISwitch) {
         debugPrint("ISON:\(sender.isOn)")
