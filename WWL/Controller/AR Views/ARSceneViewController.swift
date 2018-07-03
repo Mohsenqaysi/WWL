@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ARSceneViewController.swift
 //  WWL
 //
 //  Created by Mohsen Qaysi on 6/26/18.
@@ -10,7 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ARSceneViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     

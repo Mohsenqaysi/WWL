@@ -50,7 +50,7 @@ struct Identifiers {
     static let AlreadyLoggedIn = "AlreadyLoggedIn"
     static let LoggedOut = "LoggedOut"
     static let CellID = "CellID"
-
+    
 }
 
 enum Keys: String {
@@ -89,9 +89,28 @@ extension UIButton {
         self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: { [weak self] in
             self?.transform = .identity
-            self?.tintColor = self?.tintColor == UIColor.red ? UIColor.darkGray : UIColor.red
             }, completion: nil)
     }
+}
+
+extension UICollectionViewCell {
+    func bounceCellEffect(completion: () -> Void) {
+        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: { [weak self] in
+            self?.transform = .identity
+            },completion: nil)
+    }
+    
+func loadingCellAnimation() {
+    self.layer.transform = CATransform3DMakeScale(0.1,0.1,1)
+    UIView.animate(withDuration: 0.4, delay: 0.3, options: .curveEaseInOut, animations: {
+        self.layer.transform = CATransform3DMakeScale(1.05,1.05,1)
+    }) { (completion) in
+        UIView.animate(withDuration: 0.1, animations: {
+            self.layer.transform = CATransform3DMakeScale(1,1,1)
+        })
+    }
+}
 }
 
 let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)

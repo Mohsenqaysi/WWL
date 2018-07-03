@@ -377,7 +377,7 @@
                                                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="33" id="OOP-u8-jTW"/>
-                                                                    <constraint firstAttribute="width" constant="100" id="PrL-pI-CD0"/>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="PrL-pI-CD0"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                 <state key="normal" title="SIGN OUT">
@@ -456,7 +456,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="4yD-KJ-C2c">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="4yD-KJ-C2c" customClass="GameLevelCollectionViewCell" customModule="WWL" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="16.5" width="184" height="144"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -467,14 +467,14 @@
                                                     <rect key="frame" x="20" y="0.0" width="139" height="115"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-1o-Wmd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="139" height="115"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="139" height="120"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="115" id="ZBp-2a-VYq"/>
+                                                                <constraint firstAttribute="height" constant="120" id="ZBp-2a-VYq"/>
                                                                 <constraint firstAttribute="width" constant="139" id="kcB-ec-Sj8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGQ-uz-iel">
-                                                            <rect key="frame" x="0.0" y="115" width="139" height="21"/>
+                                                            <rect key="frame" x="0.0" y="120" width="139" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="NUf-7C-EkT"/>
                                                             </constraints>
@@ -490,6 +490,10 @@
                                             <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" constant="-14.5" id="X7g-Ax-R05"/>
                                             <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" constant="-2.5" id="yxi-xC-wsk"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Ge9-1o-Wmd" id="JeS-dq-uSD"/>
+                                            <outlet property="levelLabel" destination="tGQ-uz-iel" id="PSz-V7-WD5"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
