@@ -37,12 +37,16 @@ class SettingsViewController: UIViewController {
         bar.sizeToFit()
         return bar
     }()
-
+    
     @IBOutlet weak var settingsContainorView: UIView!
     
-    var notificatioRequest: DateComponents? {
+    var notificatioRequestDateComponents: DateComponents? {
         didSet {
-            debugPrint("picked time: \(String(describing: notificatioRequest?.hour?.description)):\(String(describing: notificatioRequest?.minute?.description))")
+//            guard let h = notificatioRequestDateComponents?.hour, notificatioRequestDateComponents?.hour != nil else { return  }
+//            guard let m = notificatioRequestDateComponents?.minute, notificatioRequestDateComponents?.minute != nil else { return  }
+//            debugPrint("picked time:  \(h):\(m)")
+            let time = try! formateTime(dateComponents: notificatioRequestDateComponents!)
+            debugPrint(time)
         }
     }
     
@@ -54,7 +58,7 @@ class SettingsViewController: UIViewController {
     @objc func handelPickedTime(sender: UIDatePicker){
         let date = sender.date
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        notificatioRequest = components
+        notificatioRequestDateComponents = components
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,8 +94,8 @@ class SettingsViewController: UIViewController {
     
     @IBAction func setLocalNotifications(_ sender: UISwitch) {
         if sender.isOn {
-            if notificatioRequest != nil {
-                setNotification(pickeddateComponents: notificatioRequest!)
+            if notificatioRequestDateComponents != nil {
+                setNotification(pickeddateComponents: notificatioRequestDateComponents!)
             }
         } else {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
@@ -112,7 +116,7 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
-      
+        
         // Set toolBar buttons
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         
@@ -122,7 +126,7 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         stackViews.frame = self.settingsContainorView.frame
     }
     
-   fileprivate func setUpEmmbededViews(ArrayViews: [UIView]) -> UIView {
+    fileprivate func setUpEmmbededViews(ArrayViews: [UIView]) -> UIView {
         let stackView = UIStackView(arrangedSubviews: ArrayViews)
         stackView.axis = .vertical
         stackView.layer.cornerRadius = 5
@@ -133,25 +137,38 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
     }
     
     // MARK:- Button Done and Cancel
+    fileprivate func animageSuperView(myView: UIView) {
+        UIView.animate(withDuration: 0.2, animations: {myView.alpha = 0.0},
+                       completion: {(value: Bool) in
+                        myView.removeFromSuperview()
+        })
+    }
+    
     @objc func doneClick() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        setDataPickerTimeButton.titleLabel?.text = "\(notificatioRequest?.hour)"
-        stackViews.removeFromSuperview()
+        let time = try! formateTime(dateComponents: notificatioRequestDateComponents!)
+        setDataPickerTimeButton.titleLabel?.text = time
+        if let request = notificatioRequestDateComponents {
+            setNotification(pickeddateComponents: request)
+        }
+        animageSuperView(myView: stackViews)
     }
     
     @objc func cancelClick() {
-        stackViews.removeFromSuperview()
+        animageSuperView(myView: stackViews)
     }
     
     fileprivate func setNotification(pickeddateComponents: DateComponents) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.sound = UNNotificationSound.default()
-        content.title = "How many days are there in one year"
-        content.subtitle = "Do you know?"
-        content.body = "Do you really know?"
+//        guard let hour = pickeddateComponents.hour, pickeddateComponents.hour != nil else { return}
+//        guard let mintues = pickeddateComponents.minute, pickeddateComponents.minute != nil else {return}
+        let time = try! formateTime(dateComponents: pickeddateComponents)
+        content.title = "It's time for fun 😊 \(time)"
+        content.body = "Do you know that practice makes perfect"
         content.badge = 1
         
         var date = DateComponents()
@@ -161,5 +178,15 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
+    }
+    
+    enum CustomError: Error {
+        case errorhour
+        case errorMintues
+    }
+    fileprivate func formateTime(dateComponents: DateComponents) throws -> String{
+        guard let hour = dateComponents.hour, dateComponents.hour != nil else {throw CustomError.errorhour}
+        guard let mintues = dateComponents.minute, dateComponents.minute != nil else {throw CustomError.errorMintues}
+        return "\(hour):\(mintues)"
     }
 }
