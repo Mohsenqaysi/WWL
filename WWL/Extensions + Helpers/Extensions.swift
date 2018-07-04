@@ -56,6 +56,7 @@ struct Identifiers {
 enum Keys: String {
     case menuSoundKye = "MenuSoundKye"
     case isLoggedIn = "IsLoggedIn"
+    case reminderTimeKey = "reminderTimeKey"
 }
 
 // Text Field is empty - show red border

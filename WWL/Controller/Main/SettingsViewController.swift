@@ -42,9 +42,6 @@ class SettingsViewController: UIViewController {
     
     var notificatioRequestDateComponents: DateComponents? {
         didSet {
-//            guard let h = notificatioRequestDateComponents?.hour, notificatioRequestDateComponents?.hour != nil else { return  }
-//            guard let m = notificatioRequestDateComponents?.minute, notificatioRequestDateComponents?.minute != nil else { return  }
-//            debugPrint("picked time:  \(h):\(m)")
             let time = try! formateTime(dateComponents: notificatioRequestDateComponents!)
             debugPrint(time)
         }
@@ -66,6 +63,10 @@ class SettingsViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         soundIsON.setOn(userDefult.bool(forKey: Keys.menuSoundKye.rawValue), animated: true)
         isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+        if let time = userDefult.string(forKey: "time"){
+        print("userDefults time: \(time)")
+        setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
+        }
     }
     
     @IBAction func dismissView(_ sender: UIButton) {
@@ -150,6 +151,8 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         dateFormatter.timeStyle = .none
         let time = try! formateTime(dateComponents: notificatioRequestDateComponents!)
         setDataPickerTimeButton.titleLabel?.text = time
+        userDefult.set(time, forKey: "time")
+        userDefult.synchronize()
         if let request = notificatioRequestDateComponents {
             setNotification(pickeddateComponents: request)
         }
@@ -184,6 +187,7 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         case errorhour
         case errorMintues
     }
+    
     fileprivate func formateTime(dateComponents: DateComponents) throws -> String{
         guard let hour = dateComponents.hour, dateComponents.hour != nil else {throw CustomError.errorhour}
         guard let mintues = dateComponents.minute, dateComponents.minute != nil else {throw CustomError.errorMintues}
