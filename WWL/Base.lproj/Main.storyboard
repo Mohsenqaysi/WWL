@@ -297,7 +297,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hSb-IR-pjT">
                                 <rect key="frame" x="194" y="37.5" width="279" height="300"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAd-vD-G2k">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAd-vD-G2k" userLabel="containorView">
                                         <rect key="frame" x="0.0" y="0.0" width="279" height="300"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="lp0-ii-wzn">
@@ -355,15 +355,22 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3o-dk-ZXv">
                                                                 <rect key="frame" x="0.0" y="54" width="247" height="43.5"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="System Haptics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qI-Sv-oUu">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xyp-t6-0GQ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="198" height="43.5"/>
-                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                                        <state key="normal" title="Daily Reminder at 9:30">
+                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="setDataPickerTime:" destination="xmz-XB-snR" eventType="touchUpInside" id="PVW-AA-6mb"/>
+                                                                        </connections>
+                                                                    </button>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GxA-Cs-fLO">
                                                                         <rect key="frame" x="198" y="0.0" width="51" height="43.5"/>
                                                                         <color key="onTintColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <connections>
+                                                                            <action selector="setLocalNotifications:" destination="xmz-XB-snR" eventType="valueChanged" id="X6n-iA-wKe"/>
+                                                                        </connections>
                                                                     </switch>
                                                                 </subviews>
                                                             </stackView>
@@ -425,6 +432,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="RJE-kN-leT"/>
                     <connections>
+                        <outlet property="setDataPickerTimeButton" destination="Xyp-t6-0GQ" id="DLZ-vQ-PZg"/>
+                        <outlet property="settingsContainorView" destination="XAd-vD-G2k" id="eBI-VZ-abI"/>
                         <outlet property="soundIsON" destination="q5P-Sp-dbd" id="ZkC-ss-QFB"/>
                         <segue destination="RC2-Aq-85d" kind="show" identifier="LoggedOut" id="21T-0L-S1d"/>
                     </connections>
@@ -740,6 +749,6 @@ to the</string>
         <image name="settings" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2DG-xw-U0E"/>
+        <segue reference="yia-nL-Gks"/>
     </inferredMetricsTieBreakers>
 </document>

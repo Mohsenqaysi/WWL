@@ -47,10 +47,9 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GameLevelCollectionViewCell
             cell.loadingCellAnimation()
-            cell.levelLabel.text = "Level \(indexPath.item)"
+            cell.levelLabel.text = "Module \(indexPath.item)"
             return cell
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
