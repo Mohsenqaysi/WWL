@@ -14,7 +14,6 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var setDataPickerTimeButton: UIButton!
     @IBOutlet weak var soundIsON: UISwitch!
-    let userDefult = UserDefaults.standard
     var stackViews: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 5

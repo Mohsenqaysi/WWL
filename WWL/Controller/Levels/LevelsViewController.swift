@@ -25,6 +25,12 @@ class LevelsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+        print("viewWillAppear was called")
+    }
+    
 }
 
 extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSource {
@@ -54,16 +60,18 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath)
+        isSoundON(isON: false)
         // Animate selected cell
         selectedCell?.bounceCellEffect()
         if indexPath.item == 0 {
             playVido()
         }
     }
-    
     fileprivate func playVido() {
         let avPlayerController = AVPlayerViewController()
         avPlayerController.entersFullScreenWhenPlaybackBegins = true
+        avPlayerController.allowsPictureInPicturePlayback = false
+        
         if let urlString = url,
             let videoURL = URL(string: urlString){
             let avPlayer = AVPlayer(url: videoURL)
@@ -74,3 +82,4 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         }
     }
 }
+

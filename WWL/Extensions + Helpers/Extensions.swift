@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Firebase
 
+let userDefult = UserDefaults.standard
+
 // Chnage the navigation Bar Tint Color and title
 extension UINavigationController {
     func setTitleAndColor(for nav: UINavigationController, itme: UINavigationItem, title: String, color: UIColor){

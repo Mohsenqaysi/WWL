@@ -355,8 +355,8 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3o-dk-ZXv">
                                                                 <rect key="frame" x="0.0" y="54" width="247" height="43.5"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xyp-t6-0GQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="198" height="43.5"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xyp-t6-0GQ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="247" height="43.5"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                         <state key="normal" title="Daily Reminder at 9:30">
                                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -365,13 +365,6 @@
                                                                             <action selector="setDataPickerTime:" destination="xmz-XB-snR" eventType="touchUpInside" id="PVW-AA-6mb"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GxA-Cs-fLO">
-                                                                        <rect key="frame" x="198" y="0.0" width="51" height="43.5"/>
-                                                                        <color key="onTintColor" red="0.75686274509999996" green="0.1764705882" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <connections>
-                                                                            <action selector="setLocalNotifications:" destination="xmz-XB-snR" eventType="valueChanged" id="X6n-iA-wKe"/>
-                                                                        </connections>
-                                                                    </switch>
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -588,7 +581,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gme-EI-2NH">
                                                                 <rect key="frame" x="12" y="12" width="611" height="90"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="okR-gM-ZDb" userLabel="Name Text Field">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="okR-gM-ZDb" userLabel="Name Text Field">
                                                                         <rect key="frame" x="0.0" y="0.0" width="611" height="30"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="SGp-GN-twJ"/>
@@ -606,7 +599,7 @@
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" smartQuotesType="no" textContentType="email"/>
                                                                     </textField>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pssword" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S0X-1n-dFc" userLabel="Password Text Field">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password minimum 6" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S0X-1n-dFc" userLabel="Password Text Field">
                                                                         <rect key="frame" x="0.0" y="60" width="611" height="30"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="nfI-IF-xi7"/>
