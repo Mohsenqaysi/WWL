@@ -9,15 +9,15 @@
 import UIKit
 import SafariServices
 import Firebase
-//import FirebaseAuth
+import FirebaseAuth
 
 class SignUpViewController: UIViewController,UITextFieldDelegate {
-    
     
     @IBOutlet weak var userNameInput: UITextField!
     @IBOutlet weak var emailInput: UITextField!
     @IBOutlet weak var passWordInput: UITextField!
     @IBOutlet weak var createaAccountButton: UIButton!
+    var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
     
     @IBOutlet weak var containerView: UIView!
     override func viewDidLoad() {
@@ -85,7 +85,15 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                         self.present(errorAlert, animated: true, completion: nil)
                     }
                 }
+                //MARK:- Tey to save the user data to Firebase real-time database
                 // MARK: if successfully logged in a user ... naviagte the user to the login page
+                let authResult = authResult?.user
+                
+                if let userEmail = authResult?.email, let userUID = authResult?.uid {
+                    debugPrint("nmae: \(userName) - email: \(userEmail) - uid: \(userUID)")
+                    self.FirebaseNetworkingCallRef.saveUserSignUpData(withUserName: userName, email: email, uid: userUID)
+                }
+                
                 let successAlert = UIAlertController().alertMessages(title: AlertsMessages.Successful, message: AlertsMessages.successfulMessage)
                 self.present(successAlert, animated: true, completion: {
                     // On complection push back to the root view
