@@ -96,7 +96,7 @@ extension UIButton {
     }
 }
 
-extension UICollectionViewCell {
+extension UIView {
     // completion: ((Bool) -> Swift.Void)? = nil)
     func bounceCellEffect() {
         self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
