@@ -66,7 +66,7 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         if indexPath.item == 0 {
             playVido()
         }
-        performSegue(withIdentifier: "presentGameViewSegue", sender: nil)
+        performSegue(withIdentifier: Identifiers.presentGameViewSegue, sender: nil)
     }
     
     fileprivate func playVido() {

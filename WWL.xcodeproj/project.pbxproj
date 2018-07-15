@@ -21,7 +21,6 @@
 		FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
-		FCD5AA6320E2951C00535845 /* ARSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA6220E2951C00535845 /* ARSceneViewController.swift */; };
 		FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6420E2951C00535845 /* Main.storyboard */; };
 		FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6720E2951D00535845 /* Assets.xcassets */; };
 		FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */; };
@@ -52,7 +51,6 @@
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		FCD5AA6220E2951C00535845 /* ARSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSceneViewController.swift; sourceTree = "<group>"; };
 		FCD5AA6520E2951C00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FCD5AA6720E2951D00535845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCD5AA6A20E2951D00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -95,22 +93,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FC587D9D20FA47C00011C22A /* Game View */ = {
+		FC587D9D20FA47C00011C22A /* AR Game View */ = {
 			isa = PBXGroup;
 			children = (
 				FC587D9720FA3AF40011C22A /* GameViewController.swift */,
 				FC587D9920FA3BBE0011C22A /* itemCell.swift */,
 				FCE86C8520FB95E4005AD411 /* DataStucture.swift */,
 			);
-			path = "Game View";
+			path = "AR Game View";
 			sourceTree = "<group>";
 		};
 		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FC587D9D20FA47C00011C22A /* Game View */,
+				FC587D9D20FA47C00011C22A /* AR Game View */,
 				FCE77C3D20EB9CB300B9C72C /* Video Player */,
-				FCE77C3C20EB8B9500B9C72C /* AR Views */,
 				FCC73DA020EAC83000F015D9 /* Levels */,
 				FCF3CEAE20E915D500817259 /* Main */,
 				FC8A06EA20E2AE06002E367A /* Registration */,
@@ -188,14 +185,6 @@
 				FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		FCE77C3C20EB8B9500B9C72C /* AR Views */ = {
-			isa = PBXGroup;
-			children = (
-				FCD5AA6220E2951C00535845 /* ARSceneViewController.swift */,
-			);
-			path = "AR Views";
 			sourceTree = "<group>";
 		};
 		FCE77C3D20EB9CB300B9C72C /* Video Player */ = {
@@ -347,7 +336,6 @@
 				FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */,
 				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
 				FCE86C8620FB95E5005AD411 /* DataStucture.swift in Sources */,
-				FCD5AA6320E2951C00535845 /* ARSceneViewController.swift in Sources */,
 				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
 				FCE5022F20EFB51A002C843D /* FirebaseNetworkingCall.swift in Sources */,
