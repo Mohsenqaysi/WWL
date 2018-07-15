@@ -22,7 +22,6 @@ enum FirebasePaths: String {
 struct FirebaseNetworkingCall {
     fileprivate var levelsArray = [Dictionary<String, Bool>]()
     var ref: DatabaseReference!
-    
     init() {
         ref = Database.database().reference()
     }

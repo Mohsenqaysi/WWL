@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c9r-TF-3xL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RC2-Aq-85d">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -458,7 +458,7 @@
                                     <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="4yD-KJ-C2c" customClass="GameLevelCollectionViewCell" customModule="WWL" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LevelsViewControllerCell" id="4yD-KJ-C2c" customClass="GameLevelCollectionViewCell" customModule="WWL" customModuleProvider="target">
                                         <rect key="frame" x="5" y="8.5" width="184" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -490,8 +490,8 @@
                                         </view>
                                         <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" constant="2" id="Rgh-GS-apl"/>
-                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" constant="2" id="pyv-9j-Xmu"/>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerX" secondItem="4yD-KJ-C2c" secondAttribute="centerX" constant="-8.5" id="Rgh-GS-apl"/>
+                                            <constraint firstItem="f6H-6s-9s8" firstAttribute="centerY" secondItem="4yD-KJ-C2c" secondAttribute="centerY" constant="-8.5" id="pyv-9j-Xmu"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -510,12 +510,12 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-Gm-3ZH">
-                                <rect key="frame" x="8" y="5" width="48" height="48"/>
+                                <rect key="frame" x="8" y="5" width="55" height="55"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wzc-Gm-3ZH" secondAttribute="height" multiplier="1:1" id="jLW-mY-dIF"/>
-                                    <constraint firstAttribute="height" constant="48" id="kBt-fh-UKL"/>
-                                    <constraint firstAttribute="width" constant="48" id="tGq-IR-kFu"/>
+                                    <constraint firstAttribute="height" constant="55" id="kBt-fh-UKL"/>
+                                    <constraint firstAttribute="width" constant="55" id="tGq-IR-kFu"/>
                                 </constraints>
                                 <state key="normal" image="exit"/>
                                 <userDefinedRuntimeAttributes>
@@ -539,6 +539,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f0J-Py-dE4"/>
                     </view>
+                    <connections>
+                        <segue destination="c9r-TF-3xL" kind="show" identifier="presentGameViewSegue" id="1vU-2V-UD0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uSx-uD-B0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -827,6 +830,6 @@ to the</string>
         <image name="settings" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2DG-xw-U0E"/>
+        <segue reference="yia-nL-Gks"/>
     </inferredMetricsTieBreakers>
 </document>

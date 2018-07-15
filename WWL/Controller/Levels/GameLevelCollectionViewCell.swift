@@ -9,6 +9,16 @@
 import UIKit
 
 class GameLevelCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var levelLabel: UILabel!
+    var imageName: String! {
+        didSet {
+            imageView.image = UIImage(named: imageName)
+        }
+    }
+    var levelText: String! {
+        didSet {
+            levelLabel.text = levelText
+        }
+    }
+    @IBOutlet weak private var imageView: UIImageView!
+    @IBOutlet weak private var levelLabel: UILabel!
 }

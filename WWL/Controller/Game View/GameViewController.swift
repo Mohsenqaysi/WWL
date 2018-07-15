@@ -10,7 +10,7 @@ import UIKit
 import ARKit
 
 class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
-   
+    
     @IBOutlet weak var statusLable: UITextView!
     
     var status: String! {
@@ -28,7 +28,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     }
     var currentPossion: SCNVector3? = nil {
         didSet {
-//            print("new postions was set: \(currentPossion.debugDescription)")
+            //            print("new postions was set: \(currentPossion.debugDescription)")
         }
     }
     @IBOutlet weak var sceneView: ARSCNView!
@@ -96,16 +96,16 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                 // call the setCurrentObjectPostion on the plane
                 if let node = parnatNode {
                     if !doesNotEqualToStaticNodes(nodeName: node.name) {
-//                        currentPossion = SCNVector3(transform.x,transform.y,transform.z)
+                        //                        currentPossion = SCNVector3(transform.x,transform.y,transform.z)
                         currentPossion = SCNVector3(transform.x,(transform.y + yChildNodePosition),transform.z)
-//                        print("node.name: \(String(describing: node.name))")
+                        //                        print("node.name: \(String(describing: node.name))")
                         setCurrentObjectPostion(for: node, at: currentPossion!)
                     } else {
                         print("\(StaticNodes.farmPlanefinal.toString()) was found")
                     }
                 }
             }
-//            setUpAudio()
+            //            setUpAudio()
         }
         if recognizer.state == .ended {
             if  let node = parnatNode {
@@ -114,19 +114,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                     print("\(StaticNodes.farmPlanefinal.toString()) was found")
                     print("node is set to nil")
                 }
-//                playSound(for: parnatNode!)
+                //                playSound(for: parnatNode!)
             }
-        }
-    }
-    
-    // MARK: - StaticNodes
-    fileprivate enum StaticNodes: String {
-        case farmPlanefinal = "farmPlanefinal"
-        case counterBaseOneNode = "counterBaseOneNode"
-        case counterBaseTwoNode = "counterBaseTwoNode"
-        
-        func toString() -> String {
-            return self.rawValue
         }
     }
     
@@ -148,8 +137,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode : true]
         let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
         if !hitTestResults.isEmpty {
-            let allNodes = hitTestResults
-            print("virtualObject nodes: \(allNodes.enumerated())")
             let hitNode = hitTestResults.first!
             guard let nodeName = hitNode.node.name else {return}
             print("nodeName: \(nodeName)")
@@ -235,46 +222,21 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
         counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
         counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-        
-        //        guard let confettiNode = polyPlanefinalScene.rootNode.childNode(withName: "confettiNode", recursively: true),
-        //            let confetti = SCNParticleSystem(named: "Models.scnassets/textures/confetti.scnp", inDirectory: nil) else {
-        //            print("did not find confetti effect ")
-        //            return
-        //        }
-        //        // MARK:- add addParticleSystem node
-        //        confettiNode.addParticleSystem(confetti)
-        //        confetti.particleVelocity = 0.9
-        //
-        ////        // Enable physics interaction
-        //        confettiNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        //        confettiNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-        //        node.addChildNode(confettiNode)
-    
+       
         // Add the base node
         polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
         polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         polyPlanefinalNode.position = SCNVector3(x,y,z)
         
-        
         node.addChildNode(polyPlanefinalNode)
         print("node was added..")
         // Hide debugOptions
         sceneView.debugOptions = []
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.itemsCollectionView.isHidden = false
             self.itemsCollectionView.loadingCellAnimation()
         }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//            self.itemsCollectionView.loadingCellAnimation()
-//            self.itemsCollectionView.isHidden = false
-//            self.itemsCollectionView.backgroundView?.alpha = 0
-//            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.3, options: .curveEaseInOut, animations: {
-//                self.itemsCollectionView.backgroundView?.alpha = 1
-//                self.itemsCollectionView.layoutIfNeeded()
-//                self.view.layoutIfNeeded()
-//            }, completion: nil)
-//        }
     }
     
     // MARK: - PhysicsWorld
@@ -317,10 +279,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         lastContactNode = nil
         
         var contactNode: SCNNode!
-        if contact.nodeA.name ==  BoxBodyTypeName.counter.toString() {//"Bullet" {
+        
+        if contact.nodeA.name == BoxBodyTypeName.counter.toString() {
             contactNode = contact.nodeA
+            print("node A \(contact.nodeA.name) was assigned to contactNode")
         } else {
             contactNode = contact.nodeB
+            print("node B \(contact.nodeA.name) was assigned to contactNode")
         }
         
         if self.lastContactNode != nil && self.lastContactNode == contactNode {
@@ -342,7 +307,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
     }
-
+    
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
@@ -354,10 +319,10 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     // Configures every single source cell in collection view
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! itemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.itemID, for: indexPath) as! itemCell
         cell.layer.cornerRadius = 5
         // Shows the images from Array
-        cell.counterImageView.image = UIImage(named: self.itemsArray[indexPath.row])
+        cell.imageName = itemsArray[indexPath.row] //UIImage(named: self.itemsArray[indexPath.row])
         return cell
     }
     
@@ -429,14 +394,14 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         switch camera.trackingState {
         case .notAvailable:
-            statusLable.isHidden = false
+            statusLable.statusShowLabelAnimation(isHidden: false)
             status = CamerStatus.NotAvailable.toString()
         case .limited:
-            statusLable.isHidden = false
+            statusLable.statusShowLabelAnimation(isHidden: false)
             status = CamerStatus.limited.toString()
         default:
-            statusLable.isHidden = true
-//            status = CamerStatus.normal.toString()
+            statusLable.statusShowLabelAnimation(isHidden: true)
+            // camera.trackingState is normal ... hide the statusLable
         }
     }
 }

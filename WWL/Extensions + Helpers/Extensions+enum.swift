@@ -8,9 +8,9 @@
 
 import Foundation
 import UIKit
-import Firebase
 
 let userDefult = UserDefaults.standard
+let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"
 
 enum BoxBodyType : Int {
     case bullet = 1
@@ -27,7 +27,15 @@ enum BoxBodyTypeName : String {
         return self.rawValue
     }
 }
-
+// MARK: - StaticNodes
+enum StaticNodes: String {
+    case farmPlanefinal
+    case counterBaseOneNode
+    case counterBaseTwoNode
+    func toString() -> String {
+        return self.rawValue
+    }
+}
 // Chnage the navigation Bar Tint Color and title
 extension UINavigationController {
     func setTitleAndColor(for nav: UINavigationController, itme: UINavigationItem, title: String, color: UIColor){
@@ -67,8 +75,10 @@ struct Identifiers {
     static let MainViewController = "MainViewController"
     static let AlreadyLoggedIn = "AlreadyLoggedIn"
     static let LoggedOut = "LoggedOut"
+    static let presentGameViewSegue = "presentGameViewSegue"
     static let CellID = "CellID"
-    
+    static let LevelsViewControllerCell = "LevelsViewControllerCell"
+    static let itemID = "item"
 }
 
 enum Keys: String {
@@ -129,6 +139,26 @@ extension UIView {
             UIView.animate(withDuration: 0.1, animations: {
                 self.layer.transform = CATransform3DMakeScale(1,1,1)
             })
+        }
+    }
+    
+    func statusShowLabelAnimation(isHidden: Bool) {
+        self.isHidden = isHidden
+        self.layer.transform = CATransform3DMakeScale(0.1,0.1,1)
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+            self.layer.transform = CATransform3DMakeScale(1.05,1.05,1)
+        }) { (completion) in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.layer.transform = CATransform3DMakeScale(1,1,1)
+            })
+        }
+    }
+    func statusHideLabelAnimation(isHidden: Bool) {
+        self.layer.transform = CATransform3DMakeScale(1,1,1)
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+            self.layer.transform = CATransform3DMakeScale(0.1,0.1,1)
+        }) { (complete) in
+            self.isHidden = isHidden
         }
     }
 }

@@ -10,5 +10,10 @@ import UIKit
 
 class itemCell: UICollectionViewCell {
     
+    var imageName: String! {
+        didSet{
+            counterImageView.image = UIImage(named: imageName)
+        }
+    }
     @IBOutlet weak var counterImageView: UIImageView!
 }
