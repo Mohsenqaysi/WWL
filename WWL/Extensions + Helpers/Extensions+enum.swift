@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  Extensions+enum.swift
 //  WWL
 //
 //  Created by Mohsen Qaysi on 6/26/18.
@@ -11,6 +11,22 @@ import UIKit
 import Firebase
 
 let userDefult = UserDefaults.standard
+
+enum BoxBodyType : Int {
+    case bullet = 1
+    case barrier = 2
+    func toInt() -> Int {
+        return self.rawValue
+    }
+}
+
+enum BoxBodyTypeName : String {
+    case counter
+    case barrier
+    func toString() -> String {
+        return self.rawValue
+    }
+}
 
 // Chnage the navigation Bar Tint Color and title
 extension UINavigationController {
@@ -142,6 +158,12 @@ enum CamerStatus: String {
     func toString()-> String {
         return self.rawValue
     }
+}
+
+
+struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
+    static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "GreenColor" ]
+    static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "BlueColor"]
 }
 
 let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)

@@ -9,13 +9,8 @@
 import UIKit
 import ARKit
 
-enum BoxBodyType : Int {
-    case bullet = 1
-    case barrier = 2
-}
 class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
    
-    
     @IBOutlet weak var statusLable: UITextView!
     
     var status: String! {
@@ -187,10 +182,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             print("added node location: \(node.position)")
             
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
-            node.name = "Bullet"
+            node.name = BoxBodyTypeName.counter.toString() //"Counter"
             node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-            node.physicsBody?.categoryBitMask = BoxBodyType.bullet.rawValue
-            node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.rawValue
+            node.physicsBody?.categoryBitMask = BoxBodyType.bullet.toInt()
+            node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
             node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
             self.sceneView.scene.rootNode.addChildNode(node)
             if node.name != StaticNodes.farmPlanefinal.toString() {
@@ -322,7 +317,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         lastContactNode = nil
         
         var contactNode: SCNNode!
-        if contact.nodeA.name == "Bullet" {
+        if contact.nodeA.name ==  BoxBodyTypeName.counter.toString() {//"Bullet" {
             contactNode = contact.nodeA
         } else {
             contactNode = contact.nodeB
@@ -347,12 +342,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
     }
-    
-    struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
-        static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "GreenColor" ]
-        static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "BlueColor"]
-    }
-    
+
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
