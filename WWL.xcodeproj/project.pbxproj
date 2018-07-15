@@ -30,6 +30,7 @@
 		FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */; };
 		FCE5022F20EFB51A002C843D /* FirebaseNetworkingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */; };
 		FCE77C3F20EB9D2A00B9C72C /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE77C3E20EB9D2A00B9C72C /* VideoPlayerViewController.swift */; };
+		FCE86C8620FB95E5005AD411 /* DataStucture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE86C8520FB95E4005AD411 /* DataStucture.swift */; };
 		FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF3CEAF20E915F500817259 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAudioPlayer.swift; sourceTree = "<group>"; };
 		FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkingCall.swift; sourceTree = "<group>"; };
 		FCE77C3E20EB9D2A00B9C72C /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		FCE86C8520FB95E4005AD411 /* DataStucture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStucture.swift; sourceTree = "<group>"; };
 		FCF3CEAF20E915F500817259 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 			children = (
 				FC587D9720FA3AF40011C22A /* GameViewController.swift */,
 				FC587D9920FA3BBE0011C22A /* itemCell.swift */,
+				FCE86C8520FB95E4005AD411 /* DataStucture.swift */,
 			);
 			path = "Game View";
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */,
 				FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */,
 				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
+				FCE86C8620FB95E5005AD411 /* DataStucture.swift in Sources */,
 				FCD5AA6320E2951C00535845 /* ARSceneViewController.swift in Sources */,
 				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
