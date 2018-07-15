@@ -112,6 +112,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                     print("\(StaticNodes.farmPlanefinal.rawValue) was found")
                     print("node is set to nil")
                 }
+                
 //                playSound(for: parnatNode!)
             }
         }
