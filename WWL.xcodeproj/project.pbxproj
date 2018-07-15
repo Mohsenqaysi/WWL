@@ -500,6 +500,7 @@
 			baseConfigurationReference = F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K6Q9LJED8Q;
 				INFOPLIST_FILE = WWL/Info.plist;
@@ -510,6 +511,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mohsen-Qaysi.WWL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -520,6 +522,7 @@
 			baseConfigurationReference = 383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K6Q9LJED8Q;
 				INFOPLIST_FILE = WWL/Info.plist;
@@ -530,6 +533,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mohsen-Qaysi.WWL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

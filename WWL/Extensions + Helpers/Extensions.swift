@@ -139,12 +139,11 @@ enum CamerStatus: String {
     case normal = "The light is normal"
     case limited = "The light in your enviroment is limited ... please find a better lighted place"
     case NotAvailable = "Not Available ... please find a better lighted place"
-    
-    func toString() -> String {
+    func toString()-> String {
         return self.rawValue
     }
 }
 
 let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
-let blueColor = UIColor(red:0.0, green:0.427, blue:0.764, alpha:0.5)
-let greenColor = UIColor(red:0.236, green:0.625, blue:0.206, alpha:0.5)
+let blueColor = UIColor(red:0.0, green:0.427, blue:0.764, alpha:0.2)
+let greenColor = UIColor(red:0.236, green:0.625, blue:0.206, alpha:0.2)
