@@ -100,9 +100,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                 // call the setCurrentObjectPostion on the plane
                 if let node = parnatNode {
                     if !doesNotEqualToStaticNodes(nodeName: node.name) {
-                        //                        currentPossion = SCNVector3(transform.x,transform.y,transform.z)
                         currentPossion = SCNVector3(transform.x,(transform.y + yChildNodePosition),transform.z)
-                        //                        print("node.name: \(String(describing: node.name))")
                         setCurrentObjectPostion(for: node, at: currentPossion!)
                     } else {
                         print("\(StaticNodes.farmPlanefinal.toString()) was found")
@@ -145,6 +143,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             guard let nodeName = hitNode.node.name else {return}
             print("nodeName: \(nodeName)")
             parnatNode = hitNode.node
+            // TODO: - check if the found node is movebale or not
             print("virtualObject was found")
         }
     }
@@ -201,48 +200,65 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
-        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-        print("planeAnchor location: \(planeAnchor.center)")
-        
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z + -0.1)
-        print("ogiginal object location : x: \(x) y: \(y) z: \(z)")
-        
-        //        // testing
-        //        planScene = SCNScene(named: "Models.scnassets/cylinderGreen.scn")
-        //        planegNode = planScene.rootNode.childNode(withName: "cylinderGreen", recursively: false)
-        
-        // testing
-        polyPlanefinalScene = SCNScene(named: "Models.scnassets/\(StaticNodes.farmPlanefinal.toString()).scn")
-        polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
-        
-        // counterBaseOne
-        counterBaseOneNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseOneNode.toString(), recursively: true)
-        counterBaseOneNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        counterBaseOneNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-        
-        // counterBaseTwo
-        counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
-        counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-       
-        // Add the base node
-        polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
-        polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        polyPlanefinalNode.position = SCNVector3(x,y,z)
-        
-        node.addChildNode(polyPlanefinalNode)
-        print("node was added..")
-        // Hide debugOptions
-        sceneView.debugOptions = []
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.itemsCollectionView.isHidden = false
-            self.itemsCollectionView.loadingCellAnimation()
+        if didAddedParentNode {
+            guard let planeAnchor = anchor as? ARPlaneAnchor else {return}
+            uuidString = planeAnchor.identifier.uuidString
+            print("ogiginal planeAnchor location: \(planeAnchor.center)")
+            print("uuidString: \(uuidString)")
+            
+            let x = CGFloat(planeAnchor.center.x)
+            let y = CGFloat(planeAnchor.center.y)
+            let z = CGFloat(planeAnchor.center.z + -0.1)
+            print("ogiginal object location : x: \(x) y: \(y) z: \(z)")
+            
+            // testing
+            polyPlanefinalScene = SCNScene(named: "Models.scnassets/\(StaticNodes.farmPlanefinal.toString()).scn")
+            polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
+            
+            // counterBaseOne
+            counterBaseOneNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseOneNode.toString(), recursively: true)
+            counterBaseOneNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+            counterBaseOneNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
+            
+            // counterBaseTwo
+            counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
+            counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+            counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
+            
+            // Add the base node
+            polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
+            polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            polyPlanefinalNode.position = SCNVector3(x,y,z)
+            
+            node.addChildNode(polyPlanefinalNode)
+            print("node was added..")
+            // Hide debugOptions
+//            sceneView.debugOptions = []
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.itemsCollectionView.isHidden = false
+                self.itemsCollectionView.loadingCellAnimation()
+            }
         }
+        
+        print("-----------------------------------------------------------------------")
+        guard let newPlaneAnchor = anchor as? ARPlaneAnchor else {return}
+        print("New planeAnchor location: \(newPlaneAnchor)")
+        print("New uuidString: \(newPlaneAnchor.identifier.uuidString)")
+        print("-----------------------------------------------------------------------")
     }
     
+    // check the anchor before add the node ... if a node already being added do not update it's postion.
+    var didAddedParentNode: Bool = true
+    var uuidString: String! = nil
+    
+    func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor) {
+        if uuidString != nil {
+            if anchor.identifier.uuidString == uuidString {
+                didAddedParentNode = false
+            }
+        }
+    }
     // MARK: - PhysicsWorld
     var lastContactNode :SCNNode!
     
@@ -311,7 +327,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
     }
-    
+
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {

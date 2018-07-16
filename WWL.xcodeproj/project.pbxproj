@@ -20,10 +20,9 @@
 		FC8A06F320E2C044002E367A /* Extensions+enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06F220E2C044002E367A /* Extensions+enum.swift */; };
 		FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
-		FCD5AA6120E2951C00535845 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6020E2951C00535845 /* art.scnassets */; };
 		FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6420E2951C00535845 /* Main.storyboard */; };
-		FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6720E2951D00535845 /* Assets.xcassets */; };
 		FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */; };
+		FCDB2D8420FCEC570023FA1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCDB2D8320FCEC570023FA1C /* Assets.xcassets */; };
 		FCDE6EEE20E93459004348F0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EED20E93459004348F0 /* MainViewController.swift */; };
 		FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */; };
 		FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */; };
@@ -50,11 +49,10 @@
 		FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FCD5AA6020E2951C00535845 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		FCD5AA6520E2951C00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FCD5AA6720E2951D00535845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCD5AA6A20E2951D00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCD5AA6C20E2951D00535845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCDB2D8320FCEC570023FA1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCDE6EED20E93459004348F0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuSound.mp3; sourceTree = "<group>"; };
 		FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAudioPlayer.swift; sourceTree = "<group>"; };
@@ -169,9 +167,8 @@
 				FC8A06F120E2C01F002E367A /* Extensions + Helpers */,
 				FCE5022D20EFB4FE002C843D /* Networking */,
 				FC8A06E920E2ADEF002E367A /* Controller */,
-				FCD5AA6020E2951C00535845 /* art.scnassets */,
+				FCDB2D8320FCEC570023FA1C /* Assets.xcassets */,
 				FCD5AA6420E2951C00535845 /* Main.storyboard */,
-				FCD5AA6720E2951D00535845 /* Assets.xcassets */,
 				FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */,
 				FCD5AA6C20E2951D00535845 /* Info.plist */,
 				FC76019220E29BBA007414B6 /* GoogleService-Info.plist */,
@@ -266,13 +263,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCD5AA6120E2951C00535845 /* art.scnassets in Resources */,
 				FC587D9C20FA3D4C0011C22A /* Models.scnassets in Resources */,
 				FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */,
 				FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */,
-				FCD5AA6820E2951D00535845 /* Assets.xcassets in Resources */,
 				FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */,
 				FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */,
+				FCDB2D8420FCEC570023FA1C /* Assets.xcassets in Resources */,
 				FC63031B20EADBF10087BF8A /* puzzleGameLooping.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
