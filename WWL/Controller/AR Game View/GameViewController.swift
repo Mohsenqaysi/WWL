@@ -40,6 +40,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initialViewSetUp()
+        self.registerGestureRecognizers()
+    }
+    
+    fileprivate func initialViewSetUp() {
         statusLable.isHidden = true
         statusLable.textAlignment = .center
         statusLable.layer.cornerRadius = 15
@@ -57,7 +62,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         self.sceneView.autoenablesDefaultLighting = true
         // MARK: - enable physicsWorld contact
         self.sceneView.scene.physicsWorld.contactDelegate = self
-        self.registerGestureRecognizers()
     }
     // MARK: registerGestureRecognizers
     func registerGestureRecognizers() {
@@ -70,7 +74,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     // Function to Detect Tap
     @objc func tapped(sender: UITapGestureRecognizer){
         // Find out the tap only on the horizontal surface found in Scene View
-        let sceneView = sender.view as! ARSCNView
+        guard let sceneView = sender.view as? ARSCNView, sender.view != nil else {return}
         let tapLocation = sender.location(in: sceneView)
         // Match the location of tap with the location of the Horizontal Plane
         // Checks that the location of tap "tapLocation" matches the location of plane "existingPlaneUsingExtent"
@@ -175,8 +179,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
             node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
             self.sceneView.scene.rootNode.addChildNode(node)
-            if node.name != StaticNodes.farmPlanefinal.toString() {
-                //                addAnimation(node: node)
+            if !doesNotEqualToStaticNodes(nodeName: node.name) {
+                SCNNode().addFloatingAnimationToNode(node: node)
             }
         }
     }
@@ -282,10 +286,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         
         if contact.nodeA.name == BoxBodyTypeName.counter.toString() {
             contactNode = contact.nodeA
-            print("node A \(contact.nodeA.name) was assigned to contactNode")
+            print("node A \(String(describing: contact.nodeA.name)) was assigned to contactNode")
         } else {
             contactNode = contact.nodeB
-            print("node B \(contact.nodeA.name) was assigned to contactNode")
+            print("node B \(String(describing: contact.nodeA.name)) was assigned to contactNode")
         }
         
         if self.lastContactNode != nil && self.lastContactNode == contactNode {
@@ -354,17 +358,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         return UIEdgeInsetsMake(0, CGFloat(leftInset), 0, CGFloat(rightInset))
     }
     
-    // MARK: set up aniamtion
-    
-    func addAnimation(node: SCNNode) {
-        //        let rotateOne = SCNAction.rotateBy(x: 0, y: CGFloat(Float.pi), z: 0, duration: 5.0)
-        let hoverUp = SCNAction.moveBy(x: 0, y: 0.03, z: 0, duration: 1.5)
-        let hoverDown = SCNAction.moveBy(x: 0, y: -0.03, z: 0, duration: 1.5)
-        let hoverSequence = SCNAction.sequence([hoverUp, hoverDown])
-        //        let rotateAndHover = SCNAction.group([hoverSequence])
-        let repeatForever = SCNAction.repeatForever(hoverSequence)
-        node.runAction(repeatForever)
-    }
     
     // MARK: - Setup audio playback
     // MARK: - Sound

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ARKit
 
 let userDefult = UserDefaults.standard
 let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"
@@ -194,6 +195,30 @@ enum CamerStatus: String {
 struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
     static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "GreenColor" ]
     static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "BlueColor"]
+}
+
+extension SCNNode {
+    // MARK: set up aniamtion
+    
+    func addFloatingAnimationToNode(node: SCNNode, x: CGFloat = 0, y: CGFloat = 0.03, z: CGFloat = 0, duration: TimeInterval = 1.5 ) {
+        //        let rotateOne = SCNAction.rotateBy(x: 0, y: CGFloat(Float.pi), z: 0, duration: 5.0)
+        let hoverUp = SCNAction.moveBy(x: x, y: y, z: z, duration: duration)
+        let hoverDown = SCNAction.moveBy(x: x, y: -y, z: z, duration: duration)
+        let hoverSequence = SCNAction.sequence([hoverUp, hoverDown])
+        //        let rotateAndHover = SCNAction.group([hoverSequence])
+        let repeatForever = SCNAction.repeatForever(hoverSequence)
+        node.runAction(repeatForever)
+    }
+    
+    func addShakingAnimationToNode(node: SCNNode,ShakingDistants: Float) {
+        let spin = CABasicAnimation(keyPath: "position")
+        spin.fromValue = node.presentation.position
+        spin.toValue = SCNVector3(node.presentation.position.x - ShakingDistants ,node.presentation.position.y - ShakingDistants, node.presentation.position.z - ShakingDistants)
+        spin.duration = 0.07
+        spin.repeatCount = 5
+        spin.autoreverses = true
+        node.addAnimation(spin, forKey: "postion")
+    }
 }
 
 let PinkColor = UIColor(red:0.76, green:0.18, blue:0.48, alpha:1.0)
