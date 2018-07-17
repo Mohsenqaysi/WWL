@@ -199,7 +199,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     var polyPlanefinalNode: SCNNode!
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
+        print("++++++++++++++++++++++++++++ ( ARAnchor) ++++++++++++++++++++++++++++++++++")
+        print("Deticted anchor: \(anchor)")
+        print("_______________________________________________________________________")
         if didAddedParentNode {
             guard let planeAnchor = anchor as? ARPlaneAnchor else {return}
             uuidString = planeAnchor.identifier.uuidString
@@ -208,9 +210,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             
             let x = CGFloat(planeAnchor.center.x)
             let y = CGFloat(planeAnchor.center.y)
-            let z = CGFloat(planeAnchor.center.z + -0.1)
+            let z = CGFloat(planeAnchor.center.z)// + -0.1)
             print("ogiginal object location : x: \(x) y: \(y) z: \(z)")
-            
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
             // testing
             polyPlanefinalScene = SCNScene(named: "Models.scnassets/\(StaticNodes.farmPlanefinal.toString()).scn")
             polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
@@ -259,6 +262,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             }
         }
     }
+    
+    
     // MARK: - PhysicsWorld
     var lastContactNode :SCNNode!
     
@@ -413,5 +418,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             // camera.trackingState is normal ... hide the statusLable
         }
     }
+    
 }
 

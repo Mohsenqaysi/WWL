@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ARKit
+import Firebase
 
 let userDefult = UserDefaults.standard
 let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"

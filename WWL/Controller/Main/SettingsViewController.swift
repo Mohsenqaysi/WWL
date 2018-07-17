@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import UserNotifications
 
 class SettingsViewController: UIViewController {
@@ -22,7 +23,8 @@ class SettingsViewController: UIViewController {
     
     var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
-        picker.backgroundColor = .white
+        picker.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.95, alpha:1.0)
+        picker.layer.cornerRadius = 5
         picker.datePickerMode = .time
         return picker
     }()
@@ -30,7 +32,9 @@ class SettingsViewController: UIViewController {
     // ToolBar
     let toolBar: UIToolbar = {
         let bar = UIToolbar()
-        bar.barStyle = .default
+        bar.barStyle = .black
+        bar.tintColor = .white //UIColor(red:0.92, green:0.92, blue:0.95, alpha:1.0)
+        bar.barTintColor = PinkColor
         bar.isTranslucent = true
         bar.isUserInteractionEnabled = true
         bar.sizeToFit()
@@ -53,6 +57,7 @@ class SettingsViewController: UIViewController {
     
     @objc func handelPickedTime(sender: UIDatePicker){
         let date = sender.date
+        print("date: \(date)")
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         notificatioRequestDateComponents = components
     }
@@ -114,22 +119,24 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
     func pickUpDate(){
         // Adding Button ToolBar
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
+        let font = UIFont.boldSystemFont(ofSize: 23)
+        doneButton.setTitleTextAttributes([NSAttributedStringKey.font: font],for: .normal)
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
-        
+        cancelButton.setTitleTextAttributes([NSAttributedStringKey.font: font],for: .normal)
+
         // Set toolBar buttons
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        
         // MARK: - add stackViews to the settingsContainorView
         stackViews = setUpEmmbededViews(ArrayViews: [toolBar,datePicker])
         self.settingsContainorView.addSubview(stackViews)
-        stackViews.frame = self.settingsContainorView.frame
+        stackViews.frame = settingsContainorView.frame
     }
+    
     
     fileprivate func setUpEmmbededViews(ArrayViews: [UIView]) -> UIView {
         let stackView = UIStackView(arrangedSubviews: ArrayViews)
         stackView.axis = .vertical
-        stackView.layer.cornerRadius = 5
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 0
@@ -144,16 +151,27 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         })
     }
     
+    fileprivate func formatAndSetTimeLable() {
+
+        
+        if let time = try? formateTime(dateComponents: notificatioRequestDateComponents!) {
+            setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
+            userDefult.set(time, forKey: "time")
+            userDefult.synchronize()
+            if let request = notificatioRequestDateComponents {
+                setNotification(pickeddateComponents: request)
+            }
+        }
+    }
+    
     @objc func doneClick() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        let time = try! formateTime(dateComponents: notificatioRequestDateComponents!)
-        setDataPickerTimeButton.titleLabel?.text = time
-        userDefult.set(time, forKey: "time")
-        userDefult.synchronize()
-        if let request = notificatioRequestDateComponents {
-            setNotification(pickeddateComponents: request)
+        if notificatioRequestDateComponents != nil {
+            formatAndSetTimeLable()
+        } else {
+            let date = Date()
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            notificatioRequestDateComponents = components
+            formatAndSetTimeLable()
         }
         animageSuperView(myView: stackViews)
     }

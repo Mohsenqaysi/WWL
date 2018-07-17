@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 class AuthViewController: UIViewController {
     
     @IBOutlet weak var loginButoon: UIButton!
@@ -17,7 +18,6 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setButtonsActions()
-        
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
                 debugPrint("user is signed as: \(String(describing: user?.email?.debugDescription))")
