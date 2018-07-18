@@ -198,6 +198,8 @@ struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
     static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "BlueColor"]
 }
 
+
+
 extension SCNNode {
     // MARK: set up aniamtion
     

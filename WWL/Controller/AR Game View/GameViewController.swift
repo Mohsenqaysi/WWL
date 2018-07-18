@@ -11,6 +11,7 @@ import ARKit
 
 class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
     
+    @IBOutlet weak var touchIconButton: UIButton!
     @IBOutlet weak var statusLable: UITextView!
     
     var status: String! {
@@ -169,6 +170,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             // Position the Object node right where the detected surface is
             
             node.position = SCNVector3(thirdColumn.x,thirdColumn.y + yChildNodePosition,thirdColumn.z)
+            //            node.position = SCNVector3(thirdColumn.x,thirdColumn.y,thirdColumn.z)
+            
             print("added node location: \(node.position)")
             
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
@@ -179,7 +182,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
             self.sceneView.scene.rootNode.addChildNode(node)
             if !doesNotEqualToStaticNodes(nodeName: node.name) {
-                SCNNode().addFloatingAnimationToNode(node: node)
+                //                SCNNode().addFloatingAnimationToNode(node: node)
             }
         }
     }
@@ -197,58 +200,86 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     // polyPlanefinalScene
     var polyPlanefinalScene: SCNScene!
     var polyPlanefinalNode: SCNNode!
+    var planeAnchor: ARPlaneAnchor!
+    var anchorNode: SCNNode!
+    var overlayPlane: SCNNode!
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
         print("++++++++++++++++++++++++++++ ( ARAnchor) ++++++++++++++++++++++++++++++++++")
         print("Deticted anchor: \(anchor)")
         print("_______________________________________________________________________")
         if didAddedParentNode {
-            guard let planeAnchor = anchor as? ARPlaneAnchor else {return}
-            uuidString = planeAnchor.identifier.uuidString
-            print("ogiginal planeAnchor location: \(planeAnchor.center)")
-            print("uuidString: \(uuidString)")
-            
-            let x = CGFloat(planeAnchor.center.x)
-            let y = CGFloat(planeAnchor.center.y)
-            let z = CGFloat(planeAnchor.center.z)// + -0.1)
-            print("ogiginal object location : x: \(x) y: \(y) z: \(z)")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-            // testing
-            polyPlanefinalScene = SCNScene(named: "Models.scnassets/\(StaticNodes.farmPlanefinal.toString()).scn")
-            polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
-            
-            // counterBaseOne
-            counterBaseOneNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseOneNode.toString(), recursively: true)
-            counterBaseOneNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-            counterBaseOneNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-            
-            // counterBaseTwo
-            counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
-            counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-            counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-            
-            // Add the base node
-            polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
-            polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            polyPlanefinalNode.position = SCNVector3(x,y,z)
-            
-            node.addChildNode(polyPlanefinalNode)
-            print("node was added..")
-            // Hide debugOptions
-//            sceneView.debugOptions = []
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.itemsCollectionView.isHidden = false
-                self.itemsCollectionView.loadingCellAnimation()
+                self.planeAnchor = anchor as? ARPlaneAnchor // else {return}
+                self.anchorNode = node
+                
+                self.overlayPlane = OverlayPlane(anchor: self.planeAnchor)
+                node.addChildNode(self.overlayPlane)
+                self.uuidString = self.planeAnchor.identifier.uuidString
+                print("ogiginal planeAnchor location: \(self.planeAnchor.center)")
+                print("uuidString: \(self.uuidString)")
+                self.touchIconButton.isHidden = false
             }
         }
-        
         print("-----------------------------------------------------------------------")
         guard let newPlaneAnchor = anchor as? ARPlaneAnchor else {return}
         print("New planeAnchor location: \(newPlaneAnchor)")
         print("New uuidString: \(newPlaneAnchor.identifier.uuidString)")
         print("-----------------------------------------------------------------------")
+    }
+    
+    @IBAction func touchIconButtonAction(_ sender: UIButton) {
+        addFarm()
+    }
+    
+    fileprivate func addFarm(){
+        let x = CGFloat(planeAnchor.center.x)
+        let y = CGFloat(planeAnchor.center.y)
+        let z = CGFloat(planeAnchor.center.z)// + -0.1)
+        print("ogiginal object location : x: \(x) y: \(y) z: \(z)")
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        // testing
+        polyPlanefinalScene = SCNScene(named: "Models.scnassets/\(StaticNodes.farmPlanefinal.toString()).scn")
+        polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
+        
+        // counterBaseOne
+        counterBaseOneNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseOneNode.toString(), recursively: true)
+        counterBaseOneNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        counterBaseOneNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
+        
+        // counterBaseTwo
+        counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
+        counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
+        
+        // Add the base node
+        polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
+        polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+        polyPlanefinalNode.position = SCNVector3(x,y,z)
+        
+        anchorNode.addChildNode(polyPlanefinalNode)
+        self.polyPlanefinalNode.opacity = 0
+       
+        DispatchQueue.main.async {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 5.0
+            self.polyPlanefinalNode.opacity = 1
+            self.overlayPlane.opacity = 0
+            SCNTransaction.commit()
+            self.overlayPlane.removeFromParentNode()
+            // Hide debugOptions
+            self.sceneView.debugOptions = []
+        }
+        print("node was added..")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.touchIconButton.isHidden = true
+            // Unhide the itemsCollectionView
+            self.itemsCollectionView.isHidden = false
+            self.itemsCollectionView.loadingCellAnimation()
+        }
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
@@ -332,7 +363,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
     }
-
+    
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
