@@ -20,7 +20,7 @@ class OverlayPlane: SCNNode {
         setupNode()
     }
     
-//    func update(anchor :ARPlaneAnchor) {
+//    func update(anchor: ARPlaneAnchor) {
 //        self.planeGeometry.width = CGFloat(anchor.extent.x)
 //        self.planeGeometry.height = CGFloat(anchor.extent.z)
 //        self.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
