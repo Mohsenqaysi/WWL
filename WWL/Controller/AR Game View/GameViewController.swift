@@ -167,7 +167,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         if let selectedItem = self.selectedItem {
             // When Plane is detected, place the object on that
             let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")
-            let node = (scene?.rootNode.childNode(withName: selectedItem,recursively:false))!
+            let node = (scene?.rootNode.childNode(withName: selectedItem, recursively:false))!
             // Get transform matrix to get the values to place objects right on top of horzontal surface detected
             let transform = hitTestResult.worldTransform
             // Position of detected surface is in 3rd column of transform matrix
@@ -178,18 +178,21 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             //            node.position = SCNVector3(thirdColumn.x,thirdColumn.y,thirdColumn.z)
             
             print("added node location: \(node.position)")
-            
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
-            node.name = BoxBodyTypeName.counter.toString() //"Counter"
-            node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-            node.physicsBody?.categoryBitMask = BoxBodyType.bullet.toInt()
-            node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
-            node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
+            ApplyPhysices(node: node)
             self.sceneView.scene.rootNode.addChildNode(node)
             if !doesNotEqualToStaticNodes(nodeName: node.name) {
                 //                SCNNode().addFloatingAnimationToNode(node: node)
             }
         }
+    }
+    
+    fileprivate func ApplyPhysices(node: SCNNode){
+        node.name = BoxBodyTypeName.counter.toString() //"Counter"
+        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        node.physicsBody?.categoryBitMask = BoxBodyType.bullet.toInt()
+        node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
+        node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
     }
     
     // MARK: Renderer SCNNodes
@@ -240,6 +243,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         addFarm()
     }
     
+    // MARK: - AddFarm
     fileprivate func addFarm(){
         let x = CGFloat(planeAnchor.center.x)
         let y = CGFloat(planeAnchor.center.y)
@@ -267,8 +271,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         polyPlanefinalNode.position = SCNVector3(x,y,z)
         
         anchorNode.addChildNode(polyPlanefinalNode)
+        addStartingCounters(polyPlanefinalNode)
         self.polyPlanefinalNode.opacity = 0
        
+        // Animate the Main Node into the view
         DispatchQueue.main.async {
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 1.5
@@ -289,6 +295,23 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         }
     }
     
+    func addStartingCounters(_ parentNode: SCNNode){
+        // check the number of
+        guard let blueCounterSCNScene = SCNScene(named: "Models.scnassets/blueCounter.scn") else {
+            print("blueCounterSCNScene was not found...")
+            return
+        }
+        
+        let blueCounterNode = (blueCounterSCNScene.rootNode.childNode(withName: "blueCounter", recursively: false))!
+        ApplyPhysices(node: blueCounterNode)
+        blueCounterNode.position = counterBaseOneNode.position
+        print("counterBaseOneNode: \(counterBaseOneNode.eulerAngles.x)")
+        blueCounterNode.eulerAngles.x = counterBaseOneNode.eulerAngles.x
+        // add the node to the view
+        parentNode.addChildNode(blueCounterNode)
+        
+    }
+
     // check the anchor before add the node ... if a node already being added do not update it's postion.
     var didAddedParentNode: Bool = true
     var uuidString: String! = nil

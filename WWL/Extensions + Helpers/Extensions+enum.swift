@@ -125,7 +125,7 @@ extension UIButton {
     func blinkingButtonEffect(duration: TimeInterval = 0.4) {
             self.alpha = 0
             UIView.animate(withDuration: duration, delay: 0, options: [.repeat, .curveEaseInOut], animations: {
-                UIView.setAnimationRepeatCount(5)
+                UIView.setAnimationRepeatCount(3)
                 self.alpha = 1
             }, completion: nil)
     }
