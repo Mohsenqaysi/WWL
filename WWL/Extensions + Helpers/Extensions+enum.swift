@@ -14,7 +14,7 @@ import Firebase
 let userDefult = UserDefaults.standard
 let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"
 
-enum BoxBodyType : Int {
+enum BoxBodyType: Int {
     case bullet = 1
     case barrier = 2
     func toInt() -> Int {
@@ -120,6 +120,13 @@ extension UIButton {
         self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: { [weak self] in
             self?.transform = .identity
+            }, completion: nil)
+    }
+    func blinkingButtonEffect(duration: TimeInterval = 0.4) {
+            self.alpha = 0
+            UIView.animate(withDuration: duration, delay: 0, options: [.repeat, .curveEaseInOut], animations: {
+                UIView.setAnimationRepeatCount(5)
+                self.alpha = 1
             }, completion: nil)
     }
 }

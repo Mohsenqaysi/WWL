@@ -20,9 +20,24 @@ class LevelsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        checkAnswers()
     }
-    
+    func checkAnswers() {
+        // MARK:- Increment the index manually
+        print("*_______________*")
+        for index in 1..<moduleTwoArrayAnswers.count {
+            if let counterChanged = moduleTwoArrayAnswers[index].counterChanged {
+                let counterDidNotChanged = counterChanged == 1 ? 2 : 1
+                let changedColor = (counterChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
+                let didNotchangedColor = (counterDidNotChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
+                //        print("|\(changedColor)  |  \(didNotchangedColor)|")
+                print("counterChanged: \(counterChanged) -> \(changedColor)")
+                print("\(counterDidNotChanged) -> \(didNotchangedColor) is locked")
+                print("--------------------------")
+            }
+        }
+        print("*_______________*")
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))

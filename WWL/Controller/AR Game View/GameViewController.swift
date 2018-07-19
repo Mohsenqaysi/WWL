@@ -64,12 +64,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         // MARK: - enable physicsWorld contact
         self.sceneView.scene.physicsWorld.contactDelegate = self
     }
+    
     // MARK: registerGestureRecognizers
     func registerGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panned))
         self.sceneView.addGestureRecognizer(panGestureRecognizer)
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        self.sceneView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    @objc func longPress(sender: UILongPressGestureRecognizer){
     }
     
     // Function to Detect Tap
@@ -220,6 +225,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                 print("ogiginal planeAnchor location: \(self.planeAnchor.center)")
                 print("uuidString: \(self.uuidString)")
                 self.touchIconButton.isHidden = false
+                self.touchIconButton.blinkingButtonEffect(duration: 0.5)
             }
         }
         print("-----------------------------------------------------------------------")
@@ -230,6 +236,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     }
     
     @IBAction func touchIconButtonAction(_ sender: UIButton) {
+        print("touchIconButtonAction was pressed...")
         addFarm()
     }
     
@@ -264,7 +271,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
        
         DispatchQueue.main.async {
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 5.0
+            SCNTransaction.animationDuration = 1.5
             self.polyPlanefinalNode.opacity = 1
             self.overlayPlane.opacity = 0
             SCNTransaction.commit()
@@ -274,7 +281,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         }
         print("node was added..")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.touchIconButton.isHidden = true
             // Unhide the itemsCollectionView
             self.itemsCollectionView.isHidden = false

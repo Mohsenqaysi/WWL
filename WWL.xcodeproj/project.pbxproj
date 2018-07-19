@@ -28,8 +28,7 @@
 		FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */; };
 		FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */; };
 		FCE5022F20EFB51A002C843D /* FirebaseNetworkingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */; };
-		FCE77C3F20EB9D2A00B9C72C /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE77C3E20EB9D2A00B9C72C /* VideoPlayerViewController.swift */; };
-		FCE86C8620FB95E5005AD411 /* DataStucture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE86C8520FB95E4005AD411 /* DataStucture.swift */; };
+		FCE86C8620FB95E5005AD411 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE86C8520FB95E4005AD411 /* GameModel.swift */; };
 		FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF3CEAF20E915F500817259 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,8 +58,7 @@
 		FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuSound.mp3; sourceTree = "<group>"; };
 		FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAudioPlayer.swift; sourceTree = "<group>"; };
 		FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkingCall.swift; sourceTree = "<group>"; };
-		FCE77C3E20EB9D2A00B9C72C /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
-		FCE86C8520FB95E4005AD411 /* DataStucture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStucture.swift; sourceTree = "<group>"; };
+		FCE86C8520FB95E4005AD411 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		FCF3CEAF20E915F500817259 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,19 +97,25 @@
 				FC41641620FFC07B007CC2DD /* OverlayPlane.swift */,
 				FC587D9720FA3AF40011C22A /* GameViewController.swift */,
 				FC587D9920FA3BBE0011C22A /* itemCell.swift */,
-				FCE86C8520FB95E4005AD411 /* DataStucture.swift */,
 			);
 			path = "AR Game View";
+			sourceTree = "<group>";
+		};
+		FC6EED232100F90E00E8899B /* Game Model */ = {
+			isa = PBXGroup;
+			children = (
+				FCE86C8520FB95E4005AD411 /* GameModel.swift */,
+			);
+			path = "Game Model";
 			sourceTree = "<group>";
 		};
 		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FC587D9D20FA47C00011C22A /* AR Game View */,
-				FCE77C3D20EB9CB300B9C72C /* Video Player */,
-				FCC73DA020EAC83000F015D9 /* Levels */,
-				FCF3CEAE20E915D500817259 /* Main */,
 				FC8A06EA20E2AE06002E367A /* Registration */,
+				FCF3CEAE20E915D500817259 /* Main */,
+				FCC73DA020EAC83000F015D9 /* Levels */,
+				FC587D9D20FA47C00011C22A /* AR Game View */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,6 +172,7 @@
 			children = (
 				FCD5AA5E20E2951C00535845 /* AppDelegate.swift */,
 				FC8A06F120E2C01F002E367A /* Extensions + Helpers */,
+				FC6EED232100F90E00E8899B /* Game Model */,
 				FCE5022D20EFB4FE002C843D /* Networking */,
 				FC8A06E920E2ADEF002E367A /* Controller */,
 				FCDB2D8320FCEC570023FA1C /* Assets.xcassets */,
@@ -185,14 +190,6 @@
 				FCE5022E20EFB51A002C843D /* FirebaseNetworkingCall.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		FCE77C3D20EB9CB300B9C72C /* Video Player */ = {
-			isa = PBXGroup;
-			children = (
-				FCE77C3E20EB9D2A00B9C72C /* VideoPlayerViewController.swift */,
-			);
-			path = "Video Player";
 			sourceTree = "<group>";
 		};
 		FCF3CEAE20E915D500817259 /* Main */ = {
@@ -334,13 +331,12 @@
 				FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */,
 				FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */,
 				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
-				FCE86C8620FB95E5005AD411 /* DataStucture.swift in Sources */,
+				FCE86C8620FB95E5005AD411 /* GameModel.swift in Sources */,
 				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,
 				FCE5022F20EFB51A002C843D /* FirebaseNetworkingCall.swift in Sources */,
 				FCF3CEB020E915F500817259 /* SettingsViewController.swift in Sources */,
 				FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */,
-				FCE77C3F20EB9D2A00B9C72C /* VideoPlayerViewController.swift in Sources */,
 				FC8A06F020E2B1ED002E367A /* SignUpViewController.swift in Sources */,
 				FCDE6EEE20E93459004348F0 /* MainViewController.swift in Sources */,
 				FC41641720FFC07B007CC2DD /* OverlayPlane.swift in Sources */,
