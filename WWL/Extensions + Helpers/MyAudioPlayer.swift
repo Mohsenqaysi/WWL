@@ -5,7 +5,7 @@
 //  Created by Mohsen Qaysi on 7/1/18.
 //  Copyright © 2018 Mohsen Qaysi. All rights reserved.
 //
-// COPY RIGHT: https://stackoverflow.com/questions/34435387/how-to-implement-avaudioplayer-inside-singleton-method
+// COPYRIGHT: https://stackoverflow.com/questions/34435387/how-to-implement-avaudioplayer-inside-singleton-method
 
 import Foundation
 import AVFoundation

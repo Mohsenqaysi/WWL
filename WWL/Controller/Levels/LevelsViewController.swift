@@ -25,15 +25,22 @@ class LevelsViewController: UIViewController {
     func checkAnswers() {
         // MARK:- Increment the index manually
         print("*_______________*")
-        for index in 1..<moduleTwoArrayAnswers.count {
-            if let counterChanged = moduleTwoArrayAnswers[index].counterChanged {
-                let counterDidNotChanged = counterChanged == 1 ? 2 : 1
-                let changedColor = (counterChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
-                let didNotchangedColor = (counterDidNotChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
-                //        print("|\(changedColor)  |  \(didNotchangedColor)|")
-                print("counterChanged: \(counterChanged) -> \(changedColor)")
-                print("\(counterDidNotChanged) -> \(didNotchangedColor) is locked")
-                print("--------------------------")
+        // This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
+        for (index,v) in testCounterProperty.enumerated() {
+            v.forEach {
+                if index != 0 {
+                    let key = $0.key
+                    let path = "index: \(index)\n Sound-Sequencing.module02/\($0.key).mp3"
+                    print("key: \(key)\n \(path)")
+                    for vlaues in $0.value.enumerated() {
+                        let colorID = vlaues.element.color
+                        let color = (vlaues.element.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
+                        if  vlaues.element.counterChanged == true {
+                            let counterChanged = vlaues.element.counterChanged == true
+                            print(" \(colorID) -> \(color) -> \(counterChanged)")
+                        }
+                    }
+                }
             }
         }
         print("*_______________*")

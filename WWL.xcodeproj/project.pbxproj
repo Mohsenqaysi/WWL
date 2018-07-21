@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */; };
+		FC20EE4121038B2B0068CDAE /* sound-sequencing in Resources */ = {isa = PBXBuildFile; fileRef = FC20EE4021038B2B0068CDAE /* sound-sequencing */; };
 		FC41641720FFC07B007CC2DD /* OverlayPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC41641620FFC07B007CC2DD /* OverlayPlane.swift */; };
 		FC587D9820FA3AF40011C22A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9720FA3AF40011C22A /* GameViewController.swift */; };
 		FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9920FA3BBE0011C22A /* itemCell.swift */; };
@@ -36,6 +37,7 @@
 		383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.release.xcconfig"; sourceTree = "<group>"; };
 		94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.debug.xcconfig"; sourceTree = "<group>"; };
+		FC20EE4021038B2B0068CDAE /* sound-sequencing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-sequencing"; sourceTree = "<group>"; };
 		FC41641620FFC07B007CC2DD /* OverlayPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPlane.swift; sourceTree = "<group>"; };
 		FC587D9720FA3AF40011C22A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FC587D9920FA3BBE0011C22A /* itemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemCell.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				FC587D9B20FA3D4B0011C22A /* Models.scnassets */,
+				FC20EE4021038B2B0068CDAE /* sound-sequencing */,
 				FCD5AA5D20E2951B00535845 /* WWL */,
 				FCD5AA5C20E2951B00535845 /* Products */,
 				AC848AD32736C035635D3516 /* Pods */,
@@ -263,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC20EE4121038B2B0068CDAE /* sound-sequencing in Resources */,
 				FC587D9C20FA3D4C0011C22A /* Models.scnassets in Resources */,
 				FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */,
 				FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */,

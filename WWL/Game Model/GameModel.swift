@@ -8,104 +8,58 @@
 
 import Foundation
 
-struct Game {
-    let key: String
-    let blue: Int
-    let green: Int
-    let counterChanged: Int?
-}
 enum CounterColor: Int {
-    case blue = 1
-    case green = 2
+    case blueColor = 1
+    case greenColor = 2
     func toInt() -> Int {
         return self.rawValue
     }
 }
 
-let moduleTwoArrayAnswers: [Game] = [
-    Game(key: "k_a", blue: 1, green: 2, counterChanged: nil),
-    Game(key: "k_u", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "t_u", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "t_ee", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "t_ae", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "l_ae", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "l_ar", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "ch_ar", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "ch_oy", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "ch_ow", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "th_ow", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "th_ae", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "r_ae", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "r_i", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "j_i", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "j_au", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "h_au", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "h_ir", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "p_ir", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "b_ir", blue: 1, green: 2, counterChanged: 1)
+struct CounterProperty {
+    let color: Int
+    let counterChanged: Bool
+}
+
+// I like this one the most
+var testCounterProperty: [[String : [CounterProperty]]] = [
+    ["k_a" : [CounterProperty(color: 1, counterChanged: false),CounterProperty(color: 2, counterChanged: false)]],
+    ["k_u" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["t_u" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["t_ee" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["t_ae" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["l_ae" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["l_ar" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["ch_ar" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["ch_oy" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["ch_ow" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["th_ow" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["th_ae" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["r_ae" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["r_i" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["j_i" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["j_au" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["h_au" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["h_ir" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
+    ["p_ir" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
+    ["b_ir" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]]
 ]
 
-var moduleTwoUserAnsers: [Game] = [
-    Game(key: "k_u", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "t_u", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "t_ee", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "t_ae", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "l_ae", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "l_ar", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "ch_ar", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "ch_oy", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "ch_ow", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "th_ow", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "th_ae", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "r_ae", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "r_i", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "j_i", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "j_au", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "h_au", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "h_ir", blue: 1, green: 2, counterChanged: 2),
-    Game(key: "p_ir", blue: 1, green: 2, counterChanged: 1),
-    Game(key: "b_ir", blue: 1, green: 2, counterChanged: 1)
-]
-
-//// MARK:- Increment the index manually
-//print("*_______________*")
-//for index in 1..<moduleTwoArrayAnswers.count {
-//    if let counterChanged = moduleTwoArrayAnswers[index].counterChanged {
-//        let counterDidNotChanged = counterChanged == 1 ? 2 : 1
-//        let changedColor = (counterChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
-//        let didNotchangedColor = (counterDidNotChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
-//        //        print("|\(changedColor)  |  \(didNotchangedColor)|")
-//        print("counterChanged: \(counterChanged) -> \(changedColor)")
-//        print("\(counterDidNotChanged) -> \(didNotchangedColor) is locked")
-//        print("--------------------------")
-//    }
-//}
-//print("*_______________*")
-
-
-
-//moduleTwoArrayAnswers.index(after: 1)
-//for value in moduleTwoArrayAnswers.index(after: 1) {
-//    print(value)
-//    // for j in 0...moduleTwoUserAnsers.count {
-//    //     // print(moduleTwoArrayAnswers[i])
-//    //     // print(moduleTwoUserAnsers[j])
-//    //       print("\(i) - \(j)")
-//
-//    // }
-//    //statements of outerloop
-//}
-
-// for userAnsers in moduleTwoArrayAnswers {
-//     print(userAnsers)
-// }
-
-// for soundSequence in moduleTwoArrayAnswers {
-//    if soundSequence.counterChanged != nil {
-//        // print("Sound-Sequencing.module02/\(soundSequence.key).mp3")
-//        if let counterChanged = soundSequence.counterChanged {
-//            let changedColor = (counterChanged == CounterColor.blue.toInt()) ? CounterColor.blue : CounterColor.green
-//        print("\(counterChanged) -> \(changedColor)  ")
+//// This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
+//for (index,v) in testCounterProperty.enumerated() {
+//    v.forEach {
+//        if index != 0 {
+//            let key = $0.key
+//            let path = "index: \(index)\n Sound-Sequencing.module02/\($0.key).mp3"
+//            print("key: \(key)\n \(path)")
+//            for vlaues in $0.value.enumerated() {
+//                let colorID = vlaues.element.color
+//                let color = (vlaues.element.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
+//                if  vlaues.element.counterChanged == true {
+//                    let counterChanged = vlaues.element.counterChanged == true
+//                    print(" \(colorID) -> \(color) -> \(counterChanged)")
+//                }
+//            }
 //        }
 //    }
-// }
+//}

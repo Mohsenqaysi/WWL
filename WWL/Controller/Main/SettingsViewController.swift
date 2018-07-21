@@ -68,8 +68,8 @@ class SettingsViewController: UIViewController {
         soundIsON.setOn(userDefult.bool(forKey: Keys.menuSoundKye.rawValue), animated: true)
         isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
         if let time = userDefult.string(forKey: "time"){
-        print("userDefults time: \(time)")
-        setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
+            print("userDefults time: \(time)")
+            setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
         }
     }
     
@@ -124,7 +124,7 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
         cancelButton.setTitleTextAttributes([NSAttributedStringKey.font: font],for: .normal)
-
+        
         // Set toolBar buttons
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         // MARK: - add stackViews to the settingsContainorView
@@ -152,7 +152,7 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
     }
     
     fileprivate func formatAndSetTimeLable() {
-
+        
         
         if let time = try? formateTime(dateComponents: notificatioRequestDateComponents!) {
             setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
@@ -184,8 +184,8 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.sound = UNNotificationSound.default()
-//        guard let hour = pickeddateComponents.hour, pickeddateComponents.hour != nil else { return}
-//        guard let mintues = pickeddateComponents.minute, pickeddateComponents.minute != nil else {return}
+        //        guard let hour = pickeddateComponents.hour, pickeddateComponents.hour != nil else { return}
+        //        guard let mintues = pickeddateComponents.minute, pickeddateComponents.minute != nil else {return}
         let time = try! formateTime(dateComponents: pickeddateComponents)
         content.title = "It's time for fun 😊 \(time)"
         content.body = "Do you know that practice makes perfect"
