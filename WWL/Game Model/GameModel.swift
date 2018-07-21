@@ -21,45 +21,46 @@ struct CounterProperty {
     let counterChanged: Bool
 }
 
-// I like this one the most
-var testCounterProperty: [[String : [CounterProperty]]] = [
-    ["k_a" : [CounterProperty(color: 1, counterChanged: false),CounterProperty(color: 2, counterChanged: false)]],
-    ["k_u" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["t_u" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["t_ee" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["t_ae" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["l_ae" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["l_ar" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["ch_ar" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["ch_oy" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["ch_ow" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["th_ow" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["th_ae" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["r_ae" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["r_i" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["j_i" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["j_au" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["h_au" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["h_ir" : [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]],
-    ["p_ir" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]],
-    ["b_ir" : [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]]
+struct GameModel {
+    let key: String
+    let CounterProperty: [CounterProperty]
+}
+
+var Model02: [GameModel] = [
+    GameModel(key: "k_a", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "k_u", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "t_u", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "t_ee", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "t_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "l_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "l_ar" , CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "ch_ar", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "ch_oy", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "ch_ow", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "th_ow", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "th_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "r_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "r_i", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "j_i", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "j_au", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "h_au", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "h_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "p_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "b_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)])
 ]
 
-//// This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
-//for (index,v) in testCounterProperty.enumerated() {
-//    v.forEach {
-//        if index != 0 {
-//            let key = $0.key
-//            let path = "index: \(index)\n Sound-Sequencing.module02/\($0.key).mp3"
-//            print("key: \(key)\n \(path)")
-//            for vlaues in $0.value.enumerated() {
-//                let colorID = vlaues.element.color
-//                let color = (vlaues.element.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
-//                if  vlaues.element.counterChanged == true {
-//                    let counterChanged = vlaues.element.counterChanged == true
-//                    print(" \(colorID) -> \(color) -> \(counterChanged)")
-//                }
-//            }
+var allLevelsDataArray = [Model02]
+
+//for (index,v) in allLevelsDataArray[0].enumerated() {
+//    let key = v.key
+//    let path = "index: \(index)\n Sound-Sequencing.module02/\(v.key).mp3"
+//    print("key: \(key)\n \(path)")
+//    v.CounterProperty.forEach { (counter) in
+//        let colorID = counter.color
+//        let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
+//        if counter.counterChanged == true {
+//            let counterChanged = counter.counterChanged == true
+//            print(" \(colorID) -> \(color) -> \(counterChanged)")
 //        }
 //    }
 //}

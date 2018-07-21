@@ -13,6 +13,8 @@ import AVKit
 
 class LevelsViewController: UIViewController {
     
+    var gameLevelsDataArray: [[GameModel]] = allLevelsDataArray
+    
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         self.dismiss(animated: true, completion: nil)
@@ -22,24 +24,21 @@ class LevelsViewController: UIViewController {
         super.viewDidLoad()
         checkAnswers()
     }
+    
     func checkAnswers() {
         // MARK:- Increment the index manually
         print("*_______________*")
         // This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
-        for (index,v) in testCounterProperty.enumerated() {
-            v.forEach {
-                if index != 0 {
-                    let key = $0.key
-                    let path = "index: \(index)\n Sound-Sequencing.module02/\($0.key).mp3"
-                    print("key: \(key)\n \(path)")
-                    for vlaues in $0.value.enumerated() {
-                        let colorID = vlaues.element.color
-                        let color = (vlaues.element.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
-                        if  vlaues.element.counterChanged == true {
-                            let counterChanged = vlaues.element.counterChanged == true
-                            print(" \(colorID) -> \(color) -> \(counterChanged)")
-                        }
-                    }
+        for (index,v) in gameLevelsDataArray[0].enumerated() {
+            let key = v.key
+            let path = "index: \(index)\n Sound-Sequencing.module02/\(v.key).mp3"
+            print("key: \(key)\n \(path)")
+            v.CounterProperty.forEach { (counter) in
+                let colorID = counter.color
+                let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
+                if counter.counterChanged == true {
+                    let counterChanged = counter.counterChanged == true
+                    print(" \(colorID) -> \(color) -> \(counterChanged)")
                 }
             }
         }
