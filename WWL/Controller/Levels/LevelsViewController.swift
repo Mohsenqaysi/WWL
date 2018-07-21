@@ -13,6 +13,7 @@ import AVKit
 
 class LevelsViewController: UIViewController {
     
+    @IBOutlet weak var levelCollectionView: UICollectionView!
     var gameLevelsDataArray: [[GameModel]] = allLevelsDataArray
     
     @IBAction func exitGame(_ sender: UIButton) {
@@ -29,11 +30,12 @@ class LevelsViewController: UIViewController {
         // MARK:- Increment the index manually
         print("*_______________*")
         // This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
-        for (index,v) in gameLevelsDataArray[0].enumerated() {
-            let key = v.key
-            let path = "index: \(index)\n Sound-Sequencing.module02/\(v.key).mp3"
+        for (index,value) in gameLevelsDataArray[0].enumerated() {
+            let key = value.key
+            let path = "index: \(index)\n Sound-Sequencing.module02/\(value.key).mp3"
             print("key: \(key)\n \(path)")
-            v.CounterProperty.forEach { (counter) in
+            // Loop over all innder counters
+            value.CounterProperty.forEach { (counter) in
                 let colorID = counter.color
                 let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
                 if counter.counterChanged == true {
@@ -59,7 +61,8 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        // The first cell contians the introduction Video
+        return gameLevelsDataArray.count.advanced(by: 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,7 +80,19 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         }
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // pass the Model data to the GameView
+        if segue.identifier == Identifiers.presentGameViewSegue {
+            if let destination = segue.destination as? GameViewController {
+                if let indexPathItem = levelCollectionView.indexPathsForSelectedItems?.first?.item {
+                    print("\(indexPathItem)")
+                    // The selected cell is one ... but the array starts at zero, so we take one away
+                    let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
+                    destination.levelDataArray = selectedData
+                }
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath)

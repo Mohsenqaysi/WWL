@@ -525,6 +525,7 @@
                         <viewLayoutGuide key="safeArea" id="f0J-Py-dE4"/>
                     </view>
                     <connections>
+                        <outlet property="levelCollectionView" destination="8TQ-wM-4tL" id="S4K-6u-hpA"/>
                         <segue destination="c9r-TF-3xL" kind="show" identifier="presentGameViewSegue" id="1vU-2V-UD0"/>
                     </connections>
                 </viewController>

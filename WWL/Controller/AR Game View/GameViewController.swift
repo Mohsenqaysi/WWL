@@ -11,6 +11,13 @@ import ARKit
 
 class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
     
+    var levelDataArray = [GameModel]() {
+        didSet {
+            print("levelDataArray was set")
+            //            print(levelDataArray)
+        }
+    }
+    
     @IBOutlet weak var touchIconButton: UIButton!
     @IBOutlet weak var statusLable: UITextView!
     
@@ -273,7 +280,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         anchorNode.addChildNode(polyPlanefinalNode)
         addStartingCounters(polyPlanefinalNode)
         self.polyPlanefinalNode.opacity = 0
-       
+        
         // Animate the Main Node into the view
         DispatchQueue.main.async {
             SCNTransaction.begin()
@@ -311,7 +318,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         parentNode.addChildNode(blueCounterNode)
         
     }
-
+    
     // check the anchor before add the node ... if a node already being added do not update it's postion.
     var didAddedParentNode: Bool = true
     var uuidString: String! = nil
@@ -479,6 +486,4 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             // camera.trackingState is normal ... hide the statusLable
         }
     }
-    
 }
-
