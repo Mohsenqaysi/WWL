@@ -86,9 +86,11 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
             if let destination = segue.destination as? GameViewController {
                 if let indexPathItem = levelCollectionView.indexPathsForSelectedItems?.first?.item {
                     print("\(indexPathItem)")
-                    // The selected cell is one ... but the array starts at zero, so we take one away
-                    let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
-                    destination.levelDataArray = selectedData
+                    if indexPathItem != 0 {
+                        // The selected cell is one ... but the array starts at zero, so we take one away
+                        let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
+                        destination.levelDataArray = selectedData
+                    }
                 }
             }
         }

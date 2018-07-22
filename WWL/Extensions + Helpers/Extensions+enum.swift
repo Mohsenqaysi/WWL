@@ -34,6 +34,8 @@ enum StaticNodes: String {
     case farmPlanefinal
     case counterBaseOneNode
     case counterBaseTwoNode
+    case counterBaseThreeNode
+    case counterBaseFourNode
     func toString() -> String {
         return self.rawValue
     }
@@ -81,7 +83,18 @@ struct Identifiers {
     static let CellID = "CellID"
     static let LevelsViewControllerCell = "LevelsViewControllerCell"
     static let itemID = "item"
+    // Nodes IDs
+    static let blueCounter = "blueCounter"
+    static let greenCounter = "greenCounter"
+    
+    // Counters Names
+    static let blueCounterNodeOne = "blueCounterNodeOne"
+    static let blueCounterNodeTwo = "blueCounterNodeTwo"
+    static let blueCounterNodeThree = "blueCounterNodeThree"
+    static let greenCounterNodeOne = "greenCounterNodeOne"
 }
+
+
 
 enum Keys: String {
     case menuSoundKye = "MenuSoundKye"
@@ -201,11 +214,9 @@ enum CamerStatus: String {
 
 
 struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
-    static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "GreenColor" ]
-    static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "BlueColor"]
+    static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "greenColor" ]
+    static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "blueColor"]
 }
-
-
 
 extension SCNNode {
     // MARK: set up aniamtion

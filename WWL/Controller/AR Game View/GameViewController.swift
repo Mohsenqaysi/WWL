@@ -9,11 +9,13 @@
 import UIKit
 import ARKit
 
-class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
+class GameViewController: UIViewController, ARSCNViewDelegate {
     
     var levelDataArray = [GameModel]() {
         didSet {
-            print("levelDataArray was set")
+            print("levelDataArray was set: ")
+            print(levelDataArray.first?.CounterProperty.count.description)
+            print(levelDataArray.count)
             //            print(levelDataArray)
         }
     }
@@ -68,11 +70,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         self.sceneView.delegate = self
         // Add Omnidirectional Light
         self.sceneView.autoenablesDefaultLighting = true
-        // MARK: - enable physicsWorld contact
+        // Enable physicsWorld contact
         self.sceneView.scene.physicsWorld.contactDelegate = self
     }
     
-    // MARK: registerGestureRecognizers
+    // MARK: Register Gesture Recognizers
     func registerGestureRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
@@ -81,6 +83,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
         self.sceneView.addGestureRecognizer(longPressGestureRecognizer)
     }
+    
+    // MARK: GestureRecognizer
+    // TODO: - LongPress
     @objc func longPress(sender: UILongPressGestureRecognizer){
     }
     
@@ -112,7 +117,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
                 let transform = hit.worldTransform.columns.3
                 // call the setCurrentObjectPostion on the plane
                 if let node = parnatNode {
-                    if !doesNotEqualToStaticNodes(nodeName: node.name) {
+                    if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                         currentPossion = SCNVector3(transform.x,(transform.y + yChildNodePosition),transform.z)
                         setCurrentObjectPostion(for: node, at: currentPossion!)
                     } else {
@@ -124,7 +129,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         }
         if recognizer.state == .ended {
             if  let node = parnatNode {
-                if !doesNotEqualToStaticNodes(nodeName: node.name) {
+                if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                 } else {
                     print("\(StaticNodes.farmPlanefinal.toString()) was found")
                     print("node is set to nil")
@@ -133,14 +138,20 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             }
         }
     }
+    var staticBaseNodes = [StaticNodes.counterBaseOneNode.toString(),
+                           StaticNodes.counterBaseTwoNode.toString(),
+                           StaticNodes.counterBaseThreeNode.toString(),
+                           StaticNodes.counterBaseFourNode.toString()
+    ]
+    var nodesThatDidNotChnage: [String] =  []
     
-    fileprivate func doesNotEqualToStaticNodes(nodeName: String?) -> Bool {
+    fileprivate func doesNotEqualToStaticNodes(nodeName: String) -> Bool {
         switch nodeName {
         case StaticNodes.farmPlanefinal.toString():
             return true
-        case StaticNodes.counterBaseOneNode.toString():
+        case _ where staticBaseNodes.contains(nodeName):
             return true
-        case StaticNodes.counterBaseTwoNode.toString():
+        case _ where nodesThatDidNotChnage.contains(nodeName):
             return true
         default:
             return false
@@ -156,7 +167,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             guard let nodeName = hitNode.node.name else {return}
             print("nodeName: \(nodeName)")
             parnatNode = hitNode.node
-            // TODO: - check if the found node is movebale or not
+            // TODO: - Check if the found node is movebale or not
             print("virtualObject was found")
         }
     }
@@ -170,7 +181,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     }
     
     // Function to Place items on a Horizontal Surface
-    func addItem(hitTestResult: ARHitTestResult){
+    fileprivate func addItem(hitTestResult: ARHitTestResult){
         if let selectedItem = self.selectedItem {
             // When Plane is detected, place the object on that
             let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")
@@ -186,21 +197,14 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             
             print("added node location: \(node.position)")
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
-            ApplyPhysices(node: node)
+            ApplyPhysices(node: node, name: node.name!)
             self.sceneView.scene.rootNode.addChildNode(node)
-            if !doesNotEqualToStaticNodes(nodeName: node.name) {
+            if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                 //                SCNNode().addFloatingAnimationToNode(node: node)
             }
         }
     }
     
-    fileprivate func ApplyPhysices(node: SCNNode){
-        node.name = BoxBodyTypeName.counter.toString() //"Counter"
-        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        node.physicsBody?.categoryBitMask = BoxBodyType.bullet.toInt()
-        node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
-        node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
-    }
     
     // MARK: Renderer SCNNodes
     let farmPlanefinal = "farmPlanefinal"
@@ -211,6 +215,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
     var planScene: SCNScene!
     var counterBaseOneNode: SCNNode!
     var counterBaseTwoNode: SCNNode!
+    var counterBaseThreeNode: SCNNode!
+    var counterBaseFourNode: SCNNode!
     
     // polyPlanefinalScene
     var polyPlanefinalScene: SCNScene!
@@ -250,6 +256,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         addFarm()
     }
     
+    fileprivate func setUpbaseCounterPhysics(parantScene: SCNScene, childName: String) -> SCNNode {
+        let childNode: SCNNode!
+        childNode = parantScene.rootNode.childNode(withName: childName, recursively: true)
+        childNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        childNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
+        return childNode
+    }
     // MARK: - AddFarm
     fileprivate func addFarm(){
         let x = CGFloat(planeAnchor.center.x)
@@ -263,15 +276,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         polyPlanefinalNode = polyPlanefinalScene.rootNode.childNode(withName: "\(StaticNodes.farmPlanefinal.toString())", recursively: false)
         
         // counterBaseOne
-        counterBaseOneNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseOneNode.toString(), recursively: true)
-        counterBaseOneNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        counterBaseOneNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-        
+        counterBaseOneNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseOneNode.toString())
         // counterBaseTwo
-        counterBaseTwoNode = polyPlanefinalScene.rootNode.childNode(withName: StaticNodes.counterBaseTwoNode.toString(), recursively: true)
-        counterBaseTwoNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        counterBaseTwoNode.physicsBody?.categoryBitMask = BoxBodyType.barrier.rawValue
-        
+        counterBaseTwoNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseTwoNode.toString())
+        // counterBaseThreeNode
+        counterBaseThreeNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseThreeNode.toString())
+        // counterBaseFourNode
+        counterBaseFourNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseFourNode.toString())
+      
+        [counterBaseOneNode,counterBaseTwoNode,counterBaseThreeNode,counterBaseFourNode].forEach {
+            $0?.isHidden = true
+        }
         // Add the base node
         polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
         polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
@@ -284,7 +299,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         // Animate the Main Node into the view
         DispatchQueue.main.async {
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 1.5
+            SCNTransaction.animationDuration = 1.0
             self.polyPlanefinalNode.opacity = 1
             self.overlayPlane.opacity = 0
             SCNTransaction.commit()
@@ -294,7 +309,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         }
         print("node was added..")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.touchIconButton.isHidden = true
             // Unhide the itemsCollectionView
             self.itemsCollectionView.isHidden = false
@@ -302,21 +317,100 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         }
     }
     
+    fileprivate func ApplyPhysices(node: SCNNode, name: String){
+        node.name = name// BoxBodyTypeName.counter.toString() //"Counter"
+        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        node.physicsBody?.categoryBitMask = BoxBodyType.bullet.toInt()
+        node.physicsBody?.contactTestBitMask = BoxBodyType.barrier.toInt()
+        node.physicsBody?.isAffectedByGravity = false // stop it from falling to the ground
+    }
+    
+    var blueCounterNodeOne: SCNNode!
+    var blueCounterNodeTwo: SCNNode!
+    var blueCounterNodeThree: SCNNode!
+    var greenCounterNodeOne: SCNNode!
+    
+    //MARK:-  Setup the inital game Counters in the view
     func addStartingCounters(_ parentNode: SCNNode){
+        var countersArray = [SCNNode]()
         // check the number of
-        guard let blueCounterSCNScene = SCNScene(named: "Models.scnassets/blueCounter.scn") else {
-            print("blueCounterSCNScene was not found...")
-            return
+        if let numberOfcounters = levelDataArray.first?.CounterProperty.count {
+            print("number of counters: \(numberOfcounters)")
         }
         
-        let blueCounterNode = (blueCounterSCNScene.rootNode.childNode(withName: "blueCounter", recursively: false))!
-        ApplyPhysices(node: blueCounterNode)
-        blueCounterNode.position = counterBaseOneNode.position
-        print("counterBaseOneNode: \(counterBaseOneNode.eulerAngles.x)")
-        blueCounterNode.eulerAngles.x = counterBaseOneNode.eulerAngles.x
-        // add the node to the view
-        parentNode.addChildNode(blueCounterNode)
+        levelDataArray.first?.CounterProperty.forEach { (counter) in
+            if counter.color == CounterColor.blueColor.toInt() {
+                if blueCounterNodeOne == nil {
+                    guard let blueCounterSCNSceneOne = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
+                        print("blueCounterSCNScene was not found...")
+                        return
+                    }
+                    blueCounterNodeOne = (blueCounterSCNSceneOne.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeOne.name = Identifiers.blueCounterNodeOne
+                    countersArray.append(blueCounterNodeOne)
+                } else if blueCounterNodeTwo == nil {
+                    guard let blueCounterSCNSceneTwo = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
+                        print("blueCounterSCNScene was not found...")
+                        return
+                    }
+                    blueCounterNodeTwo = (blueCounterSCNSceneTwo.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeTwo.name = Identifiers.blueCounterNodeTwo
+                    countersArray.append(blueCounterNodeTwo)
+                } else {
+                    guard let blueCounterSCNSceneThree = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
+                        print("blueCounterSCNScene was not found...")
+                        return
+                    }
+                    blueCounterNodeThree = (blueCounterSCNSceneThree.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeThree.name = Identifiers.blueCounterNodeThree
+                    countersArray.append(blueCounterNodeThree)
+                }
+            } else {
+                guard let greenCounterSCNSceneOne = SCNScene(named: "Models.scnassets/\(Identifiers.greenCounter).scn") else {
+                    print("blueCounterSCNScene was not found...")
+                    return
+                }
+                greenCounterNodeOne = (greenCounterSCNSceneOne.rootNode.childNode(withName: Identifiers.greenCounter, recursively: false))!
+                greenCounterNodeOne.name = Identifiers.greenCounterNodeOne
+                countersArray.append(greenCounterNodeOne)
+            }
+        }
         
+        countersArray.forEach {
+            ApplyPhysices(node: $0, name: $0.name!)
+        }
+        // TODO: NodesThatDidNotChnage
+        //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
+        countersArray.forEach { (counter) in
+            switch counter.name {
+            case Identifiers.blueCounterNodeOne:
+                blueCounterNodeOne.position = counterBaseOneNode.position
+                blueCounterNodeOne.eulerAngles.x = counterBaseOneNode.eulerAngles.x
+                counterBaseOneNode.isHidden = false
+            case Identifiers.blueCounterNodeTwo:
+                blueCounterNodeTwo.position = counterBaseTwoNode.position
+                blueCounterNodeTwo.eulerAngles.x = counterBaseTwoNode.eulerAngles.x
+                counterBaseTwoNode.isHidden = false
+            case Identifiers.blueCounterNodeThree:
+                blueCounterNodeThree.position = counterBaseThreeNode.position
+                blueCounterNodeThree.eulerAngles.x = counterBaseThreeNode.eulerAngles.x
+                counterBaseThreeNode.isHidden = false
+            case Identifiers.greenCounterNodeOne:
+                greenCounterNodeOne.position = counterBaseFourNode.position
+                greenCounterNodeOne.eulerAngles.x = counterBaseFourNode.eulerAngles.x
+                counterBaseFourNode.isHidden = false
+            default:
+                return
+            }
+        }
+        //        blueCounterNodeOne.position = counterBaseOneNode.position
+        //        print("counterBaseOneNode: \(counterBaseOneNode.eulerAngles.x)")
+        //        blueCounterNodeOne.eulerAngles.x = counterBaseOneNode.eulerAngles.x
+        // add the node to the view
+        //        parentNode.addChildNode(blueCounterNodeOne)
+        countersArray.forEach {
+            parentNode.addChildNode($0)
+        }
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
@@ -330,10 +424,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             }
         }
     }
-    
-    
+    var lastContactNode: SCNNode!
+}
+
+extension GameViewController: SCNPhysicsContactDelegate {
     // MARK: - PhysicsWorld
-    var lastContactNode :SCNNode!
+    
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         print("physicsWorld I was called...")
@@ -385,14 +481,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
             return
         }
         self.lastContactNode = contactNode
-        
         guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
         print("Box Materials: \(detectedColor)")
         print("********************* Color **************************")
         
         if UIExtendedSRGBColorSpaceToUIColor2.green.keys.first == detectedColor {
             print(UIExtendedSRGBColorSpaceToUIColor2.green.values.first as Any)
-        } else if UIExtendedSRGBColorSpaceToUIColor2.blue.keys.first  == detectedColor {
+        } else if UIExtendedSRGBColorSpaceToUIColor2.blue.keys.first == detectedColor {
             print(UIExtendedSRGBColorSpaceToUIColor2.blue.values.first as Any)
         } else {
             print("new color: \(detectedColor) ")
@@ -400,10 +495,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactD
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
     }
-    
 }
-
-extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+extension GameViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     // How many cells the colection displays
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -434,7 +527,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell?.backgroundColor = (indexPath.row == 0) ?  .clear : .clear
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let viewWidth = Int(self.view.frame.width)
         let CELL_WIDTH = 150
@@ -447,31 +539,28 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         return UIEdgeInsetsMake(0, CGFloat(leftInset), 0, CGFloat(rightInset))
     }
     
-    
     // MARK: - Setup audio playback
     // MARK: - Sound
     /// Sets up the audio for playback.
-    // Tag: - SetUpAudio
+    // SetUpAudio
     private func setUpAudio() {
         // Instantiate the audio source
         if let file = SCNAudioSource(fileNamed: "dropSound.mp3"){
             audioSource = file
         }
         // As an environmental sound layer, audio should play indefinitely
-        //        audioSource.loops = true
         audioSource.loops = false
         // Decode the audio from disk ahead of time to prevent a delay in playback
         audioSource.load()
     }
-    /// Plays a sound on the `objectNode` using SceneKit's positional audio
-    /// - Tag: AddAudioPlayer
+    // Plays a sound on the `objectNode` using SceneKit's positional audio
+    // MARK:- AddAudioPlayer
     private func playSound(for objectNode: SCNNode) {
         // Ensure there is only one audio player
         objectNode.removeAllAudioPlayers()
         // Create a player from the source and add it to `objectNode`
         objectNode.addAudioPlayer(SCNAudioPlayer(source: audioSource))
     }
-    
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         switch camera.trackingState {
