@@ -52,6 +52,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
         self.initialViewSetUp()
         self.registerGestureRecognizers()
+        
+//        for (index,value) in levelDataArray[0].CounterProperty.enumerated() {
+//            print("CounterProperty Index: \(index) CounterProperty: \(value)")
+//        }
     }
     
     fileprivate func initialViewSetUp() {
@@ -330,6 +334,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     var blueCounterNodeThree: SCNNode!
     var greenCounterNodeOne: SCNNode!
     
+    // MARK: - Create Counter Node
     func createCounterNode(counterColorID: Int) -> SCNNode {
         var counterName = ""
         if counterColorID == 1 {
@@ -343,8 +348,59 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
     
     //MARK:-  Setup the inital game Counters in the view
+    fileprivate func setUpCounterspostionsInView(_ countersArray: [SCNNode]) {
+        // TODO: NodesThatDidNotChnage
+        //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
+        for (index,counter) in countersArray.enumerated() {
+            switch index {
+            case 0:
+                counter.position = counterBaseOneNode.position
+                counter.eulerAngles.x = counterBaseOneNode.eulerAngles.x
+                
+                counterBaseOneNode.isHidden = false
+            case 1:
+                counter.position = counterBaseTwoNode.position
+                counter.eulerAngles.x = counterBaseTwoNode.eulerAngles.x
+                counterBaseTwoNode.isHidden = false
+            case 2:
+                counter.position = counterBaseThreeNode.position
+                counter.eulerAngles.x = counterBaseThreeNode.eulerAngles.x
+                counterBaseThreeNode.isHidden = false
+            case 3:
+                counter.position = counterBaseFourNode.position
+                counter.eulerAngles.x = counterBaseFourNode.eulerAngles.x
+                counterBaseFourNode.isHidden = false
+            default:
+                return
+            }
+        }
+    }
+    
+    //MARK: - SetUpStaticCounters
+    func SetUpStaticCounters(CounterPropertyArray: [CounterProperty]){
+        for (indexOfCounterProperty,counterProperty) in CounterPropertyArray.enumerated() {
+            print("CounterProperty Index: \(indexOfCounterProperty) CounterProperty: \(counterProperty)")
+            switch indexOfCounterProperty {
+            case 0...3:
+                let counter = self.countersArray[indexOfCounterProperty]
+                if counterProperty.counterChanged {
+                    counter.addShakingAnimationToNode(node: counter, ShakingDistants: 0.2)
+                    print("counterProperty counter name: \(counter.name!)")
+                    self.nodesThatDidNotChnage.append(counter.name!)
+                }
+            default:
+                return
+            }
+        }
+//        print("CounterPropertyArray size: \(CounterPropertyArray.count)")
+//        for (indexOfCounterProperty,counterProperty) in CounterPropertyArray.enumerated() {
+//            print("indexOfCounterProperty: \(indexOfCounterProperty)")
+//            print("counterProperty: \(counterProperty)")
+//
+    }
+    
+    var countersArray = [SCNNode]()
     func addStartingCounters(_ parentNode: SCNNode){
-        var countersArray = [SCNNode]()
         // check the number of
         if let numberOfcounters = levelDataArray.first?.CounterProperty.count {
             print("number of counters: \(numberOfcounters)")
@@ -377,35 +433,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             ApplyPhysices(node: $0, name: $0.name!)
         }
         print("countersArray: \(countersArray)")
-        // TODO: NodesThatDidNotChnage
-        //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
-        for (index,counter) in countersArray.enumerated() {
-            switch index {
-            case 0:
-                counter.position = counterBaseOneNode.position
-                counter.eulerAngles.x = counterBaseOneNode.eulerAngles.x
-                counterBaseOneNode.isHidden = false
-            case 1:
-                counter.position = counterBaseTwoNode.position
-                counter.eulerAngles.x = counterBaseTwoNode.eulerAngles.x
-                counterBaseTwoNode.isHidden = false
-            case 2:
-                counter.position = counterBaseThreeNode.position
-                counter.eulerAngles.x = counterBaseThreeNode.eulerAngles.x
-                counterBaseThreeNode.isHidden = false
-            case 3:
-                counter.position = counterBaseFourNode.position
-                counter.eulerAngles.x = counterBaseFourNode.eulerAngles.x
-                counterBaseFourNode.isHidden = false
-            default:
-                return
-            }
-        }
-        //        blueCounterNodeOne.position = counterBaseOneNode.position
-        //        print("counterBaseOneNode: \(counterBaseOneNode.eulerAngles.x)")
-        //        blueCounterNodeOne.eulerAngles.x = counterBaseOneNode.eulerAngles.x
-        // add the node to the view
-        //        parentNode.addChildNode(blueCounterNodeOne)
+        setUpCounterspostionsInView(countersArray)
+        let arraySet =  levelDataArray[0].CounterProperty
+        SetUpStaticCounters(CounterPropertyArray: arraySet)
+        // Loop over all counters and add them to the view
         countersArray.forEach {
             parentNode.addChildNode($0)
         }
@@ -427,8 +458,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
 
 extension GameViewController: SCNPhysicsContactDelegate {
     // MARK: - PhysicsWorld
-    
-    
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         print("physicsWorld I was called...")
         /*

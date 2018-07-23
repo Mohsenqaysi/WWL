@@ -38,7 +38,7 @@ class LevelsViewController: UIViewController {
             value.CounterProperty.forEach { (counter) in
                 let colorID = counter.color
                 let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
-                if counter.counterChanged == true {
+                if counter.counterChanged {
                     let counterChanged = counter.counterChanged == true
                     print(" \(colorID) -> \(color) -> \(counterChanged)")
                 }
