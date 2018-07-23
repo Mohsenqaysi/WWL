@@ -8,6 +8,7 @@
 
 import UIKit
 import ARKit
+import AudioToolbox
 
 class GameViewController: UIViewController, ARSCNViewDelegate {
     
@@ -126,6 +127,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                         setCurrentObjectPostion(for: node, at: currentPossion!)
                     } else {
                         print("\(StaticNodes.farmPlanefinal.toString()) was found")
+                        node.addShakingAnimationToNode(ShakingDistants: 0.007)
                     }
                 }
             }
@@ -384,7 +386,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             case 0...3:
                 let counter = self.countersArray[indexOfCounterProperty]
                 if counterProperty.counterChanged {
-                    counter.addShakingAnimationToNode(node: counter, ShakingDistants: 0.2)
                     print("counterProperty counter name: \(counter.name!)")
                     self.nodesThatDidNotChnage.append(counter.name!)
                 }
@@ -392,11 +393,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                 return
             }
         }
-//        print("CounterPropertyArray size: \(CounterPropertyArray.count)")
-//        for (indexOfCounterProperty,counterProperty) in CounterPropertyArray.enumerated() {
-//            print("indexOfCounterProperty: \(indexOfCounterProperty)")
-//            print("counterProperty: \(counterProperty)")
-//
     }
     
     var countersArray = [SCNNode]()

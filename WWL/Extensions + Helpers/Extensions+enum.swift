@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import ARKit
 import Firebase
+import AudioToolbox
 
 let userDefult = UserDefaults.standard
 let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"
@@ -231,14 +232,15 @@ extension SCNNode {
         node.runAction(repeatForever)
     }
     
-    func addShakingAnimationToNode(node: SCNNode,ShakingDistants: Float) {
+    func addShakingAnimationToNode(ShakingDistants: Float) {
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         let spin = CABasicAnimation(keyPath: "position")
-        spin.fromValue = node.presentation.position
-        spin.toValue = SCNVector3(node.presentation.position.x - ShakingDistants ,node.presentation.position.y - ShakingDistants, node.presentation.position.z - ShakingDistants)
+        spin.fromValue = self.presentation.position
+        spin.toValue = SCNVector3(self.presentation.position.x - ShakingDistants ,self.presentation.position.y - ShakingDistants, self.presentation.position.z - ShakingDistants)
         spin.duration = 0.07
         spin.repeatCount = 5
         spin.autoreverses = true
-        node.addAnimation(spin, forKey: "postion")
+        self.addAnimation(spin, forKey: "postion")
     }
 }
 
