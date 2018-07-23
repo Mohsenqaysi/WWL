@@ -23,9 +23,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     var levelDataArray = [GameModel]() {
         didSet {
             print("levelDataArray was set: ")
-            print("sounFileName: \(levelDataArray[1].key!)")
+            let index = 10
+            print("sounFileName: \(levelDataArray[index].key!)")
             
-            let key = levelDataArray[0].key!
+            let key = levelDataArray[index].key!
             sounFileName = "sounds/module02/\(key)"
             sound = Sound(fileName: sounFileName)
         }
