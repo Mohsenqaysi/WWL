@@ -8,15 +8,26 @@
 
 import UIKit
 import ARKit
+import AVFoundation
 
 class GameViewController: UIViewController, ARSCNViewDelegate {
     
+    var sound: Sound!
+    var sounFileName: String!
+    
+    @IBAction func playSoundButton(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.sound.toggleAVPlayer()
+        }
+    }
     var levelDataArray = [GameModel]() {
         didSet {
             print("levelDataArray was set: ")
-            //            print(levelDataArray.first?.CounterProperty.count.description)
-            //            print(levelDataArray.count)
-            //            print(levelDataArray)
+            print("sounFileName: \(levelDataArray[1].key!)")
+            
+            let key = levelDataArray[0].key!
+            sounFileName = "sounds/module02/\(key)"
+            sound = Sound(fileName: sounFileName)
         }
     }
     
@@ -52,7 +63,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
         self.initialViewSetUp()
         self.registerGestureRecognizers()
-        
 //        for (index,value) in levelDataArray[0].CounterProperty.enumerated() {
 //            print("CounterProperty Index: \(index) CounterProperty: \(value)")
 //        }
@@ -360,7 +370,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             case 0:
                 counter.position = counterBaseOneNode.position
                 counter.eulerAngles.x = counterBaseOneNode.eulerAngles.x
-                
                 counterBaseOneNode.isHidden = false
             case 1:
                 counter.position = counterBaseTwoNode.position
@@ -432,7 +441,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
         print("countersArray: \(countersArray)")
         setUpCounterspostionsInView(countersArray)
-        let arraySet =  levelDataArray[0].CounterProperty
+        // TODO: check this line of code which set ONLY the first CounterProperty
+        let arraySet = levelDataArray[0].CounterProperty
+
         SetUpStaticCounters(CounterPropertyArray: arraySet)
         // Loop over all counters and add them to the view
         countersArray.forEach {

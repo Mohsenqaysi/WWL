@@ -33,7 +33,7 @@ class LevelsViewController: UIViewController {
         for (index,value) in gameLevelsDataArray[0].enumerated() {
             let key = value.key
             let path = "index: \(index)\n Sound-Sequencing.module02/\(value.key).mp3"
-            print("key: \(key)\n \(path)")
+            print("key: \(String(describing: key))\n \(path)")
             // Loop over all innder counters
             value.CounterProperty.forEach { (counter) in
                 let colorID = counter.color

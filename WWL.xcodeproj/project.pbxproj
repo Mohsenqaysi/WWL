@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BD38184B67A00D310A502CC7 /* Pods_WWL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */; };
-		FC20EE4121038B2B0068CDAE /* sound-sequencing in Resources */ = {isa = PBXBuildFile; fileRef = FC20EE4021038B2B0068CDAE /* sound-sequencing */; };
+		FC20EE4121038B2B0068CDAE /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = FC20EE4021038B2B0068CDAE /* sounds */; };
+		FC2AA13621066E6200A93417 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2AA13521066E6200A93417 /* SoundPlayer.swift */; };
+		FC2AA13C2106801C00A93417 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2AA13B2106801C00A93417 /* Sound.swift */; };
 		FC41641720FFC07B007CC2DD /* OverlayPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC41641620FFC07B007CC2DD /* OverlayPlane.swift */; };
 		FC587D9820FA3AF40011C22A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9720FA3AF40011C22A /* GameViewController.swift */; };
 		FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9920FA3BBE0011C22A /* itemCell.swift */; };
@@ -37,7 +39,9 @@
 		383E4F969A89C8ED2DB7F7CA /* Pods-WWL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.release.xcconfig"; sourceTree = "<group>"; };
 		94B060C270C5309ABDE70CD3 /* Pods_WWL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F155BE624C2DC25B8AAFB74D /* Pods-WWL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWL/Pods-WWL.debug.xcconfig"; sourceTree = "<group>"; };
-		FC20EE4021038B2B0068CDAE /* sound-sequencing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-sequencing"; sourceTree = "<group>"; };
+		FC20EE4021038B2B0068CDAE /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		FC2AA13521066E6200A93417 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		FC2AA13B2106801C00A93417 /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		FC41641620FFC07B007CC2DD /* OverlayPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPlane.swift; sourceTree = "<group>"; };
 		FC587D9720FA3AF40011C22A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FC587D9920FA3BBE0011C22A /* itemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemCell.swift; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 			children = (
 				FC8A06F220E2C044002E367A /* Extensions+enum.swift */,
 				FCDE6EF120E942A9004348F0 /* MyAudioPlayer.swift */,
+				FC2AA13521066E6200A93417 /* SoundPlayer.swift */,
+				FC2AA13B2106801C00A93417 /* Sound.swift */,
 			);
 			path = "Extensions + Helpers";
 			sourceTree = "<group>";
@@ -154,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				FC587D9B20FA3D4B0011C22A /* Models.scnassets */,
-				FC20EE4021038B2B0068CDAE /* sound-sequencing */,
+				FC20EE4021038B2B0068CDAE /* sounds */,
 				FCD5AA5D20E2951B00535845 /* WWL */,
 				FCD5AA5C20E2951B00535845 /* Products */,
 				AC848AD32736C035635D3516 /* Pods */,
@@ -266,7 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC20EE4121038B2B0068CDAE /* sound-sequencing in Resources */,
+				FC20EE4121038B2B0068CDAE /* sounds in Resources */,
 				FC587D9C20FA3D4C0011C22A /* Models.scnassets in Resources */,
 				FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */,
 				FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */,
@@ -331,8 +337,10 @@
 			files = (
 				FC587D9820FA3AF40011C22A /* GameViewController.swift in Sources */,
 				FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */,
+				FC2AA13621066E6200A93417 /* SoundPlayer.swift in Sources */,
 				FC8A06F320E2C044002E367A /* Extensions+enum.swift in Sources */,
 				FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */,
+				FC2AA13C2106801C00A93417 /* Sound.swift in Sources */,
 				FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */,
 				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
 				FCE86C8620FB95E5005AD411 /* GameModel.swift in Sources */,

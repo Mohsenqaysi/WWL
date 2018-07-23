@@ -22,7 +22,7 @@ struct CounterProperty {
 }
 
 struct GameModel {
-    let key: String
+    let key: String!
     let CounterProperty: [CounterProperty]
 }
 
