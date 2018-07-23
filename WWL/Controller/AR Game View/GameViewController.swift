@@ -330,6 +330,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     var blueCounterNodeThree: SCNNode!
     var greenCounterNodeOne: SCNNode!
     
+    func createCounterNode(counterColorID: Int) -> SCNNode {
+        var counterName = ""
+        if counterColorID == 1 {
+            counterName = Identifiers.blueCounter
+        } else {
+            counterName = Identifiers.greenCounter
+        }
+        let counterSceneNode = SCNScene(named: "Models.scnassets/\(counterName).scn")
+        let counterNode = (counterSceneNode?.rootNode.childNode(withName: counterName, recursively: false))!
+        return counterNode
+    }
+    
     //MARK:-  Setup the inital game Counters in the view
     func addStartingCounters(_ parentNode: SCNNode){
         var countersArray = [SCNNode]()
@@ -341,36 +353,21 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         levelDataArray.first?.CounterProperty.forEach { (counter) in
             if counter.color == CounterColor.blueColor.toInt() {
                 if blueCounterNodeOne == nil {
-                    guard let blueCounterSCNSceneOne = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
-                        print("blueCounterSCNScene was not found...")
-                        return
-                    }
-                    blueCounterNodeOne = (blueCounterSCNSceneOne.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeOne = createCounterNode(counterColorID: counter.color)
                     blueCounterNodeOne.name = Identifiers.blueCounterNodeOne
+                    // Add to array
                     countersArray.append(blueCounterNodeOne)
                 } else if blueCounterNodeTwo == nil {
-                    guard let blueCounterSCNSceneTwo = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
-                        print("blueCounterSCNScene was not found...")
-                        return
-                    }
-                    blueCounterNodeTwo = (blueCounterSCNSceneTwo.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeTwo = createCounterNode(counterColorID: counter.color)
                     blueCounterNodeTwo.name = Identifiers.blueCounterNodeTwo
                     countersArray.append(blueCounterNodeTwo)
                 } else {
-                    guard let blueCounterSCNSceneThree = SCNScene(named: "Models.scnassets/\(Identifiers.blueCounter).scn") else {
-                        print("blueCounterSCNScene was not found...")
-                        return
-                    }
-                    blueCounterNodeThree = (blueCounterSCNSceneThree.rootNode.childNode(withName: Identifiers.blueCounter, recursively: false))!
+                    blueCounterNodeThree = createCounterNode(counterColorID: counter.color)
                     blueCounterNodeThree.name = Identifiers.blueCounterNodeThree
                     countersArray.append(blueCounterNodeThree)
                 }
             } else {
-                guard let greenCounterSCNSceneOne = SCNScene(named: "Models.scnassets/\(Identifiers.greenCounter).scn") else {
-                    print("blueCounterSCNScene was not found...")
-                    return
-                }
-                greenCounterNodeOne = (greenCounterSCNSceneOne.rootNode.childNode(withName: Identifiers.greenCounter, recursively: false))!
+                greenCounterNodeOne = createCounterNode(counterColorID: counter.color)
                 greenCounterNodeOne.name = Identifiers.greenCounterNodeOne
                 countersArray.append(greenCounterNodeOne)
             }
@@ -379,25 +376,26 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         countersArray.forEach {
             ApplyPhysices(node: $0, name: $0.name!)
         }
+        print("countersArray: \(countersArray)")
         // TODO: NodesThatDidNotChnage
         //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
-        countersArray.forEach { (counter) in
-            switch counter.name {
-            case Identifiers.blueCounterNodeOne:
-                blueCounterNodeOne.position = counterBaseOneNode.position
-                blueCounterNodeOne.eulerAngles.x = counterBaseOneNode.eulerAngles.x
+        for (index,counter) in countersArray.enumerated() {
+            switch index {
+            case 0:
+                counter.position = counterBaseOneNode.position
+                counter.eulerAngles.x = counterBaseOneNode.eulerAngles.x
                 counterBaseOneNode.isHidden = false
-            case Identifiers.blueCounterNodeTwo:
-                blueCounterNodeTwo.position = counterBaseTwoNode.position
-                blueCounterNodeTwo.eulerAngles.x = counterBaseTwoNode.eulerAngles.x
+            case 1:
+                counter.position = counterBaseTwoNode.position
+                counter.eulerAngles.x = counterBaseTwoNode.eulerAngles.x
                 counterBaseTwoNode.isHidden = false
-            case Identifiers.blueCounterNodeThree:
-                blueCounterNodeThree.position = counterBaseThreeNode.position
-                blueCounterNodeThree.eulerAngles.x = counterBaseThreeNode.eulerAngles.x
+            case 2:
+                counter.position = counterBaseThreeNode.position
+                counter.eulerAngles.x = counterBaseThreeNode.eulerAngles.x
                 counterBaseThreeNode.isHidden = false
-            case Identifiers.greenCounterNodeOne:
-                greenCounterNodeOne.position = counterBaseFourNode.position
-                greenCounterNodeOne.eulerAngles.x = counterBaseFourNode.eulerAngles.x
+            case 3:
+                counter.position = counterBaseFourNode.position
+                counter.eulerAngles.x = counterBaseFourNode.eulerAngles.x
                 counterBaseFourNode.isHidden = false
             default:
                 return

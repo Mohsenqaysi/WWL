@@ -19,6 +19,7 @@ enum FirebasePaths: String {
     case users = "users"
     case levels_status = "levels_status"
 }
+
 struct FirebaseNetworkingCall {
     fileprivate var levelsArray = [Dictionary<String, Bool>]()
     var ref: DatabaseReference!
