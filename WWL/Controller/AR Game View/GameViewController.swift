@@ -8,15 +8,14 @@
 
 import UIKit
 import ARKit
-import AudioToolbox
 
 class GameViewController: UIViewController, ARSCNViewDelegate {
     
     var levelDataArray = [GameModel]() {
         didSet {
             print("levelDataArray was set: ")
-            print(levelDataArray.first?.CounterProperty.count.description)
-            print(levelDataArray.count)
+            //            print(levelDataArray.first?.CounterProperty.count.description)
+            //            print(levelDataArray.count)
             //            print(levelDataArray)
         }
     }
@@ -127,7 +126,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                         setCurrentObjectPostion(for: node, at: currentPossion!)
                     } else {
                         print("\(StaticNodes.farmPlanefinal.toString()) was found")
-                        node.addShakingAnimationToNode(ShakingDistants: 0.007)
+                        recognizer.isEnabled = false
+                        node.addShakingAnimationToNode(ShakingDistants: 0.007) {
+                            recognizer.isEnabled = true
+                        }
                     }
                 }
             }
@@ -385,7 +387,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             switch indexOfCounterProperty {
             case 0...3:
                 let counter = self.countersArray[indexOfCounterProperty]
-                if counterProperty.counterChanged {
+                if !counterProperty.counterChanged {
                     print("counterProperty counter name: \(counter.name!)")
                     self.nodesThatDidNotChnage.append(counter.name!)
                 }

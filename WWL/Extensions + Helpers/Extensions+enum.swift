@@ -232,15 +232,16 @@ extension SCNNode {
         node.runAction(repeatForever)
     }
     
-    func addShakingAnimationToNode(ShakingDistants: Float) {
+    func addShakingAnimationToNode(ShakingDistants: Float, complete: (() -> Void)) {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         let spin = CABasicAnimation(keyPath: "position")
         spin.fromValue = self.presentation.position
         spin.toValue = SCNVector3(self.presentation.position.x - ShakingDistants ,self.presentation.position.y - ShakingDistants, self.presentation.position.z - ShakingDistants)
         spin.duration = 0.07
-        spin.repeatCount = 5
+        spin.repeatCount = 3
         spin.autoreverses = true
         self.addAnimation(spin, forKey: "postion")
+        complete()
     }
 }
 

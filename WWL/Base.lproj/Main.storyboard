@@ -585,10 +585,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9LM-JS-Uwv">
-                                <rect key="frame" x="208" y="62" width="250" height="250"/>
+                                <rect key="frame" x="20" y="20" width="627" height="181"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="Huw-n9-nev"/>
-                                    <constraint firstAttribute="width" constant="250" id="ybb-d7-Mfd"/>
+                                    <constraint firstAttribute="height" constant="181" id="Huw-n9-nev"/>
+                                    <constraint firstAttribute="width" constant="627" id="ybb-d7-Mfd"/>
                                 </constraints>
                                 <state key="normal" image="touch_Icon">
                                     <color key="titleColor" name="PinkColor"/>
@@ -607,7 +607,7 @@
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="183" id="c2X-4G-IEc"/>
                             <constraint firstItem="J8D-OD-B8X" firstAttribute="trailing" secondItem="3Aq-na-0LQ" secondAttribute="trailing" constant="184" id="sgd-rg-MnT"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" constant="20" id="srS-2i-JY0"/>
-                            <constraint firstItem="9LM-JS-Uwv" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" id="tpZ-0W-0d0"/>
+                            <constraint firstItem="9LM-JS-Uwv" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" constant="-77" id="tpZ-0W-0d0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J8D-OD-B8X"/>
                     </view>
@@ -825,7 +825,6 @@ to the</string>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zkc-d3-lsy"/>
         <segue reference="2DG-xw-U0E"/>
     </inferredMetricsTieBreakers>
 </document>
