@@ -11,12 +11,20 @@ import ARKit
 import AVFoundation
 
 class GameViewController: UIViewController, ARSCNViewDelegate {
+    enum GuesturesIDs: Int {
+        case tap = 1
+        case pan = 2
+        case longPress = 3
+        func toInt() -> Int {
+            return self.rawValue
+        }
+    }
     
     var sound: Sound!
     var sounFileName: String!
     var nextSound: Int = 0
 
-    fileprivate func upDateUIU() {
+    fileprivate func UpDateUIView() {
         DispatchQueue.main.async {
             self.countersArray.forEach { (counter) in
                 counter.removeFromParentNode()
@@ -27,11 +35,15 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
 
     @IBAction func playSoundButton(_ sender: UIButton) {
+        enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
+        enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
+        enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
+        
         if nextSound < levelDataArray.count {
             nextSound = nextSound + 1
             print("new nextSound value: \(nextSound)")
             // update The UI with the new data
-            upDateUIU()
+            UpDateUIView()
             DispatchQueue.main.async {
                 self.extractedFunc(index: self.nextSound)
                 self.sound.playSoundTrack()
@@ -96,7 +108,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialViewSetUp()
-        self.registerGestureRecognizers()
 //        for (index,value) in levelDataArray[0].CounterProperty.enumerated() {
 //            print("CounterProperty Index: \(index) CounterProperty: \(value)")
 //        }
@@ -122,19 +133,59 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.scene.physicsWorld.contactDelegate = self
     }
     
-    // MARK: Register Gesture Recognizers
-    func registerGestureRecognizers() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panned))
-        self.sceneView.addGestureRecognizer(panGestureRecognizer)
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
-        self.sceneView.addGestureRecognizer(longPressGestureRecognizer)
+    func enableGuestures(isOn: Bool = false, gestureID: Int) {
+        switch gestureID {
+        case 1:
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+            isOn ? self.sceneView.addGestureRecognizer(tapGestureRecognizer) : self.sceneView.removeGestureRecognizer(tapGestureRecognizer)
+        case 2:
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panned))
+            isOn ? self.sceneView.addGestureRecognizer(panGestureRecognizer) : self.sceneView.removeGestureRecognizer(panGestureRecognizer)
+        case 3:
+            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+            isOn ? self.sceneView.addGestureRecognizer(longPressGestureRecognizer) : self.sceneView.removeGestureRecognizer(longPressGestureRecognizer)
+        default:
+            print("Error: Unknown gestureID: \(gestureID)")
+        }
     }
-    
+    //MARK:- Hit tests against the `sceneView` to find an object at the provided point.
+    fileprivate func removeVirtualObject(at point: CGPoint) {
+        setUpAudio()
+        let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode : true]
+        let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
+        if !hitTestResults.isEmpty {
+            let hitNode = hitTestResults.first!
+            guard let nodeName = hitNode.node.name else {return}
+            if !doesNotEqualToStaticNodes(nodeName: nodeName) {
+                // Animate the Parent Node into the view
+                DispatchQueue.main.async {
+                    SCNTransaction.begin()
+                    SCNTransaction.animationDuration = 1.0
+                    hitNode.node.opacity = 0
+                    SCNTransaction.commit()
+                    self.playSound(for: hitNode.node)
+                    hitNode.node.removeFromParentNode()
+                    AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                }
+                enableGuestures(isOn: true, gestureID: GuesturesIDs.pan.toInt())
+                enableGuestures(isOn: true, gestureID: GuesturesIDs.tap.toInt())
+                enableGuestures(isOn: false, gestureID: GuesturesIDs.longPress.toInt())
+                print("\(nodeName) was removeFromParentNode")
+            } else {
+                print("static nodeName: \(nodeName)")
+            }
+        }
+    }
     // MARK: GestureRecognizer
     // TODO: - LongPress
     @objc func longPress(sender: UILongPressGestureRecognizer){
+        guard let sceneView = sender.view as? ARSCNView, sender.view != nil else {return}
+        let pressedAtLoction = sender.location(in: sceneView)
+        print("longPress was detected: \(pressedAtLoction.debugDescription)")
+        let hitTest = sceneView.hitTest(pressedAtLoction, types: .existingPlaneUsingExtent)
+        if !hitTest.isEmpty {
+            removeVirtualObject(at: pressedAtLoction)
+        }
     }
     
     // Function to Detect Tap
@@ -187,7 +238,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                     print("\(StaticNodes.farmPlanefinal.toString()) was found")
                     print("node is set to nil")
                 }
-                //                playSound(for: parnatNode!)
             }
         }
     }

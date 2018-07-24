@@ -12,11 +12,11 @@
 		FC2AA13621066E6200A93417 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2AA13521066E6200A93417 /* SoundPlayer.swift */; };
 		FC2AA13C2106801C00A93417 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2AA13B2106801C00A93417 /* Sound.swift */; };
 		FC41641720FFC07B007CC2DD /* OverlayPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC41641620FFC07B007CC2DD /* OverlayPlane.swift */; };
+		FC494A262107A6900099D558 /* menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC494A252107A68F0099D558 /* menu.mp3 */; };
 		FC587D9820FA3AF40011C22A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9720FA3AF40011C22A /* GameViewController.swift */; };
 		FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC587D9920FA3BBE0011C22A /* itemCell.swift */; };
 		FC587D9C20FA3D4C0011C22A /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = FC587D9B20FA3D4B0011C22A /* Models.scnassets */; };
 		FC63031920EAD7C10087BF8A /* LevelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC63031820EAD7C10087BF8A /* LevelsViewController.swift */; };
-		FC63031B20EADBF10087BF8A /* puzzleGameLooping.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC63031A20EADBF10087BF8A /* puzzleGameLooping.mp3 */; };
 		FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC76019220E29BBA007414B6 /* GoogleService-Info.plist */; };
 		FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06EB20E2AE45002E367A /* AuthViewController.swift */; };
 		FC8A06EE20E2B1C8002E367A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */; };
@@ -43,11 +43,11 @@
 		FC2AA13521066E6200A93417 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		FC2AA13B2106801C00A93417 /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		FC41641620FFC07B007CC2DD /* OverlayPlane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPlane.swift; sourceTree = "<group>"; };
+		FC494A252107A68F0099D558 /* menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu.mp3; sourceTree = "<group>"; };
 		FC587D9720FA3AF40011C22A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FC587D9920FA3BBE0011C22A /* itemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemCell.swift; sourceTree = "<group>"; };
 		FC587D9B20FA3D4B0011C22A /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		FC63031820EAD7C10087BF8A /* LevelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsViewController.swift; sourceTree = "<group>"; };
-		FC63031A20EADBF10087BF8A /* puzzleGameLooping.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = puzzleGameLooping.mp3; path = "../../../../../Sketch Srouces/puzzleGameLooping.mp3"; sourceTree = "<group>"; };
 		FC76019220E29BBA007414B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC8A06EB20E2AE45002E367A /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		FC8A06ED20E2B1C8002E367A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 			children = (
 				FCF3CEAF20E915F500817259 /* SettingsViewController.swift */,
 				FCDE6EEF20E93BA6004348F0 /* menuSound.mp3 */,
-				FC63031A20EADBF10087BF8A /* puzzleGameLooping.mp3 */,
+				FC494A252107A68F0099D558 /* menu.mp3 */,
 				FCDE6EED20E93459004348F0 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -274,12 +274,12 @@
 			files = (
 				FC20EE4121038B2B0068CDAE /* sounds in Resources */,
 				FC587D9C20FA3D4C0011C22A /* Models.scnassets in Resources */,
+				FC494A262107A6900099D558 /* menu.mp3 in Resources */,
 				FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */,
 				FC76019320E29BBA007414B6 /* GoogleService-Info.plist in Resources */,
 				FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */,
 				FCDE6EF020E93BA6004348F0 /* menuSound.mp3 in Resources */,
 				FCDB2D8420FCEC570023FA1C /* Assets.xcassets in Resources */,
-				FC63031B20EADBF10087BF8A /* puzzleGameLooping.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

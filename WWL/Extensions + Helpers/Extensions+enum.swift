@@ -120,7 +120,7 @@ func removeErrorHighlightTextField(textField: UITextField){
 func isSoundON(isON: Bool){
     if isON {
         DispatchQueue.main.async {
-            MyAudioPlayer.playFile(name: "puzzleGameLooping", type: "mp3")
+            MyAudioPlayer.playFile(name: "menu", type: "mp3")
         }
     } else {
         DispatchQueue.main.async {
