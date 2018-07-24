@@ -626,11 +626,9 @@
                                     <action selector="touchIconButtonAction:" destination="c9r-TF-3xL" eventType="touchUpInside" id="wio-Ka-PQc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q80-1c-Xon">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q80-1c-Xon">
                                 <rect key="frame" x="305" y="220" width="57" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="q80-1c-Xon" secondAttribute="height" multiplier="19:20" id="t41-Sw-L1Y"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Play Sound Button"/>
                                 <connections>
                                     <action selector="playSoundButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="qJD-Xv-jUq"/>

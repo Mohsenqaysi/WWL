@@ -27,14 +27,15 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
 
     @IBAction func playSoundButton(_ sender: UIButton) {
-        nextSound = nextSound + 1
-        print("new nextSound value: \(nextSound)")
-        // update The UI with the new data
-        upDateUIU()
-       
-        DispatchQueue.main.async {
-            self.extractedFunc(index: self.nextSound)
-            self.sound.playSoundTrack()
+        if nextSound < levelDataArray.count {
+            nextSound = nextSound + 1
+            print("new nextSound value: \(nextSound)")
+            // update The UI with the new data
+            upDateUIU()
+            DispatchQueue.main.async {
+                self.extractedFunc(index: self.nextSound)
+                self.sound.playSoundTrack()
+            }
         }
     }
     
