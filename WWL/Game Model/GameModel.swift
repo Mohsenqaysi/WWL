@@ -32,8 +32,8 @@ var Model02: [GameModel] = [
     GameModel(key: "t_u", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
     GameModel(key: "t_ee", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
     GameModel(key: "t_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
-    GameModel(key: "l_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
-    GameModel(key: "l_ar" , CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "L_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "L_ar" , CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
     GameModel(key: "ch_ar", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
     GameModel(key: "ch_oy", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
     GameModel(key: "ch_ow", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
@@ -49,7 +49,30 @@ var Model02: [GameModel] = [
     GameModel(key: "b_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)])
 ]
 
-var allLevelsDataArray = [Model02]
+var Model03: [GameModel] = [
+    GameModel(key: "k_a", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "k_u", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "t_u", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "t_ee", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "t_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "l_ae", CounterProperty: [CounterProperty(color: 2, counterChanged: true),CounterProperty(color: 2, counterChanged: true), CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "l_ar" , CounterProperty: [CounterProperty(color: 1, counterChanged: false),CounterProperty(color: 2, counterChanged: true),CounterProperty(color: 2, counterChanged: true), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "ch_ar", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "ch_oy", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "ch_ow", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 1, counterChanged: true)]),
+    GameModel(key: "TH_ow", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "th_ae", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 1, counterChanged: true)]),
+    GameModel(key: "r_ae", CounterProperty: [CounterProperty(color: 2, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "r_i", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "j_i", CounterProperty: [CounterProperty(color: 2, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "j_au", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "h_au", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "h_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
+    GameModel(key: "p_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
+    GameModel(key: "b_ir", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)])
+]
+
+var allLevelsDataArray = [Model02,Model03]
 
 //for (index,v) in allLevelsDataArray[0].enumerated() {
 //    let key = v.key

@@ -14,23 +14,43 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     var sound: Sound!
     var sounFileName: String!
-    
-    @IBAction func playSoundButton(_ sender: UIButton) {
+    var nextSound: Int = 0
+
+    fileprivate func upDateUIU() {
         DispatchQueue.main.async {
-            self.sound.toggleAVPlayer()
+            self.countersArray.forEach { (counter) in
+                counter.removeFromParentNode()
+            }
+            self.nodesThatDidNotChnage.removeAll()
+            [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
         }
     }
+
+    @IBAction func playSoundButton(_ sender: UIButton) {
+        nextSound = nextSound + 1
+        print("new nextSound value: \(nextSound)")
+        // update The UI with the new data
+        upDateUIU()
+       
+        DispatchQueue.main.async {
+            self.extractedFunc(index: self.nextSound)
+            self.sound.playSoundTrack()
+        }
+    }
+    
     var levelDataArray = [GameModel]() {
         didSet {
             print("levelDataArray was set: ")
-            let index = 10
-            print("sounFileName: \(levelDataArray[index].key!)")
-            
-            let key = levelDataArray[index].key!
-            sounFileName = "sounds/module02/\(key)"
-            sound = Sound(fileName: sounFileName)
         }
     }
+    
+    var staticBaseNodes = [StaticNodes.counterBaseOneNode.toString(),
+                           StaticNodes.counterBaseTwoNode.toString(),
+                           StaticNodes.counterBaseThreeNode.toString(),
+                           StaticNodes.counterBaseFourNode.toString()
+    ]
+    
+    var nodesThatDidNotChnage: [String] = []
     
     @IBOutlet weak var touchIconButton: UIButton!
     @IBOutlet weak var statusLable: UITextView!
@@ -59,6 +79,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     let itemsArray: [String] = ["blueCounter","greenCounter"]
     let configuration = ARWorldTrackingConfiguration()
     var selectedItem: String?
+   
+//    /// Convenience accessor for the session owned by ARSCNView.
+//    var session: ARSession {
+//        return sceneView.session
+//    }
+//    /// Creates a new AR configuration to run on the `session`.
+//    func resetTracking() {
+//        parnatNode = nil
+//        let configuration = ARWorldTrackingConfiguration()
+//        configuration.planeDetection = [.horizontal]
+//        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,9 +167,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                     if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                         currentPossion = SCNVector3(transform.x,(transform.y + yChildNodePosition),transform.z)
                         setCurrentObjectPostion(for: node, at: currentPossion!)
-                    } else {
+                    } else if node.name != StaticNodes.farmPlanefinal.toString() {
                         print("\(StaticNodes.farmPlanefinal.toString()) was found")
                         recognizer.isEnabled = false
+                        // add addShakingAnimationToNode if it did not chnage from the previous game setp
                         node.addShakingAnimationToNode(ShakingDistants: 0.007) {
                             recognizer.isEnabled = true
                         }
@@ -157,13 +190,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             }
         }
     }
-    var staticBaseNodes = [StaticNodes.counterBaseOneNode.toString(),
-                           StaticNodes.counterBaseTwoNode.toString(),
-                           StaticNodes.counterBaseThreeNode.toString(),
-                           StaticNodes.counterBaseFourNode.toString()
-    ]
-    var nodesThatDidNotChnage: [String] =  []
     
+
+    // MARK:- doesNotEqualToStaticNodes
     fileprivate func doesNotEqualToStaticNodes(nodeName: String) -> Bool {
         switch nodeName {
         case StaticNodes.farmPlanefinal.toString():
@@ -177,7 +206,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    /// Hit tests against the `sceneView` to find an object at the provided point.
+    //MARK:- Hit tests against the `sceneView` to find an object at the provided point.
     fileprivate func virtualObject(at point: CGPoint) {
         let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode : true]
         let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
@@ -213,7 +242,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             
             node.position = SCNVector3(thirdColumn.x,thirdColumn.y + yChildNodePosition,thirdColumn.z)
             //            node.position = SCNVector3(thirdColumn.x,thirdColumn.y,thirdColumn.z)
-            
             print("added node location: \(node.position)")
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
             ApplyPhysices(node: node, name: node.name!)
@@ -232,6 +260,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     // plane
     var planScene: SCNScene!
+    // Base Nodes
     var counterBaseOneNode: SCNNode!
     var counterBaseTwoNode: SCNNode!
     var counterBaseThreeNode: SCNNode!
@@ -253,7 +282,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.planeAnchor = anchor as? ARPlaneAnchor // else {return}
                 self.anchorNode = node
-                
                 self.overlayPlane = OverlayPlane(anchor: self.planeAnchor)
                 node.addChildNode(self.overlayPlane)
                 self.uuidString = self.planeAnchor.identifier.uuidString
@@ -272,6 +300,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     @IBAction func touchIconButtonAction(_ sender: UIButton) {
         print("touchIconButtonAction was pressed...")
+        // Add the Parent node onto the ARPlane
         addFarm()
     }
     
@@ -303,19 +332,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         // counterBaseFourNode
         counterBaseFourNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseFourNode.toString())
       
-        [counterBaseOneNode,counterBaseTwoNode,counterBaseThreeNode,counterBaseFourNode].forEach {
-            $0?.isHidden = true
-        }
+        [counterBaseOneNode,counterBaseTwoNode,counterBaseThreeNode,counterBaseFourNode].forEach { $0?.isHidden = true }
+       
         // Add the base node
         polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
         polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         polyPlanefinalNode.position = SCNVector3(x,y,z)
         
         anchorNode.addChildNode(polyPlanefinalNode)
-        addStartingCounters(polyPlanefinalNode)
+        addStartingCounters()
         self.polyPlanefinalNode.opacity = 0
         
-        // Animate the Main Node into the view
+        // Animate the Parent Node into the view
         DispatchQueue.main.async {
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 1.0
@@ -364,6 +392,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     //MARK:-  Setup the inital game Counters in the view
     fileprivate func setUpCounterspostionsInView(_ countersArray: [SCNNode]) {
+       
         // TODO: NodesThatDidNotChnage
         //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
         for (index,counter) in countersArray.enumerated() {
@@ -408,13 +437,16 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
     
     var countersArray = [SCNNode]()
-    func addStartingCounters(_ parentNode: SCNNode){
-        // check the number of
-        if let numberOfcounters = levelDataArray.first?.CounterProperty.count {
-            print("number of counters: \(numberOfcounters)")
-        }
-        
-        levelDataArray.first?.CounterProperty.forEach { (counter) in
+    
+    fileprivate func createCountersFromCounterPropertyModel(_ index: Int, completed: (()-> ())) {
+        countersArray = []
+//        counterBaseOneNode = nil
+//        counterBaseTwoNode = nil
+//        counterBaseThreeNode = nil
+//        counterBaseFourNode = nil
+
+        // Take the CounterProperty at index:
+        levelDataArray[index].CounterProperty.forEach { (counter) in
             if counter.color == CounterColor.blueColor.toInt() {
                 if blueCounterNodeOne == nil {
                     blueCounterNodeOne = createCounterNode(counterColorID: counter.color)
@@ -428,28 +460,54 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                 } else {
                     blueCounterNodeThree = createCounterNode(counterColorID: counter.color)
                     blueCounterNodeThree.name = Identifiers.blueCounterNodeThree
+                    // Add to array
                     countersArray.append(blueCounterNodeThree)
                 }
             } else {
                 greenCounterNodeOne = createCounterNode(counterColorID: counter.color)
                 greenCounterNodeOne.name = Identifiers.greenCounterNodeOne
+                // Add to array
                 countersArray.append(greenCounterNodeOne)
             }
         }
-        
+        // Loop over all of them and apply physices
         countersArray.forEach {
             ApplyPhysices(node: $0, name: $0.name!)
         }
-        print("countersArray: \(countersArray)")
-        setUpCounterspostionsInView(countersArray)
+        completed()
+    }
+    
+    fileprivate func extractedFunc(index: Int) {
+        createCountersFromCounterPropertyModel(index) {
+            //MARK: Gamge counters Positioning
+            print("countersArray: \(countersArray.debugDescription)")
+            // setup the Counters spostions in the view
+            setUpCounterspostionsInView(countersArray)
+        }
+        
         // TODO: check this line of code which set ONLY the first CounterProperty
-        let arraySet = levelDataArray[0].CounterProperty
-
-        SetUpStaticCounters(CounterPropertyArray: arraySet)
+        let counterPropertyArray = levelDataArray[index].CounterProperty
+        
+        // Fix the location of the ones that did not change
+        SetUpStaticCounters(CounterPropertyArray: counterPropertyArray)
+        
+        // SetUp sound track
+        setSoundtrack(index: index)
         // Loop over all counters and add them to the view
         countersArray.forEach {
-            parentNode.addChildNode($0)
+            polyPlanefinalNode.addChildNode($0)
         }
+    }
+    
+    func addStartingCounters(index: Int = 0){
+        extractedFunc(index: index)
+    }
+    
+    fileprivate func setSoundtrack(index: Int) {
+        print("sounFileName: \(levelDataArray[index].key!)")
+        let key = levelDataArray[index].key!
+        sounFileName = "sounds/module02/\(key)"
+        sound = Sound(fileName: sounFileName)
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.

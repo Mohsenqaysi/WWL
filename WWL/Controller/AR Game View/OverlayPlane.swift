@@ -44,6 +44,3 @@ class OverlayPlane: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-
-

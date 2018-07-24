@@ -26,7 +26,7 @@ class Sound: NSObject {
         }
     }
     
-    func toggleAVPlayer() {
+    func playSoundTrack() {
         print("is playing \(avPlayer.isPlaying)")
         if avPlayer.isPlaying {
             avPlayer.pause()

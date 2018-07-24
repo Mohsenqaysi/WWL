@@ -82,6 +82,7 @@ class SettingsViewController: UIViewController {
             try Auth.auth().signOut()
             UserDefaults.standard.set(false, forKey: Keys.isLoggedIn.rawValue)
             UserDefaults.standard.synchronize()
+            isSoundON(isON: false)
             self.performSegue(withIdentifier: Identifiers.LoggedOut, sender: nil)
             
         } catch let signOutError as NSError {
