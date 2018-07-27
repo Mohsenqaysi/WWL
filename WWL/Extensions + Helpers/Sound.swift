@@ -19,7 +19,7 @@ class Sound: NSObject {
     var filename: String!
     var withExtension: String!
     var isFinishedPlaying: Bool! = false
-    var plaingButton: UIButton!
+    var playingButton: UIButton!
     var index: Int!
     var folderName: String!
     var startingCounter: String!
@@ -27,7 +27,7 @@ class Sound: NSObject {
     var didPlayStartingCounters = false
 
     
-    init(folderName: String, fileName: String, fileIndex: Int = 0, startingCounter: String = "", withExtension: String = "mp3") {
+    init(folderName: String, fileName: String, fileIndex: Int, startingCounter: String = "", withExtension: String = "mp3") {
         super.init()
         self.folderName = folderName
         self.filename = fileName
@@ -40,26 +40,6 @@ class Sound: NSObject {
         let path = "\(folderName!)/\(filename!)"
         print("path: \(path)")
         readFileIntoAVPlayer(path: path)
-    }
-    func stopAVPLayer() {
-        if avPlayer.isPlaying {
-            avPlayer.stop()
-        }
-    }
-    // @escaping () -> Swift.Void
-    func playSoundTrack(sender: UIButton?, completion: (()->())?)  {
-        if sender != nil {
-            self.plaingButton = sender
-            plaingButton.alpha = 0.5
-            plaingButton.isEnabled = false
-        }
-//        print("is playing \(avPlayer.isPlaying)")
-        if avPlayer.isPlaying {
-            avPlayer.pause()
-        } else {
-            avPlayer.play()
-        }
-        completion?()
     }
     
     /**
@@ -83,24 +63,47 @@ class Sound: NSObject {
         avPlayer.prepareToPlay()
         avPlayer.volume = 1.0
     }
+    
+    func stopSoundTrack() {
+        if avPlayer.isPlaying {
+            avPlayer.stop()
+        }
+    }
+    
+    func playSoundTrack(sender: UIButton?, completion: (()->())?)  {
+        if sender != nil {
+            self.playingButton = sender
+            playingButton.alpha = 0.5
+            playingButton.isEnabled = false
+        }
+//        print("is playing \(avPlayer.isPlaying)")
+        if avPlayer.isPlaying {
+            avPlayer.pause()
+        } else {
+            avPlayer.play()
+        }
+        completion?()
+    }
+
 }
 // MARK: AVAudioPlayerDelegate
 extension Sound: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        print("finished playing \(flag)")
+        gameController.didFinishedPalying(successfully: flag)
         if flag {
-            gameController.didFinishedPalying(successfully: flag)
             if index == 0 && !didPlayStartingCounters {
+                didPlayStartingCounters = true
                 let path = "\(folderName!)/\(startingCounter!)"
+                // sounds/module02/
                 print("startingFilePath is: \(path)")
                 readFileIntoAVPlayer(path: path)
                 playSoundTrack(sender: nil, completion: nil)
-                didPlayStartingCounters = true
             }
+            
         }
-        if flag && plaingButton != nil  {
-            plaingButton.alpha = 1.0
-            plaingButton.isEnabled = true
+        if flag && playingButton != nil  {
+            playingButton.alpha = 1.0
+            playingButton.isEnabled = true
         }
     }
     

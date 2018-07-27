@@ -634,7 +634,7 @@
                                 </constraints>
                                 <state key="normal" image="Play Sound Button"/>
                                 <connections>
-                                    <action selector="playSoundButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="qJD-Xv-jUq"/>
+                                    <action selector="handelPlaySoundButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="qJD-Xv-jUq"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jm6-q6-e3v">
@@ -651,15 +651,12 @@
                                     <action selector="checkAnswerButtonAction:" destination="c9r-TF-3xL" eventType="touchUpInside" id="syV-WQ-IT8"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15G-cE-On6">
-                                <rect key="frame" x="283.5" y="137.5" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="J0z-ur-ofZ"/>
-                                    <constraint firstAttribute="height" constant="100" id="MRJ-gQ-CJt"/>
-                                </constraints>
-                                <state key="normal" image="StartButton"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0H-FX-dNK">
+                                <rect key="frame" x="302" y="193" width="67" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="video_icon"/>
                                 <connections>
-                                    <action selector="startGamePlayButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="eJT-cj-EeS"/>
+                                    <action selector="hnadelTestPlayButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="e3o-I7-s3h"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -675,7 +672,6 @@
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" constant="20" id="MEh-2B-4hv"/>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="trailing" secondItem="J8D-OD-B8X" secondAttribute="trailing" id="XEk-7s-n3R"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="183" id="ZbT-y9-BaC"/>
-                            <constraint firstItem="15G-cE-On6" firstAttribute="centerX" secondItem="vMB-ah-MaM" secondAttribute="centerX" id="arx-h4-I9h"/>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" id="ayv-CW-rFJ"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="183" id="c2X-4G-IEc"/>
                             <constraint firstItem="i3k-j8-n55" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="12" id="mbV-n0-Luo"/>
@@ -685,7 +681,6 @@
                             <constraint firstItem="J8D-OD-B8X" firstAttribute="trailing" secondItem="3Aq-na-0LQ" secondAttribute="trailing" constant="184" id="sgd-rg-MnT"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" constant="20" id="srS-2i-JY0"/>
                             <constraint firstItem="9LM-JS-Uwv" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" constant="-77" id="tpZ-0W-0d0"/>
-                            <constraint firstItem="15G-cE-On6" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" id="x7s-ZN-mxL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J8D-OD-B8X"/>
                     </view>
@@ -695,8 +690,8 @@
                         <outlet property="itemsCollectionView" destination="i3k-j8-n55" id="7p3-Yc-GFq"/>
                         <outlet property="playSoundButton" destination="q80-1c-Xon" id="E5z-fT-BYJ"/>
                         <outlet property="sceneView" destination="Qu5-F7-tAT" id="hMk-qn-8Yc"/>
-                        <outlet property="startGamePlayButton" destination="15G-cE-On6" id="XKB-fD-our"/>
                         <outlet property="statusLable" destination="3Aq-na-0LQ" id="U7z-0j-6ip"/>
+                        <outlet property="testPlayButton" destination="S0H-FX-dNK" id="Ttq-F7-YUe"/>
                         <outlet property="touchIconButton" destination="9LM-JS-Uwv" id="VEh-cS-cea"/>
                     </connections>
                 </viewController>
@@ -900,7 +895,6 @@ to the</string>
     <resources>
         <image name="AnswerButton" width="165" height="167"/>
         <image name="Play Sound Button" width="165" height="167"/>
-        <image name="StartButton" width="165" height="167"/>
         <image name="WWL logo" width="654" height="284"/>
         <image name="backGround" width="667" height="375"/>
         <image name="blueCounter" width="570" height="558"/>
@@ -910,6 +904,7 @@ to the</string>
         <image name="profile" width="47" height="48"/>
         <image name="settings" width="44" height="44"/>
         <image name="touch_Icon" width="100" height="100"/>
+        <image name="video_icon" width="67" height="67"/>
         <namedColor name="PinkColor">
             <color red="0.75700002908706665" green="0.17599999904632568" blue="0.48199999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

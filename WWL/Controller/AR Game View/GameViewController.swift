@@ -13,6 +13,13 @@ import AVFoundation
 class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var countersCollectionView: UICollectionView!
     
+    @IBOutlet weak var testPlayButton: UIButton!
+    @IBAction func hnadelTestPlayButton(_ sender: UIButton) {
+        handelStartGamePlay(sender: sender)
+        sender.isHidden = true
+    }
+    
+
     var sound: Sound!
     var startingSound: Sound!
     var swishSound: Sound!
@@ -21,11 +28,10 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     var didFinishedPlayingFlag: Bool = false {
         didSet {
             print("didFinishedPlayingFlag Status changed: \(didFinishedPlayingFlag)")
-//            nextSound = nextSound + 1
         }
     }
     
-    var nextSound: Int = 0 {
+    var nextSound: Int = 1 {
         didSet {
             print("updated Value: \(nextSound)")
         }
@@ -33,40 +39,48 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     //MARK: - userAnswersArray
     var userAnswersArray = [UserAnswerModel]()
     
-    
     fileprivate func UpDateUIView() {
         DispatchQueue.main.async {
             self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
             self.nodesThatDidNotChnage.removeAll()
             self.checkAnswerButton.isHidden = true
-            self.playSoundButton.isHidden = true
             self.itemCollectionViewController(isOn: true)
             self.statusLable.statusShowLabelAnimation(isHidden: false)
-            self.status = "'Long Press' of the coundter that changes sound to remove it and replace it with another one"
+            self.status = "'Long Press' on the coundter that changes sound to remove it and replace it with another one"
             [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
         }
     }
     
-    @IBOutlet weak var startGamePlayButton: UIButton!
-    @IBAction func startGamePlayButton(_ sender: UIButton) {
+   var startGameButton: UIButton = {
+        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let image = #imageLiteral(resourceName: "StartButton")
+        button.setImage(image, for: UIControlState.normal)
+        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func handelStartGamePlay(sender: UIButton) {
         enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
         // Remove all exstra counters added
-        addeditemsviaAddItemsFunc.forEach { $0.removeFromParentNode()}
+        addeditemsviaAddItemsFunc.forEach {$0.removeFromParentNode()}
         
         sender.bounceButtonEffect()
-        self.startGamePlayButton.isHidden = true
-        self.playSoundButton.isHidden = false
-        
+//        nextSound = nextSound + 1
         // use inital index value
-        nextSound = nextSound + 1
         print("new nextSound value: \(nextSound)")
         self.setSoundtrack(index: self.nextSound)
         // update The UI with the new data
         UpDateUIView()
         DispatchQueue.main.async {
+            self.playSoundButton.isHidden = false
             self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
-            self.sound.playSoundTrack(sender: sender, completion: nil)
+            self.sound.playSoundTrack(sender: self.playSoundButton, completion: nil)
         }
+        removeStartingButton(sender)
+    }
+    
+    func removeStartingButton(_ sender: UIButton) {
+        sender.removeFromSuperview()
     }
     
     @IBOutlet weak var checkAnswerButton: UIButton!
@@ -83,7 +97,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             UpDateUIView()
             DispatchQueue.main.async {
                 self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
-                self.sound.playSoundTrack(sender: nil, completion: nil)
+                self.sound.playSoundTrack(sender: self.playSoundButton, completion: nil)
             }
             
             // Remove all exstra counters added
@@ -97,7 +111,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     @IBOutlet weak var playSoundButton: UIButton!
     
-    @IBAction func playSoundButton(_ sender: UIButton) {
+    @IBAction func handelPlaySoundButton(_ sender: UIButton) {
         if nextSound < levelDataArray.count {
             print("playSound index value: \(nextSound)")
             DispatchQueue.main.async {
@@ -159,8 +173,17 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     let configuration = ARWorldTrackingConfiguration()
     var selectedItem: String?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        view.addSubview(startGameButton)
+        self.startGameButton.center = view.center
+        self.startGameButton.isHidden = true
+        self.testPlayButton.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.initialViewSetUp()
         userAnswersArray.append(UserAnswerModel(baseNameKey: "dd", submittedCounterColor: nil))
         registerGestures()
@@ -222,6 +245,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                 DispatchQueue.main.async {
                     hitNode.node.removeFromParentNode()
+                    self.lastContactNode = nil
                     self.enableGuestures(isOn: true, gestureID: GuesturesIDs.pan.toInt())
                     self.enableGuestures(isOn: true, gestureID: GuesturesIDs.tap.toInt())
                     // hide itemCollectionViewController
@@ -230,7 +254,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                     self.playSoundButton.isHidden = false
                 }
                 print("Play removing sound")
-                swishSound = Sound(folderName: "sounds", fileName: "swish", withExtension: "wav")
+                swishSound = Sound(folderName: "sounds", fileName: "swish", fileIndex: nextSound, withExtension: "wav")
                 swishSound.playSoundTrack(sender: nil, completion: nil)
                 print("\(nodeName) was removeFromParentNode")
             } else {
@@ -486,7 +510,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             self.touchIconButton.isHidden = true
             self.playSoundButton.isHidden = true
             self.itemCollectionViewController(isOn: true)
-//            self.startGamePlayButton.isHidden = true
         }
     }
     
@@ -600,6 +623,9 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     func addStartingCounters(index: Int = 0){
         createAndSetUpCounterPostionsOnView(index: index)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.testPlayButton.isHidden = false
+        }
     }
     
     fileprivate func createAndSetUpCounterPostionsOnView(index: Int) {
@@ -621,22 +647,20 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         // TODO: Chmage this path later
         if index == 0 {
             print("startingCounterKey: \(startingCounterKey)")
-            startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: "\(foldername)/\(startingCounterKey)", withExtension: "mp3")
+            let path = "\(foldername)/\(startingCounterKey)"
+            print("index 0 path: \(path)")
+            startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: path, withExtension: "mp3")
             startingSound.playSoundTrack(sender: nil, completion: nil)
-        } else {
-            self.setSoundtrack(index: index)
         }
-        DispatchQueue.main.async {
-            self.startGamePlayButton.isHidden = false
-        }
+//        else {
+//            self.setSoundtrack(index: index)
+//        }
     }
 
-    
     func setSoundtrack(index: Int) {
         print("sounFileName: \(levelDataArray[index].key!)")
         let key = levelDataArray[index].key!
-//        sounFileName = "\(path)/\(key)"
-        sound = Sound(folderName: "sounds/\(foldername)", fileName: key)
+        sound = Sound(folderName: "sounds/\(foldername)", fileName: key, fileIndex: nextSound)
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
@@ -650,6 +674,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             }
         }
     }
+    
     func didFinishedPalying(successfully flag: Bool) {
         print("GameViewController finished playing \(flag)")
         didFinishedPlayingFlag = flag
