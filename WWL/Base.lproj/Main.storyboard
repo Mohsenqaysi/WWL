@@ -626,18 +626,48 @@
                                     <action selector="touchIconButtonAction:" destination="c9r-TF-3xL" eventType="touchUpInside" id="wio-Ka-PQc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q80-1c-Xon">
-                                <rect key="frame" x="305" y="220" width="57" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q80-1c-Xon">
+                                <rect key="frame" x="562" y="18" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1t8-7d-vwT"/>
+                                    <constraint firstAttribute="width" constant="100" id="MD8-gc-Qcv"/>
+                                </constraints>
                                 <state key="normal" image="Play Sound Button"/>
                                 <connections>
                                     <action selector="playSoundButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="qJD-Xv-jUq"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jm6-q6-e3v">
+                                <rect key="frame" x="562" y="126" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="2ZQ-v3-ziE"/>
+                                    <constraint firstAttribute="height" constant="100" id="UNh-vq-0ta"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="AnswerButton">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkAnswerButtonAction:" destination="c9r-TF-3xL" eventType="touchUpInside" id="syV-WQ-IT8"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15G-cE-On6">
+                                <rect key="frame" x="283.5" y="137.5" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="J0z-ur-ofZ"/>
+                                    <constraint firstAttribute="height" constant="100" id="MRJ-gQ-CJt"/>
+                                </constraints>
+                                <state key="normal" image="StartButton"/>
+                                <connections>
+                                    <action selector="startGamePlayButton:" destination="c9r-TF-3xL" eventType="touchUpInside" id="eJT-cj-EeS"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" id="1HV-yR-BRR"/>
+                            <constraint firstItem="q80-1c-Xon" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="trailing" constant="-105" id="3Fg-8p-ZcW"/>
+                            <constraint firstItem="J8D-OD-B8X" firstAttribute="top" secondItem="q80-1c-Xon" secondAttribute="bottom" constant="-118" id="3ss-2t-B0s"/>
                             <constraint firstItem="9LM-JS-Uwv" firstAttribute="centerX" secondItem="vMB-ah-MaM" secondAttribute="centerX" id="4bQ-tj-f62"/>
                             <constraint firstItem="J8D-OD-B8X" firstAttribute="trailing" secondItem="i3k-j8-n55" secondAttribute="trailing" constant="12" id="5nf-1t-liv"/>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="bottom" secondItem="J8D-OD-B8X" secondAttribute="bottom" id="Fo1-us-T3a"/>
@@ -645,19 +675,27 @@
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" constant="20" id="MEh-2B-4hv"/>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="trailing" secondItem="J8D-OD-B8X" secondAttribute="trailing" id="XEk-7s-n3R"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="183" id="ZbT-y9-BaC"/>
+                            <constraint firstItem="15G-cE-On6" firstAttribute="centerX" secondItem="vMB-ah-MaM" secondAttribute="centerX" id="arx-h4-I9h"/>
                             <constraint firstItem="Qu5-F7-tAT" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" id="ayv-CW-rFJ"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="183" id="c2X-4G-IEc"/>
                             <constraint firstItem="i3k-j8-n55" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="leading" constant="12" id="mbV-n0-Luo"/>
+                            <constraint firstItem="jm6-q6-e3v" firstAttribute="top" secondItem="q80-1c-Xon" secondAttribute="bottom" constant="8" id="nw3-BR-2Pl"/>
                             <constraint firstItem="J8D-OD-B8X" firstAttribute="bottom" secondItem="i3k-j8-n55" secondAttribute="bottom" constant="10" id="odz-MG-Iej"/>
+                            <constraint firstItem="jm6-q6-e3v" firstAttribute="leading" secondItem="J8D-OD-B8X" secondAttribute="trailing" constant="-105" id="otx-rJ-4WZ"/>
                             <constraint firstItem="J8D-OD-B8X" firstAttribute="trailing" secondItem="3Aq-na-0LQ" secondAttribute="trailing" constant="184" id="sgd-rg-MnT"/>
                             <constraint firstItem="3Aq-na-0LQ" firstAttribute="top" secondItem="J8D-OD-B8X" secondAttribute="top" constant="20" id="srS-2i-JY0"/>
                             <constraint firstItem="9LM-JS-Uwv" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" constant="-77" id="tpZ-0W-0d0"/>
+                            <constraint firstItem="15G-cE-On6" firstAttribute="centerY" secondItem="vMB-ah-MaM" secondAttribute="centerY" id="x7s-ZN-mxL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J8D-OD-B8X"/>
                     </view>
                     <connections>
+                        <outlet property="checkAnswerButton" destination="jm6-q6-e3v" id="tcs-hq-abt"/>
+                        <outlet property="countersCollectionView" destination="i3k-j8-n55" id="Zu8-Vh-gsi"/>
                         <outlet property="itemsCollectionView" destination="i3k-j8-n55" id="7p3-Yc-GFq"/>
+                        <outlet property="playSoundButton" destination="q80-1c-Xon" id="E5z-fT-BYJ"/>
                         <outlet property="sceneView" destination="Qu5-F7-tAT" id="hMk-qn-8Yc"/>
+                        <outlet property="startGamePlayButton" destination="15G-cE-On6" id="XKB-fD-our"/>
                         <outlet property="statusLable" destination="3Aq-na-0LQ" id="U7z-0j-6ip"/>
                         <outlet property="touchIconButton" destination="9LM-JS-Uwv" id="VEh-cS-cea"/>
                     </connections>
@@ -860,7 +898,9 @@ to the</string>
         </scene>
     </scenes>
     <resources>
+        <image name="AnswerButton" width="165" height="167"/>
         <image name="Play Sound Button" width="165" height="167"/>
+        <image name="StartButton" width="165" height="167"/>
         <image name="WWL logo" width="654" height="284"/>
         <image name="backGround" width="667" height="375"/>
         <image name="blueCounter" width="570" height="558"/>

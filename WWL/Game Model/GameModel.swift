@@ -21,6 +21,11 @@ struct CounterProperty {
     let counterChanged: Bool
 }
 
+struct UserAnswerModel {
+    let baseNameKey: String
+    let submittedCounterColor: String?
+}
+
 struct GameModel {
     let key: String!
     let CounterProperty: [CounterProperty]
@@ -50,7 +55,7 @@ var Model02: [GameModel] = [
 ]
 
 var Model03: [GameModel] = [
-    GameModel(key: "k_a", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "01-i_b", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 1, counterChanged: false)]),
     GameModel(key: "k_u", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),
     GameModel(key: "t_u", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false)]),
     GameModel(key: "t_ee", CounterProperty: [CounterProperty(color: 2, counterChanged: false), CounterProperty(color: 2, counterChanged: true)]),

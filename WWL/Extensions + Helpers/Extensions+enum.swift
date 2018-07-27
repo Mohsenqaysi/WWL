@@ -15,6 +15,15 @@ import AudioToolbox
 let userDefult = UserDefaults.standard
 let intorductionVideoURL: String! = "https://firebasestorage.googleapis.com/v0/b/wordsworth-learning.appspot.com/o/Introduction%20Video%2Flevel2_sound_sequencing_new3.mp4?alt=media&token=b1d1e032-4008-465b-811b-eb47653aa022"
 
+enum GuesturesIDs: Int {
+    case tap = 1
+    case pan = 2
+    case longPress = 3
+    func toInt() -> Int {
+        return self.rawValue
+    }
+}
+
 enum BoxBodyType: Int {
     case bullet = 1
     case barrier = 2
@@ -137,11 +146,11 @@ extension UIButton {
             }, completion: nil)
     }
     func blinkingButtonEffect(duration: TimeInterval = 0.4) {
-            self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.repeat, .curveEaseInOut], animations: {
-                UIView.setAnimationRepeatCount(3)
-                self.alpha = 1
-            }, completion: nil)
+        self.alpha = 0
+        UIView.animate(withDuration: duration, delay: 0, options: [.repeat, .curveEaseInOut], animations: {
+            UIView.setAnimationRepeatCount(3)
+            self.alpha = 1
+        }, completion: nil)
     }
 }
 
@@ -242,6 +251,15 @@ extension SCNNode {
         spin.autoreverses = true
         self.addAnimation(spin, forKey: "postion")
         complete()
+    }
+    func animateCounter(node: SCNNode, fromValue: CGFloat = 0, toValue: CGFloat = 1){
+        DispatchQueue.main.async {
+            SCNTransaction.begin()
+            node.opacity = fromValue
+            SCNTransaction.animationDuration = 5.0
+            node.opacity = toValue
+            SCNTransaction.commit()
+        }
     }
 }
 

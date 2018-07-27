@@ -10,50 +10,120 @@ import UIKit
 import ARKit
 import AVFoundation
 
-class GameViewController: UIViewController, ARSCNViewDelegate {
-    enum GuesturesIDs: Int {
-        case tap = 1
-        case pan = 2
-        case longPress = 3
-        func toInt() -> Int {
-            return self.rawValue
+class GameViewController: UIViewController,ARSCNViewDelegate {
+    @IBOutlet weak var countersCollectionView: UICollectionView!
+    
+    var sound: Sound!
+    var startingSound: Sound!
+    var swishSound: Sound!
+    var sounFileName: String!
+    
+    var didFinishedPlayingFlag: Bool = false {
+        didSet {
+            print("didFinishedPlayingFlag Status changed: \(didFinishedPlayingFlag)")
+//            if didFinishedPlayingFlag {
+//                playStartingCounters(flag: didFinishedPlayingFlag)
+//            }
         }
     }
     
-    var sound: Sound!
-    var sounFileName: String!
-    var nextSound: Int = 0
-
+    var nextSound: Int = 0 {
+        didSet {
+            print("updated Value: \(nextSound)")
+        }
+    }
+    //MARK: - userAnswersArray
+    var userAnswersArray = [UserAnswerModel]()
+    
+    
     fileprivate func UpDateUIView() {
         DispatchQueue.main.async {
-            self.countersArray.forEach { (counter) in
-                counter.removeFromParentNode()
-            }
+            self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
             self.nodesThatDidNotChnage.removeAll()
+            self.checkAnswerButton.isHidden = true
+            self.playSoundButton.isHidden = true
+            self.itemCollectionViewController(isOn: true)
+            self.statusLable.statusShowLabelAnimation(isHidden: false)
+            self.status = "'Long Press' of the coundter that changes sound to remove it and replace it with another one"
             [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
         }
     }
-
-    @IBAction func playSoundButton(_ sender: UIButton) {
+    
+    @IBOutlet weak var startGamePlayButton: UIButton!
+    @IBAction func startGamePlayButton(_ sender: UIButton) {
         enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
-        enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
-        enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
+        // Remove all exstra counters added
+        addeditemsviaAddItemsFunc.forEach { $0.removeFromParentNode()}
         
-        if nextSound < levelDataArray.count {
+        sender.bounceButtonEffect()
+        self.startGamePlayButton.isHidden = true
+        self.playSoundButton.isHidden = false
+        
+        // use inital index value
+        nextSound = nextSound + 1
+        print("new nextSound value: \(nextSound)")
+        let soundFolderPath = "sounds/\(foldername)"
+        self.setSoundtrack(path: soundFolderPath, index: self.nextSound)
+        // update The UI with the new data
+        UpDateUIView()
+        DispatchQueue.main.async {
+            self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
+            self.sound.playSoundTrack(sender: sender, completion: nil)
+        }
+    }
+    
+    @IBOutlet weak var checkAnswerButton: UIButton!
+    
+    @IBAction func checkAnswerButtonAction(_ sender: UIButton) {
+        
+        if true {
+            
             nextSound = nextSound + 1
-            print("new nextSound value: \(nextSound)")
+            print("new checkAnswer index value: \(nextSound)")
+            let soundFolderPath = "sounds/\(foldername)"
+            self.setSoundtrack(path: soundFolderPath, index: self.nextSound)
+            
             // update The UI with the new data
             UpDateUIView()
             DispatchQueue.main.async {
-                self.extractedFunc(index: self.nextSound)
-                self.sound.playSoundTrack()
+                self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
+                self.sound.playSoundTrack(sender: nil, completion: nil)
+            }
+            
+            // Remove all exstra counters added
+            addeditemsviaAddItemsFunc.forEach { $0.removeFromParentNode()}
+            enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
+            enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
+            enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
+        }
+    }
+    
+    
+    @IBOutlet weak var playSoundButton: UIButton!
+    
+    @IBAction func playSoundButton(_ sender: UIButton) {
+        if nextSound < levelDataArray.count {
+            print("playSound index value: \(nextSound)")
+            DispatchQueue.main.async {
+                self.sound.playSoundTrack(sender: sender, completion: nil)
             }
         }
     }
     
     var levelDataArray = [GameModel]() {
         didSet {
-            print("levelDataArray was set: ")
+            print("levelDataArray was set: \(levelDataArray.count)")
+            startingCounterKey = levelDataArray[0].key!
+        }
+    }
+    var startingCounterKey: String = "" {
+        didSet {
+            print("levelDataArray frsit key: \(startingCounterKey)")
+        }
+    }
+    var foldername: String = "" {
+        didSet {
+            print("foldername: \(foldername)")
         }
     }
     
@@ -92,25 +162,14 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     let itemsArray: [String] = ["blueCounter","greenCounter"]
     let configuration = ARWorldTrackingConfiguration()
     var selectedItem: String?
-   
-//    /// Convenience accessor for the session owned by ARSCNView.
-//    var session: ARSession {
-//        return sceneView.session
-//    }
-//    /// Creates a new AR configuration to run on the `session`.
-//    func resetTracking() {
-//        parnatNode = nil
-//        let configuration = ARWorldTrackingConfiguration()
-//        configuration.planeDetection = [.horizontal]
-//        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialViewSetUp()
-//        for (index,value) in levelDataArray[0].CounterProperty.enumerated() {
-//            print("CounterProperty Index: \(index) CounterProperty: \(value)")
-//        }
+        userAnswersArray.append(UserAnswerModel(baseNameKey: "dd", submittedCounterColor: nil))
+        registerGestures()
+        statusLable.statusShowLabelAnimation(isHidden: false)
+        status = "Move your device around in a circular motion to allow the camera to view larger area"
     }
     
     fileprivate func initialViewSetUp() {
@@ -133,16 +192,24 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.scene.physicsWorld.contactDelegate = self
     }
     
+    var tapGestureRecognizer = UITapGestureRecognizer()
+    var panGestureRecognizer = UIPanGestureRecognizer()
+    var longPressGestureRecognizer = UILongPressGestureRecognizer()
+    
+    func registerGestures() {
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panned))
+        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        
+    }
+    
     func enableGuestures(isOn: Bool = false, gestureID: Int) {
         switch gestureID {
         case 1:
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
             isOn ? self.sceneView.addGestureRecognizer(tapGestureRecognizer) : self.sceneView.removeGestureRecognizer(tapGestureRecognizer)
         case 2:
-            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panned))
             isOn ? self.sceneView.addGestureRecognizer(panGestureRecognizer) : self.sceneView.removeGestureRecognizer(panGestureRecognizer)
         case 3:
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
             isOn ? self.sceneView.addGestureRecognizer(longPressGestureRecognizer) : self.sceneView.removeGestureRecognizer(longPressGestureRecognizer)
         default:
             print("Error: Unknown gestureID: \(gestureID)")
@@ -150,32 +217,32 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
     //MARK:- Hit tests against the `sceneView` to find an object at the provided point.
     fileprivate func removeVirtualObject(at point: CGPoint) {
-        setUpAudio()
         let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode : true]
         let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
         if !hitTestResults.isEmpty {
             let hitNode = hitTestResults.first!
             guard let nodeName = hitNode.node.name else {return}
             if !doesNotEqualToStaticNodes(nodeName: nodeName) {
-                // Animate the Parent Node into the view
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                 DispatchQueue.main.async {
-                    SCNTransaction.begin()
-                    SCNTransaction.animationDuration = 1.0
-                    hitNode.node.opacity = 0
-                    SCNTransaction.commit()
-                    self.playSound(for: hitNode.node)
                     hitNode.node.removeFromParentNode()
-                    AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    self.enableGuestures(isOn: true, gestureID: GuesturesIDs.pan.toInt())
+                    self.enableGuestures(isOn: true, gestureID: GuesturesIDs.tap.toInt())
+                    // hide itemCollectionViewController
+                    self.itemCollectionViewController(isOn: false)
+                    self.statusLable.statusShowLabelAnimation(isHidden: true)
+                    self.playSoundButton.isHidden = false
                 }
-                enableGuestures(isOn: true, gestureID: GuesturesIDs.pan.toInt())
-                enableGuestures(isOn: true, gestureID: GuesturesIDs.tap.toInt())
-                enableGuestures(isOn: false, gestureID: GuesturesIDs.longPress.toInt())
+                print("Play removing sound")
+                swishSound = Sound(folderName: "sounds", fileName: "swish", withExtension: "wav")
+                swishSound.playSoundTrack(sender: nil, completion: nil)
                 print("\(nodeName) was removeFromParentNode")
             } else {
                 print("static nodeName: \(nodeName)")
             }
         }
     }
+    
     // MARK: GestureRecognizer
     // TODO: - LongPress
     @objc func longPress(sender: UILongPressGestureRecognizer){
@@ -229,7 +296,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                     }
                 }
             }
-            //            setUpAudio()
         }
         if recognizer.state == .ended {
             if  let node = parnatNode {
@@ -242,7 +308,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-
+    
     // MARK:- doesNotEqualToStaticNodes
     fileprivate func doesNotEqualToStaticNodes(nodeName: String) -> Bool {
         switch nodeName {
@@ -266,7 +332,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             guard let nodeName = hitNode.node.name else {return}
             print("nodeName: \(nodeName)")
             parnatNode = hitNode.node
-            // TODO: - Check if the found node is movebale or not
             print("virtualObject was found")
         }
     }
@@ -279,6 +344,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    var addeditemsviaAddItemsFunc = [SCNNode]()
     // Function to Place items on a Horizontal Surface
     fileprivate func addItem(hitTestResult: ARHitTestResult){
         if let selectedItem = self.selectedItem {
@@ -292,10 +358,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             // Position the Object node right where the detected surface is
             
             node.position = SCNVector3(thirdColumn.x,thirdColumn.y + yChildNodePosition,thirdColumn.z)
-            //            node.position = SCNVector3(thirdColumn.x,thirdColumn.y,thirdColumn.z)
             print("added node location: \(node.position)")
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
             ApplyPhysices(node: node, name: node.name!)
+            if !doesNotEqualToStaticNodes(nodeName: node.name!) {
+                addeditemsviaAddItemsFunc.append(node)
+            }
             self.sceneView.scene.rootNode.addChildNode(node)
             if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                 //                SCNNode().addFloatingAnimationToNode(node: node)
@@ -305,7 +373,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     
     // MARK: Renderer SCNNodes
-    let farmPlanefinal = "farmPlanefinal"
     let yRootNodePosition: Float = 0.003
     let yChildNodePosition: Float = 0.04
     
@@ -320,6 +387,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     // polyPlanefinalScene
     var polyPlanefinalScene: SCNScene!
     var polyPlanefinalNode: SCNNode!
+    // ARPlaneAnchor
     var planeAnchor: ARPlaneAnchor!
     var anchorNode: SCNNode!
     var overlayPlane: SCNNode!
@@ -329,7 +397,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         print("++++++++++++++++++++++++++++ ( ARAnchor) ++++++++++++++++++++++++++++++++++")
         print("Deticted anchor: \(anchor)")
         print("_______________________________________________________________________")
-        if didAddedParentNode {
+        if !didAddedParentNode {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.planeAnchor = anchor as? ARPlaneAnchor // else {return}
                 self.anchorNode = node
@@ -340,6 +408,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
                 print("uuidString: \(self.uuidString)")
                 self.touchIconButton.isHidden = false
                 self.touchIconButton.blinkingButtonEffect(duration: 0.5)
+                self.statusLable.statusShowLabelAnimation(isHidden: true)
             }
         }
         print("-----------------------------------------------------------------------")
@@ -363,6 +432,16 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         return childNode
     }
     // MARK: - AddFarm
+    fileprivate func itemCollectionViewController(isOn: Bool) {
+        // Unhide the itemsCollectionView
+        if isOn {
+            self.itemsCollectionView.isHidden = isOn
+            self.itemsCollectionView.loadingCellAnimation()
+        } else {
+            self.itemsCollectionView.isHidden = isOn
+        }
+    }
+    
     fileprivate func addFarm(){
         let x = CGFloat(planeAnchor.center.x)
         let y = CGFloat(planeAnchor.center.y)
@@ -382,9 +461,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         counterBaseThreeNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseThreeNode.toString())
         // counterBaseFourNode
         counterBaseFourNode = setUpbaseCounterPhysics(parantScene: polyPlanefinalScene, childName: StaticNodes.counterBaseFourNode.toString())
-      
+        
         [counterBaseOneNode,counterBaseTwoNode,counterBaseThreeNode,counterBaseFourNode].forEach { $0?.isHidden = true }
-       
+        
         // Add the base node
         polyPlanefinalNode.name = StaticNodes.farmPlanefinal.toString()
         polyPlanefinalNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
@@ -409,9 +488,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.touchIconButton.isHidden = true
-            // Unhide the itemsCollectionView
-            self.itemsCollectionView.isHidden = false
-            self.itemsCollectionView.loadingCellAnimation()
+            self.playSoundButton.isHidden = true
+            self.itemCollectionViewController(isOn: true)
+            self.startGamePlayButton.isHidden = true
         }
     }
     
@@ -443,9 +522,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     //MARK:-  Setup the inital game Counters in the view
     fileprivate func setUpCounterspostionsInView(_ countersArray: [SCNNode]) {
-       
-        // TODO: NodesThatDidNotChnage
-        //        nodesThatDidNotChnage.append(blueCounterNodeOne.name!)
+        
         for (index,counter) in countersArray.enumerated() {
             switch index {
             case 0:
@@ -491,11 +568,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     fileprivate func createCountersFromCounterPropertyModel(_ index: Int, completed: (()-> ())) {
         countersArray = []
-//        counterBaseOneNode = nil
-//        counterBaseTwoNode = nil
-//        counterBaseThreeNode = nil
-//        counterBaseFourNode = nil
-
         // Take the CounterProperty at index:
         levelDataArray[index].CounterProperty.forEach { (counter) in
             if counter.color == CounterColor.blueColor.toInt() {
@@ -525,92 +597,92 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         countersArray.forEach {
             ApplyPhysices(node: $0, name: $0.name!)
         }
+        // end of the block
         completed()
     }
     
-    fileprivate func extractedFunc(index: Int) {
-        createCountersFromCounterPropertyModel(index) {
-            //MARK: Gamge counters Positioning
-            print("countersArray: \(countersArray.debugDescription)")
-            // setup the Counters spostions in the view
-            setUpCounterspostionsInView(countersArray)
-        }
-        
-        // TODO: check this line of code which set ONLY the first CounterProperty
-        let counterPropertyArray = levelDataArray[index].CounterProperty
-        
-        // Fix the location of the ones that did not change
-        SetUpStaticCounters(CounterPropertyArray: counterPropertyArray)
-        
-        // SetUp sound track
-        setSoundtrack(index: index)
-        // Loop over all counters and add them to the view
-        countersArray.forEach {
-            polyPlanefinalNode.addChildNode($0)
-        }
-    }
     
     func addStartingCounters(index: Int = 0){
-        extractedFunc(index: index)
+        createAndSetUpCounterPostionsOnView(index: index)
     }
     
-    fileprivate func setSoundtrack(index: Int) {
+    fileprivate func createAndSetUpCounterPostionsOnView(index: Int) {
+        self.createCountersFromCounterPropertyModel(index) {
+            //MARK: Gamge counters Positioning
+            print("countersArray index: \(index)")
+            // setup the Counters spostions in the view
+            self.setUpCounterspostionsInView(self.countersArray)
+        }
+        let counterPropertyArray = self.levelDataArray[index].CounterProperty
+        // Fix the location of the ones that did not change
+        self.SetUpStaticCounters(CounterPropertyArray: counterPropertyArray)
+        // Loop over all counters and add them to the view
+        self.countersArray.forEach {
+            self.polyPlanefinalNode.addChildNode($0)
+        }
+        
+        // SetUp sound track
+        // TODO: Chmage this path later
+        if index == 0 {
+            print("startingCounterKey: \(startingCounterKey)")
+//            startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, withExtension: "mp3")
+            
+            startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: "\(foldername)/\(startingCounterKey)", withExtension: "mp3")
+            startingSound.playSoundTrack(sender: nil, completion: nil)
+        } else {
+            let soundFolderPath = "sounds/\(foldername)"
+            self.setSoundtrack(path: soundFolderPath, index: index)
+        }
+    }
+
+    
+    func setSoundtrack(path: String, index: Int) {
         print("sounFileName: \(levelDataArray[index].key!)")
         let key = levelDataArray[index].key!
-        sounFileName = "sounds/module02/\(key)"
-        sound = Sound(fileName: sounFileName)
+//        sounFileName = "\(path)/\(key)"
+        sound = Sound(folderName: "sounds", fileName: key)
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
-    var didAddedParentNode: Bool = true
+    var didAddedParentNode: Bool = false
     var uuidString: String! = nil
     
     func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor) {
         if uuidString != nil {
             if anchor.identifier.uuidString == uuidString {
-                didAddedParentNode = false
+                didAddedParentNode = true
             }
         }
     }
-    var lastContactNode: SCNNode!
-}
-
-extension GameViewController: SCNPhysicsContactDelegate {
-    // MARK: - PhysicsWorld
-    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        print("physicsWorld I was called...")
-        /*
-         //        var contactNode: SCNNode!
-         //        if contact.nodeA.name == "Bullet" {
-         //            contactNode = contact.nodeB
-         //        } else {
-         //            contactNode = contact.nodeA
-         //            contact.nodeA.physicsBody?.isAffectedByGravity = false
-         //        }
-         //
-         //        if self.lastContactNode != nil && self.lastContactNode == contactNode {
-         //            return
-         //        }
-         //        self.lastContactNode = contactNode
-         //
-         //        guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
-         //        print("Box Materials: \(detectedColor)")
-         //        print("********************* Color **************************")
-         //        if UIExtendedSRGBColorSpaceToUIColor.red.rawValue == detectedColor {
-         //            print(colorName[UIExtendedSRGBColorSpaceToUIColor.red.rawValue]!)
-         //        } else if UIExtendedSRGBColorSpaceToUIColor.blue.rawValue == detectedColor {
-         //            print(colorName[UIExtendedSRGBColorSpaceToUIColor.blue.rawValue]!)
-         //        } else {
-         //            print("new color: \(detectedColor) ")
-         //        }
-         //        print("node name: \(lastContactNode.name?.description)")
-         //        print("**********************************************")
-         */
-        
+    func didFinishedPalying(successfully flag: Bool) {
+        print("GameViewController finished playing \(flag)")
+        didFinishedPlayingFlag = flag
+    }
+    func playStartingCounters(flag: Bool){
+        if flag {
+            if nextSound == 0 {
+                nextSound = nextSound + 1
+                DispatchQueue.main.async {
+                    self.startGamePlayButton.isHidden = false
+                }
+                //                print("sounFileName: \(levelDataArray[nextSound].key!)")
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                //                    self.playStartingCounters(flag: self.didFinishedPlayingFlag)
+                //                }
+                //                let soundFolderPath = "sounds/module02"
+                //                self.setSoundtrack(path: soundFolderPath, index: nextSound)
+                //                self.sound.playSoundTrack(sender: nil, completion: nil)
+                //                UpDateUIView()
+            }
+        }
     }
     
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("didBegin I was called")
+    var lastContactNode: SCNNode!
+}
+// MARK: - PhysicsWorld
+extension GameViewController: SCNPhysicsContactDelegate {
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        print("didEnd I was called...")
         lastContactNode = nil
         
         var contactNode: SCNNode!
@@ -627,6 +699,12 @@ extension GameViewController: SCNPhysicsContactDelegate {
             return
         }
         self.lastContactNode = contactNode
+        if !doesNotEqualToStaticNodes(nodeName: lastContactNode.name!) {
+            // checkAnswerButton
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.checkAnswerButton.isHidden = false
+            }
+        }
         guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
         print("Box Materials: \(detectedColor)")
         print("********************* Color **************************")
@@ -640,6 +718,46 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
         print("node name: \(String(describing: lastContactNode.name?.description))")
         print("**********************************************")
+    }
+    
+    //    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+    //        // checkAnswerButton
+    //        DispatchQueue.main.asyncAfter(deadline: .now()) {
+    //            self.checkAnswerButton.isHidden = true
+    //        }
+    //    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        print("didBegin I was called")
+        lastContactNode = nil
+        
+        //        var contactNode: SCNNode!
+        //
+        //        if contact.nodeA.name == BoxBodyTypeName.counter.toString() {
+        //            contactNode = contact.nodeA
+        //            print("node A \(String(describing: contact.nodeA.name)) was assigned to contactNode")
+        //        } else {
+        //            contactNode = contact.nodeB
+        //            print("node B \(String(describing: contact.nodeA.name)) was assigned to contactNode")
+        //        }
+        //
+        //        if self.lastContactNode != nil && self.lastContactNode == contactNode {
+        //            return
+        //        }
+        //        self.lastContactNode = contactNode
+        //        guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
+        //        print("Box Materials: \(detectedColor)")
+        //        print("********************* Color **************************")
+        //
+        //        if UIExtendedSRGBColorSpaceToUIColor2.green.keys.first == detectedColor {
+        //            print(UIExtendedSRGBColorSpaceToUIColor2.green.values.first as Any)
+        //        } else if UIExtendedSRGBColorSpaceToUIColor2.blue.keys.first == detectedColor {
+        //            print(UIExtendedSRGBColorSpaceToUIColor2.blue.values.first as Any)
+        //        } else {
+        //            print("new color: \(detectedColor) ")
+        //        }
+        //        print("node name: \(String(describing: lastContactNode.name?.description))")
+        //        print("**********************************************")
     }
 }
 extension GameViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
@@ -691,7 +809,7 @@ extension GameViewController: UICollectionViewDataSource,UICollectionViewDelegat
     // SetUpAudio
     private func setUpAudio() {
         // Instantiate the audio source
-        if let file = SCNAudioSource(fileNamed: "dropSound.mp3"){
+        if let file = SCNAudioSource(fileNamed: "swish.wav"){
             audioSource = file
         }
         // As an environmental sound layer, audio should play indefinitely
@@ -709,16 +827,18 @@ extension GameViewController: UICollectionViewDataSource,UICollectionViewDelegat
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        switch camera.trackingState {
-        case .notAvailable:
-            statusLable.statusShowLabelAnimation(isHidden: false)
-            status = CamerStatus.NotAvailable.toString()
-        case .limited:
-            statusLable.statusShowLabelAnimation(isHidden: false)
-            status = CamerStatus.limited.toString()
-        default:
-            statusLable.statusShowLabelAnimation(isHidden: true)
-            // camera.trackingState is normal ... hide the statusLable
+        if didAddedParentNode {
+            switch camera.trackingState {
+            case .notAvailable:
+                statusLable.statusShowLabelAnimation(isHidden: false)
+                status = CamerStatus.NotAvailable.toString()
+            case .limited:
+                statusLable.statusShowLabelAnimation(isHidden: false)
+                status = CamerStatus.limited.toString()
+            default:
+                statusLable.statusShowLabelAnimation(isHidden: true)
+                // camera.trackingState is normal ... hide the statusLable
+            }
         }
     }
 }

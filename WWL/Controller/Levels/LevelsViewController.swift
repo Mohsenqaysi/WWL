@@ -15,7 +15,8 @@ class LevelsViewController: UIViewController {
     
     @IBOutlet weak var levelCollectionView: UICollectionView!
     var gameLevelsDataArray: [[GameModel]] = allLevelsDataArray
-    
+    var foldernames: [String] = ["module02","module03","module04","module05","module06"]
+
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         self.dismiss(animated: true, completion: nil)
@@ -23,7 +24,7 @@ class LevelsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkAnswers()
+//        checkAnswers()
     }
     
     func checkAnswers() {
@@ -87,9 +88,11 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
                 if let indexPathItem = levelCollectionView.indexPathsForSelectedItems?.first?.item {
                     print("\(indexPathItem)")
                     if indexPathItem != 0 {
+                        
                         // The selected cell is one ... but the array starts at zero, so we take one away
                         let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
                         destination.levelDataArray = selectedData
+                        destination.foldername = foldernames[indexPathItem.advanced(by: -1)]
                     }
                 }
             }
