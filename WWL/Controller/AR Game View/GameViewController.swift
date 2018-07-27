@@ -21,9 +21,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     var didFinishedPlayingFlag: Bool = false {
         didSet {
             print("didFinishedPlayingFlag Status changed: \(didFinishedPlayingFlag)")
-//            if didFinishedPlayingFlag {
-//                playStartingCounters(flag: didFinishedPlayingFlag)
-//            }
+//            nextSound = nextSound + 1
         }
     }
     
@@ -62,8 +60,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         // use inital index value
         nextSound = nextSound + 1
         print("new nextSound value: \(nextSound)")
-        let soundFolderPath = "sounds/\(foldername)"
-        self.setSoundtrack(path: soundFolderPath, index: self.nextSound)
+        self.setSoundtrack(index: self.nextSound)
         // update The UI with the new data
         UpDateUIView()
         DispatchQueue.main.async {
@@ -80,8 +77,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
-            let soundFolderPath = "sounds/\(foldername)"
-            self.setSoundtrack(path: soundFolderPath, index: self.nextSound)
+            self.setSoundtrack(index: self.nextSound)
             
             // update The UI with the new data
             UpDateUIView()
@@ -490,7 +486,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             self.touchIconButton.isHidden = true
             self.playSoundButton.isHidden = true
             self.itemCollectionViewController(isOn: true)
-            self.startGamePlayButton.isHidden = true
+//            self.startGamePlayButton.isHidden = true
         }
     }
     
@@ -625,22 +621,22 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         // TODO: Chmage this path later
         if index == 0 {
             print("startingCounterKey: \(startingCounterKey)")
-//            startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, withExtension: "mp3")
-            
             startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: "\(foldername)/\(startingCounterKey)", withExtension: "mp3")
             startingSound.playSoundTrack(sender: nil, completion: nil)
         } else {
-            let soundFolderPath = "sounds/\(foldername)"
-            self.setSoundtrack(path: soundFolderPath, index: index)
+            self.setSoundtrack(index: index)
+        }
+        DispatchQueue.main.async {
+            self.startGamePlayButton.isHidden = false
         }
     }
 
     
-    func setSoundtrack(path: String, index: Int) {
+    func setSoundtrack(index: Int) {
         print("sounFileName: \(levelDataArray[index].key!)")
         let key = levelDataArray[index].key!
 //        sounFileName = "\(path)/\(key)"
-        sound = Sound(folderName: "sounds", fileName: key)
+        sound = Sound(folderName: "sounds/\(foldername)", fileName: key)
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
@@ -657,24 +653,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     func didFinishedPalying(successfully flag: Bool) {
         print("GameViewController finished playing \(flag)")
         didFinishedPlayingFlag = flag
-    }
-    func playStartingCounters(flag: Bool){
-        if flag {
-            if nextSound == 0 {
-                nextSound = nextSound + 1
-                DispatchQueue.main.async {
-                    self.startGamePlayButton.isHidden = false
-                }
-                //                print("sounFileName: \(levelDataArray[nextSound].key!)")
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                //                    self.playStartingCounters(flag: self.didFinishedPlayingFlag)
-                //                }
-                //                let soundFolderPath = "sounds/module02"
-                //                self.setSoundtrack(path: soundFolderPath, index: nextSound)
-                //                self.sound.playSoundTrack(sender: nil, completion: nil)
-                //                UpDateUIView()
-            }
-        }
     }
     
     var lastContactNode: SCNNode!
