@@ -98,17 +98,24 @@ extension Sound: AVAudioPlayerDelegate {
             if index == 0 && !didPlayStartingCounters {
                 didPlayStartingCounters = true
                 let path = "\(folderName!)/\(startingCounter!)"
-                // sounds/module02/
                 print("startingFilePath is: \(path)")
                 readFileIntoAVPlayer(path: path)
                 playSoundTrack(sender: nil, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    if self.playingButton != nil && self.playingButton.alpha == 0.0 {
+                        self.playingButton.alpha = 1.0
+                        self.playingButton.isEnabled = true
+                    }
+                }
+            } else if playingButton != nil {
+                playingButton.alpha = 1.0
+                playingButton.isEnabled = true
             }
-            
         }
-        if flag && playingButton != nil  {
-            playingButton.alpha = 1.0
-            playingButton.isEnabled = true
-        }
+        
+//        if playingButton != nil && didPlayStartingCounters {
+
+//        }
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

@@ -190,8 +190,8 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        levelDataArray.removeAll()
-        testPlayButton.removeFromSuperview()
+//        levelDataArray.removeAll()
+//        testPlayButton.removeFromSuperview()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -343,6 +343,10 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             }
         }
         if recognizer.state == .ended {
+            // checkAnswerButton
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.checkAnswerButton.isHidden = false
+            }
             if  let node = parnatNode {
                 if !doesNotEqualToStaticNodes(nodeName: node.name!) {
                 } else {
@@ -741,10 +745,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
             return
         }
         self.lastContactNode = contactNode
-        // checkAnswerButton
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.checkAnswerButton.isHidden = false
-        }
         
         guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
         lastContactNodeColor = getNodeColor(detectedColor: detectedColor)
