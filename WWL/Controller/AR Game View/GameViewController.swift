@@ -104,6 +104,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
 //        print("------------------------------------------------")
 //
         if expectedCounterColor.first == lastContactNodeColor {
+            flashScreen(text: "Correct 😊", color: .green)
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
             if nextSound < levelDataArray.count{
@@ -126,7 +127,33 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 print("Game is over")
             }
         } else {
+            flashScreen(text: "Wrong Answer", color: .red)
             print("checkAnswerButtonAction... ERORR : \(String(describing: expectedCounterColor.first))")
+        }
+    }
+    let IndeicatorLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textAlignment = .center
+        return label
+    }()
+
+    func flashScreen(text: String, color: UIColor){
+        if let wnd = self.sceneView {
+            let v = UIView(frame: wnd.bounds)
+            v.backgroundColor = color
+            v.alpha = 0.3
+            IndeicatorLabel.text = text
+            wnd.addSubview(v)
+            wnd.addSubview(IndeicatorLabel)
+            IndeicatorLabel.center = wnd.center
+            UIView.animate(withDuration: 1.2, animations: {
+                v.alpha = 0.0
+            }, completion: {(finished:Bool) in
+                v.removeFromSuperview()
+                self.IndeicatorLabel.removeFromSuperview()
+            })
         }
     }
     
@@ -208,8 +235,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        levelDataArray.removeAll()
-//        testPlayButton.removeFromSuperview()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
