@@ -17,6 +17,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
+        stopWatchTimer.stopTimer()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -70,8 +71,11 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     //        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
     //        return button
     //    }()
-    
+   var stopWatchTimer = StopWatchTimer()
     @objc func handelStartGamePlay(sender: UIButton) {
+        // Start the timer
+        stopWatchTimer.startTimer()
+        
         enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
         // Remove all exstra counters added
         addeditemsviaAddItemsFunc.forEach {$0.removeFromParentNode()}
@@ -98,11 +102,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     //MARK:- Check Answers
     @IBAction func checkAnswerButtonAction(_ sender: UIButton) {
-//        print("------------------------------------------------")
-//        print("lastContactNodeColor: \(lastContactNodeColor)")
-//        print("expectedCounterColor: \(String(describing: expectedCounterColor.first!))")
-//        print("------------------------------------------------")
-//
         if expectedCounterColor.first == lastContactNodeColor {
             flashScreen(text: "Correct 😊", color: .green)
             nextSound = nextSound + 1
@@ -125,6 +124,9 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             } else {
                 setupConfetti()
                 print("Game is over")
+                stopWatchTimer.stopTimer()
+                let totalTime = stopWatchTimer.getTimer()
+                print("total Time played = \(totalTime / 60) mins")
             }
         } else {
             flashScreen(text: "Wrong Answer", color: .red)
