@@ -98,16 +98,16 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     //MARK:- Check Answers
     @IBAction func checkAnswerButtonAction(_ sender: UIButton) {
-        print("------------------------------------------------")
-        print("lastContactNodeColor: \(lastContactNodeColor)")
-        print("expectedCounterColor: \(String(describing: expectedCounterColor.first!))")
-        print("------------------------------------------------")
-        
+//        print("------------------------------------------------")
+//        print("lastContactNodeColor: \(lastContactNodeColor)")
+//        print("expectedCounterColor: \(String(describing: expectedCounterColor.first!))")
+//        print("------------------------------------------------")
+//
         if expectedCounterColor.first == lastContactNodeColor {
-            self.expectedCounterColor.removeAll()
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
             if nextSound < levelDataArray.count{
+                self.expectedCounterColor.removeAll()
                 self.setSoundtrack(index: self.nextSound)
                 // update The UI with the new data
                 UpDateUIView()
@@ -122,6 +122,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
                 enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
             } else {
+                setupConfetti()
                 print("Game is over")
             }
         } else {
@@ -129,6 +130,17 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
+    private func setupConfetti() {
+        guard let confettiNode = polyPlanefinalScene.rootNode.childNode(withName: "confettiNode", recursively: true)
+            else {
+                fatalError("Node not found!")
+        }
+        swishSound = Sound(folderName: "sounds", fileName: "cheer", fileIndex: nextSound, withExtension: "wav")
+        swishSound.playSoundTrack(sender: nil, completion: nil)
+        let confetti = SCNParticleSystem(named: "Models.scnassets/confetti.scnp", inDirectory: nil)
+        confettiNode.addParticleSystem(confetti!)
+        polyPlanefinalNode.addChildNode(confettiNode)
+    }
     
     @IBOutlet weak var playSoundButton: UIButton!
     
