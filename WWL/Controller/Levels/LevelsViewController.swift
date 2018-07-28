@@ -13,6 +13,13 @@ import AVKit
 
 class LevelsViewController: UIViewController {
     
+       var playButton: UIButton! = {
+            var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            let image = #imageLiteral(resourceName: "StartButton")
+            button.setImage(image, for: UIControlState.normal)
+            return button
+        }()
+
     @IBOutlet weak var levelCollectionView: UICollectionView!
     var gameLevelsDataArray: [[GameModel]] = allLevelsDataArray
     var foldernames: [String] = ["module02","module03","module04","module05","module06"]
@@ -93,6 +100,8 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
                         let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
                         destination.levelDataArray = selectedData
                         destination.foldername = foldernames[indexPathItem.advanced(by: -1)]
+                        
+                        destination.testPlayButton = playButton
                     }
                 }
             }

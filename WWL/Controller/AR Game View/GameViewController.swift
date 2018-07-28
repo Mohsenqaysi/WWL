@@ -13,12 +13,22 @@ import AVFoundation
 class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var countersCollectionView: UICollectionView!
     
-    @IBOutlet weak var testPlayButton: UIButton!
-    @IBAction func hnadelTestPlayButton(_ sender: UIButton) {
-        handelStartGamePlay(sender: sender)
-        sender.isHidden = true
+    
+    @IBAction func exitGame(_ sender: UIButton) {
+        sender.bounceButtonEffect()
+        self.dismiss(animated: true, completion: nil)
     }
     
+    var testPlayButton: UIButton! {
+        didSet {
+//            testPlayButton.alpha = 0.3
+//            testPlayButton.isEnabled = false
+            print("testPlayButton: \(testPlayButton)")
+        }
+    }
+    func handelTestPlayButton(_ sender: UIButton) {
+        handelStartGamePlay(sender: sender)
+    }
 
     var sound: Sound!
     var startingSound: Sound!
@@ -30,6 +40,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             print("didFinishedPlayingFlag Status changed: \(didFinishedPlayingFlag)")
         }
     }
+    
     
     var nextSound: Int = 1 {
         didSet {
@@ -51,21 +62,19 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-   var startGameButton: UIButton = {
-        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        let image = #imageLiteral(resourceName: "StartButton")
-        button.setImage(image, for: UIControlState.normal)
-        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
-        return button
-    }()
+//   var startGameButton: UIButton = {
+//        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        let image = #imageLiteral(resourceName: "StartButton")
+//        button.setImage(image, for: UIControlState.normal)
+//        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
+//        return button
+//    }()
     
     @objc func handelStartGamePlay(sender: UIButton) {
         enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
         // Remove all exstra counters added
         addeditemsviaAddItemsFunc.forEach {$0.removeFromParentNode()}
-        
         sender.bounceButtonEffect()
-//        nextSound = nextSound + 1
         // use inital index value
         print("new nextSound value: \(nextSound)")
         self.setSoundtrack(index: self.nextSound)
@@ -175,16 +184,17 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        view.addSubview(startGameButton)
-        self.startGameButton.center = view.center
-        self.startGameButton.isHidden = true
-        self.testPlayButton.isHidden = true
+        testPlayButton.alpha = 0.0
+        testPlayButton.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
+        sceneView.addSubview(testPlayButton)
+        self.testPlayButton.center = sceneView.center
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.initialViewSetUp()
+        //TODO: check this line ... for user answer
         userAnswersArray.append(UserAnswerModel(baseNameKey: "dd", submittedCounterColor: nil))
         registerGestures()
         statusLable.statusShowLabelAnimation(isHidden: false)
@@ -623,9 +633,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     func addStartingCounters(index: Int = 0){
         createAndSetUpCounterPostionsOnView(index: index)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            self.testPlayButton.isHidden = false
-        }
     }
     
     fileprivate func createAndSetUpCounterPostionsOnView(index: Int) {
@@ -650,11 +657,8 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             let path = "\(foldername)/\(startingCounterKey)"
             print("index 0 path: \(path)")
             startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: path, withExtension: "mp3")
-            startingSound.playSoundTrack(sender: nil, completion: nil)
+            startingSound.playSoundTrack(sender: testPlayButton, completion: nil)
         }
-//        else {
-//            self.setSoundtrack(index: index)
-//        }
     }
 
     func setSoundtrack(index: Int) {

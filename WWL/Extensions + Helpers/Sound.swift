@@ -73,8 +73,12 @@ class Sound: NSObject {
     func playSoundTrack(sender: UIButton?, completion: (()->())?)  {
         if sender != nil {
             self.playingButton = sender
-            playingButton.alpha = 0.5
-            playingButton.isEnabled = false
+            if playingButton.alpha == 0.0 {
+                playingButton.isEnabled = false
+            } else {
+                playingButton.alpha = 0.5
+                playingButton.isEnabled = false
+            }
         }
 //        print("is playing \(avPlayer.isPlaying)")
         if avPlayer.isPlaying {
