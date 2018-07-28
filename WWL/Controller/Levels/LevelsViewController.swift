@@ -99,8 +99,7 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
                         // The selected cell is one ... but the array starts at zero, so we take one away
                         let selectedData = gameLevelsDataArray[indexPathItem.advanced(by: -1)]
                         destination.levelDataArray = selectedData
-                        destination.foldername = foldernames[indexPathItem.advanced(by: -1)]
-                        
+                        destination.folderName = foldernames[indexPathItem.advanced(by: -1)]
                         destination.testPlayButton = playButton
                     }
                 }

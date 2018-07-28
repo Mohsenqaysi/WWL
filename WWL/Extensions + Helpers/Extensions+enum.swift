@@ -223,7 +223,7 @@ enum CamerStatus: String {
 }
 
 
-struct UIExtendedSRGBColorSpaceToUIColor2: Hashable {
+struct UIExtendedSRGBColorSpaceToUIColor: Hashable {
     static let green = ["Optional(UIExtendedSRGBColorSpace 0.197085 0.571505 0.156546 1)" : "greenColor" ]
     static let blue = ["Optional(UIExtendedSRGBColorSpace 0.0395691 0.337999 0.71286 1)": "blueColor"]
 }

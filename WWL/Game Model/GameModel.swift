@@ -22,7 +22,7 @@ struct CounterProperty {
 }
 
 struct UserAnswerModel {
-    let baseNameKey: String
+    let expectedCounterColor: String!
     let submittedCounterColor: String?
 }
 

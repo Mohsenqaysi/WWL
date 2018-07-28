@@ -13,6 +13,7 @@ import AVFoundation
 class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var countersCollectionView: UICollectionView!
     
+    var expectedCounterColor = [String]()
     
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
@@ -21,15 +22,15 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     var testPlayButton: UIButton! {
         didSet {
-//            testPlayButton.alpha = 0.3
-//            testPlayButton.isEnabled = false
+            //            testPlayButton.alpha = 0.3
+            //            testPlayButton.isEnabled = false
             print("testPlayButton: \(testPlayButton)")
         }
     }
     func handelTestPlayButton(_ sender: UIButton) {
         handelStartGamePlay(sender: sender)
     }
-
+    
     var sound: Sound!
     var startingSound: Sound!
     var swishSound: Sound!
@@ -40,7 +41,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             print("didFinishedPlayingFlag Status changed: \(didFinishedPlayingFlag)")
         }
     }
-    
     
     var nextSound: Int = 1 {
         didSet {
@@ -62,13 +62,13 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-//   var startGameButton: UIButton = {
-//        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        let image = #imageLiteral(resourceName: "StartButton")
-//        button.setImage(image, for: UIControlState.normal)
-//        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
-//        return button
-//    }()
+    //   var startGameButton: UIButton = {
+    //        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    //        let image = #imageLiteral(resourceName: "StartButton")
+    //        button.setImage(image, for: UIControlState.normal)
+    //        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
+    //        return button
+    //    }()
     
     @objc func handelStartGamePlay(sender: UIButton) {
         enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
@@ -93,11 +93,15 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     }
     
     @IBOutlet weak var checkAnswerButton: UIButton!
-    
+    var lastContactNodeColor = ""
     @IBAction func checkAnswerButtonAction(_ sender: UIButton) {
-        
-        if true {
-            
+        print("------------------------------------------------")
+        print("lastContactNodeColor: \(lastContactNodeColor)")
+        print("expectedCounterColor: \(String(describing: expectedCounterColor.first!))")
+        print("------------------------------------------------")
+
+        if expectedCounterColor.first == lastContactNodeColor {
+            self.expectedCounterColor.removeAll()
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
             self.setSoundtrack(index: self.nextSound)
@@ -114,6 +118,8 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
             enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
             enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
+        } else {
+            print("checkAnswerButtonAction... ERORR : \(String(describing: expectedCounterColor.first))")
         }
     }
     
@@ -140,9 +146,9 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             print("levelDataArray frsit key: \(startingCounterKey)")
         }
     }
-    var foldername: String = "" {
+    var folderName: String = "" {
         didSet {
-            print("foldername: \(foldername)")
+            print("foldername: \(folderName)")
         }
     }
     
@@ -182,6 +188,11 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     let configuration = ARWorldTrackingConfiguration()
     var selectedItem: String?
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        levelDataArray.removeAll()
+        testPlayButton.removeFromSuperview()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         testPlayButton.alpha = 0.0
@@ -192,10 +203,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.initialViewSetUp()
-        //TODO: check this line ... for user answer
-        userAnswersArray.append(UserAnswerModel(baseNameKey: "dd", submittedCounterColor: nil))
         registerGestures()
         statusLable.statusShowLabelAnimation(isHidden: false)
         status = "Move your device around in a circular motion to allow the camera to view larger area"
@@ -252,6 +260,13 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             let hitNode = hitTestResults.first!
             guard let nodeName = hitNode.node.name else {return}
             if !doesNotEqualToStaticNodes(nodeName: nodeName) {
+                //TODO: check this line ... for user answer
+                guard let removedNodeColor = hitNode.node.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
+               
+                if self.expectedCounterColor.isEmpty {
+                    self.expectedCounterColor.append(self.getNodeColor(detectedColor: removedNodeColor))
+                    print("removeVirtualObject expectedCounterColor: \(self.expectedCounterColor)")
+                }
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                 DispatchQueue.main.async {
                     hitNode.node.removeFromParentNode()
@@ -654,17 +669,17 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         // TODO: Chmage this path later
         if index == 0 {
             print("startingCounterKey: \(startingCounterKey)")
-            let path = "\(foldername)/\(startingCounterKey)"
+            let path = "\(folderName)/\(startingCounterKey)"
             print("index 0 path: \(path)")
             startingSound = Sound(folderName: "sounds", fileName: "Sound_Change", fileIndex: index, startingCounter: path, withExtension: "mp3")
             startingSound.playSoundTrack(sender: testPlayButton, completion: nil)
         }
     }
-
+    
     func setSoundtrack(index: Int) {
         print("sounFileName: \(levelDataArray[index].key!)")
         let key = levelDataArray[index].key!
-        sound = Sound(folderName: "sounds/\(foldername)", fileName: key, fileIndex: nextSound)
+        sound = Sound(folderName: "sounds/\(folderName)", fileName: key, fileIndex: nextSound)
     }
     
     // check the anchor before add the node ... if a node already being added do not update it's postion.
@@ -684,14 +699,34 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         didFinishedPlayingFlag = flag
     }
     
+    func getNodeColor(detectedColor: String) -> String {
+        var color = ""
+        print("********************* Color **************************")
+        
+        if UIExtendedSRGBColorSpaceToUIColor.green.keys.first == detectedColor {
+            if let decodedColor = UIExtendedSRGBColorSpaceToUIColor.green.values.first {
+                color = decodedColor
+                print("getNodeColor: \(color)")
+            }
+        } else if UIExtendedSRGBColorSpaceToUIColor.blue.keys.first == detectedColor {
+            if let decodedColor = UIExtendedSRGBColorSpaceToUIColor.blue.values.first {
+                color = decodedColor
+                print("getNodeColor: \(color)")
+            }
+        } else {
+            print("new color: \(detectedColor) ")
+        }
+        print("**********************************************")
+        return color
+    }
+    
     var lastContactNode: SCNNode!
 }
 // MARK: - PhysicsWorld
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        print("didEnd I was called...")
+//        print("didEnd I was called...")
         lastContactNode = nil
-        
         var contactNode: SCNNode!
         
         if contact.nodeA.name == BoxBodyTypeName.counter.toString() {
@@ -706,25 +741,14 @@ extension GameViewController: SCNPhysicsContactDelegate {
             return
         }
         self.lastContactNode = contactNode
-        if !doesNotEqualToStaticNodes(nodeName: lastContactNode.name!) {
-            // checkAnswerButton
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.checkAnswerButton.isHidden = false
-            }
+        // checkAnswerButton
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.checkAnswerButton.isHidden = false
         }
-        guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
-        print("Box Materials: \(detectedColor)")
-        print("********************* Color **************************")
         
-        if UIExtendedSRGBColorSpaceToUIColor2.green.keys.first == detectedColor {
-            print(UIExtendedSRGBColorSpaceToUIColor2.green.values.first as Any)
-        } else if UIExtendedSRGBColorSpaceToUIColor2.blue.keys.first == detectedColor {
-            print(UIExtendedSRGBColorSpaceToUIColor2.blue.values.first as Any)
-        } else {
-            print("new color: \(detectedColor) ")
-        }
-        print("node name: \(String(describing: lastContactNode.name?.description))")
-        print("**********************************************")
+        guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
+        lastContactNodeColor = getNodeColor(detectedColor: detectedColor)
+        print("LastContactNodeColor: \(lastContactNodeColor)")
     }
     
     //    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
@@ -735,8 +759,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
     //    }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("didBegin I was called")
-        lastContactNode = nil
+//        print("didBegin I was called")
+//        lastContactNode = nil
         
         //        var contactNode: SCNNode!
         //
