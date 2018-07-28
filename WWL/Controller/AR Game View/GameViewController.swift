@@ -42,7 +42,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-    var nextSound: Int = 1 {
+    var nextSound: Int = 18 {
         didSet {
             print("updated Value: \(nextSound)")
         }
@@ -51,15 +51,16 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     var userAnswersArray = [UserAnswerModel]()
     
     fileprivate func UpDateUIView() {
-        DispatchQueue.main.async {
-            self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
-            self.nodesThatDidNotChnage.removeAll()
-            self.checkAnswerButton.isHidden = true
-            self.itemCollectionViewController(isOn: true)
-            self.statusLable.statusShowLabelAnimation(isHidden: false)
-            self.status = "'Long Press' on the coundter that changes sound to remove it and replace it with another one"
-            [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
-        }
+            DispatchQueue.main.async {
+                self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
+                self.nodesThatDidNotChnage.removeAll()
+                self.checkAnswerButton.isHidden = true
+                self.itemCollectionViewController(isOn: true)
+                self.statusLable.statusShowLabelAnimation(isHidden: false)
+                self.status = "'Long Press' on the coundter that changes sound to remove it and replace it with another one"
+                [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
+            }
+
     }
     
     //   var startGameButton: UIButton = {
@@ -94,30 +95,35 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     @IBOutlet weak var checkAnswerButton: UIButton!
     var lastContactNodeColor = ""
+    
+    //MARK:- Check Answers
     @IBAction func checkAnswerButtonAction(_ sender: UIButton) {
         print("------------------------------------------------")
         print("lastContactNodeColor: \(lastContactNodeColor)")
         print("expectedCounterColor: \(String(describing: expectedCounterColor.first!))")
         print("------------------------------------------------")
-
+        
         if expectedCounterColor.first == lastContactNodeColor {
             self.expectedCounterColor.removeAll()
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
-            self.setSoundtrack(index: self.nextSound)
-            
-            // update The UI with the new data
-            UpDateUIView()
-            DispatchQueue.main.async {
-                self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
-                self.sound.playSoundTrack(sender: self.playSoundButton, completion: nil)
+            if nextSound < levelDataArray.count{
+                self.setSoundtrack(index: self.nextSound)
+                // update The UI with the new data
+                UpDateUIView()
+                DispatchQueue.main.async {
+                    self.createAndSetUpCounterPostionsOnView(index: self.nextSound)
+                    self.sound.playSoundTrack(sender: self.playSoundButton, completion: nil)
+                }
+                
+                // Remove all exstra counters added
+                addeditemsviaAddItemsFunc.forEach { $0.removeFromParentNode()}
+                enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
+                enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
+                enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
+            } else {
+                print("Game is over")
             }
-            
-            // Remove all exstra counters added
-            addeditemsviaAddItemsFunc.forEach { $0.removeFromParentNode()}
-            enableGuestures(isOn: true, gestureID: GuesturesIDs.longPress.toInt())
-            enableGuestures(isOn: false, gestureID: GuesturesIDs.pan.toInt())
-            enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
         } else {
             print("checkAnswerButtonAction... ERORR : \(String(describing: expectedCounterColor.first))")
         }
