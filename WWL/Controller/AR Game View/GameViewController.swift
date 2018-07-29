@@ -18,6 +18,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var countersCollectionView: UICollectionView!
     var expectedCounterColor = [String]()
     
+    @IBOutlet weak var exitGameButton: UIButton!
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         stopWatchTimer.stopTimer()
@@ -25,6 +26,11 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         startingSound = nil
         swishSound = nil
         self.dismiss(animated: true, completion: nil)
+    }
+    var levelIndex: Int? {
+        didSet {
+            print("levelIndex: \(String(describing: levelIndex))")
+        }
     }
     
     var testPlayButton: UIButton! {
@@ -50,7 +56,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-    var nextSound: Int = 18 {
+    var nextSound: Int = 19 {
         didSet {
             print("updated Value: \(nextSound)")
         }
@@ -123,6 +129,8 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 enableGuestures(isOn: false, gestureID: GuesturesIDs.tap.toInt())
             } else {
                 setupConfetti()
+                hideContolers()
+                showAlert()
                 print("Game is over")
                 stopWatchTimer.stopTimer()
                 let totalTime = stopWatchTimer.getTimer()
@@ -131,6 +139,13 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 
                 // Log data to Firebase
                 self.FirebaseNetworkingCallRef.saveUserProgres(modle: folderName, time: totalTime, inconrrectAnswers: numberOfInccorectAnswersCheked)
+                // Open nex level
+                let openNextLevel = (levelIndex?.advanced(by: 1))!
+                if openNextLevel <= 6 {
+                    self.FirebaseNetworkingCallRef.updateNextLevelsStatus(openNextLevel)
+                } else {
+                    fatalError("out of range")
+                }
             }
         } else {
             flashScreen(text: "Wrong Answer", color: .red)
@@ -145,7 +160,25 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         label.textAlignment = .center
         return label
     }()
+    func showAlert(){
+        let finishedAlert = UIAlertController(title: "🎉🎉🎉", message: AlertsMessages.CongratulationFinishedLevel, preferredStyle: UIAlertControllerStyle.alert)
+        finishedAlert.addAction(UIAlertAction(title: "OK", style: .default,  handler: {(alert: UIAlertAction!) in
+            self.handelOkButton()
+        }))
+        self.present(finishedAlert, animated: true, completion: nil)
+    }
+    func handelOkButton() {
+        print("ok button was pressed")
+        self.dismiss(animated: true, completion: nil)
+    }
 
+    func hideContolers(){
+        self.checkAnswerButton.isHidden = true
+        self.playSoundButton.isHidden = true
+        self.countersCollectionView.isHidden = true
+        self.exitGameButton.isHidden = true
+    }
+    
     func flashScreen(text: String, color: UIColor){
         if let wnd = self.sceneView {
             let v = UIView(frame: wnd.bounds)

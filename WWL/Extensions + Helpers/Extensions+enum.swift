@@ -79,6 +79,8 @@ struct AlertsMessages {
     static let passwordLength = "The password must be 6 characters long or more."
     static let emilIsUsed = "The email address is already in use by another account."
     static let emilBadFormt = "The email address is badly formatted."
+    static let CongratulationFinishedLevel = "Congratulation you have completed the level 😃"
+
 }
 
 // Identifiers IDs

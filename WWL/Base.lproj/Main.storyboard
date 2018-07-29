@@ -796,6 +796,7 @@
                     <connections>
                         <outlet property="checkAnswerButton" destination="jm6-q6-e3v" id="tcs-hq-abt"/>
                         <outlet property="countersCollectionView" destination="i3k-j8-n55" id="Zu8-Vh-gsi"/>
+                        <outlet property="exitGameButton" destination="2mB-B3-9w7" id="8ax-eL-kOc"/>
                         <outlet property="itemsCollectionView" destination="i3k-j8-n55" id="7p3-Yc-GFq"/>
                         <outlet property="playSoundButton" destination="q80-1c-Xon" id="E5z-fT-BYJ"/>
                         <outlet property="sceneView" destination="Qu5-F7-tAT" id="hMk-qn-8Yc"/>

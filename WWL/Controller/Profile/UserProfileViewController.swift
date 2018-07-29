@@ -10,6 +10,8 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
     
+    var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
+
     var userProgressArray: [String] = ["hi"]
     
     @IBOutlet weak var userNmaelabel: UILabel!
