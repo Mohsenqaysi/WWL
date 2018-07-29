@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct LevelStatusModel {
+    var key: Int
+    var flag: Bool
+}
+
 enum CounterColor: Int {
     case blueColor = 1
     case greenColor = 2
@@ -80,16 +85,23 @@ var Model03: [GameModel] = [
 var allLevelsDataArray = [Model02,Model03]
 
 
-//for (index,v) in allLevelsDataArray[0].enumerated() {
-//    let key = v.key
-//    let path = "index: \(index)\n Sound-Sequencing.module02/\(v.key).mp3"
-//    print("key: \(key)\n \(path)")
-//    v.CounterProperty.forEach { (counter) in
-//        let colorID = counter.color
-//        let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
-//        if counter.counterChanged == true {
-//            let counterChanged = counter.counterChanged == true
-//            print(" \(colorID) -> \(color) -> \(counterChanged)")
+//func checkAnswers() {
+//    // MARK:- Increment the index manually
+//    print("*_______________*")
+//    // This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
+//    for (index,value) in gameLevelsDataArray[0].enumerated() {
+//        let key = value.key
+//        let path = "index: \(index)\n Sound-Sequencing.module02/\(value.key).mp3"
+//        print("key: \(String(describing: key))\n \(path)")
+//        // Loop over all innder counters
+//        value.CounterProperty.forEach { (counter) in
+//            let colorID = counter.color
+//            let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
+//            if counter.counterChanged {
+//                let counterChanged = counter.counterChanged == true
+//                print(" \(colorID) -> \(color) -> \(counterChanged)")
+//            }
 //        }
 //    }
+//    print("*_______________*")
 //}

@@ -13,7 +13,7 @@ import AVFoundation
 class GameViewController: UIViewController,ARSCNViewDelegate {
     
     var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
-
+    var updatedLevelStatusDelegate: UpdatedLevelStatusDelegate?
     
     @IBOutlet weak var countersCollectionView: UICollectionView!
     var expectedCounterColor = [String]()
@@ -142,6 +142,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 // Open nex level
                 let openNextLevel = (levelIndex?.advanced(by: 1))!
                 if openNextLevel <= 6 {
+                    self.updatedLevelStatusDelegate?.didUpdateIndex(index: openNextLevel, flag: true)
                     self.FirebaseNetworkingCallRef.updateNextLevelsStatus(openNextLevel)
                 } else {
                     fatalError("out of range")

@@ -237,7 +237,7 @@
                                                 <state key="normal" image="playButton"/>
                                                 <connections>
                                                     <action selector="startPlayingButton:" destination="2eg-zY-So5" eventType="touchUpInside" id="JFy-NM-cEL"/>
-                                                    <segue destination="ebq-RY-6SI" kind="show" id="tYs-E2-gJn"/>
+                                                    <segue destination="ebq-RY-6SI" kind="show" identifier="LevelsViewControllerSegue" id="tYs-E2-gJn"/>
                                                 </connections>
                                             </button>
                                         </subviews>

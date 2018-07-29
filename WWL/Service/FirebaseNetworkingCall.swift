@@ -25,8 +25,18 @@ enum FirebasePaths: String {
 }
 
 
-struct FirebaseNetworkingCall {
+class FirebaseNetworkingCall {
     fileprivate var levelsArray = [Dictionary<String, Bool>]()
+    
+    var levelsStatus = [LevelStatusModel]() {
+        didSet {
+            print("levelsStatus: \(levelsStatus)")
+        }
+    }
+    
+    func getLevelsStatsArry() -> [LevelStatusModel] {
+        return levelsStatus
+    }
     
     var ref: DatabaseReference!
     init() {
@@ -35,7 +45,7 @@ struct FirebaseNetworkingCall {
     
     func saveUserSignUpData(withUserName username: String, email: String, uid: String) {
         let dic = ["username": username, "email": email]
-        self.ref.child(FirebasePaths.users.rawValue).child(uid).setValue(dic)
+        self.ref.child(FirebasePaths.users.toString()).child(uid).setValue(dic)
         modulesAccess(uid: uid)
     }
     
@@ -46,7 +56,7 @@ struct FirebaseNetworkingCall {
         }
         return userID
     }
-    mutating func saveUserProgres(modle: String, time: Double, inconrrectAnswers: Int) {
+    func saveUserProgres(modle: String, time: Double, inconrrectAnswers: Int) {
         let dic: [String : Double]
         dic = ["incorrect_answers" : Double(inconrrectAnswers), "total_time" : time]
         self.ref.child(FirebasePaths.user_progress.toString()).child(getUserID()).child(modle).setValue(dic)
@@ -56,7 +66,6 @@ struct FirebaseNetworkingCall {
         var dic: [String : Bool]
         dic = ["\(levelIndex)": true]
         self.ref.child(FirebasePaths.levels_status.toString()).child(getUserID()).updateChildValues(dic)
-        
     }
     
     fileprivate func modulesAccess(uid: String){

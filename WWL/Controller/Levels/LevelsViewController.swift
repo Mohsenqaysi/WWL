@@ -9,21 +9,40 @@
 import UIKit
 import AVFoundation
 import AVKit
+import Firebase
 
+protocol UpdatedLevelStatusDelegate {
+    func didUpdateIndex(index: Int, flag: Bool)
+}
 
-class LevelsViewController: UIViewController {
+class LevelsViewController: UIViewController,UpdatedLevelStatusDelegate {
+   
+    func didUpdateIndex(index: Int, flag: Bool) {
+        print("didUpdateIndex I was called on updated index ")
+        print("index: \(index) - flag: \(flag)")
+        levelsStatus[index].flag = flag
+        levelCollectionView.reloadData()
+    }
     
-       var playButton: UIButton! = {
-            var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            let image = #imageLiteral(resourceName: "StartButton")
-            button.setImage(image, for: UIControlState.normal)
-            return button
-        }()
-
+    var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
+    
+    var playButton: UIButton! = {
+        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let image = #imageLiteral(resourceName: "StartButton")
+        button.setImage(image, for: UIControlState.normal)
+        return button
+    }()
+    
     @IBOutlet weak var levelCollectionView: UICollectionView!
     var gameLevelsDataArray: [[GameModel]] = allLevelsDataArray
     var foldernames: [String] = ["module02","module03","module04","module05","module06"]
-
+    
+    var levelsStatus = [LevelStatusModel]() {
+        didSet {
+            print("levelsStatus: \(levelsStatus)")
+        }
+    }
+    
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         self.dismiss(animated: true, completion: nil)
@@ -31,35 +50,16 @@ class LevelsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        checkAnswers()
+//        FirebaseNetworkingCallRef.getlevelsStatus()
+//        levelsStatus = FirebaseNetworkingCallRef.getLevelsStatsArry()
     }
     
-    func checkAnswers() {
-        // MARK:- Increment the index manually
-        print("*_______________*")
-        // This one will allow me to model all 6 models coz some will have upto 4 counters with different colors
-        for (index,value) in gameLevelsDataArray[0].enumerated() {
-            let key = value.key
-            let path = "index: \(index)\n Sound-Sequencing.module02/\(value.key).mp3"
-            print("key: \(String(describing: key))\n \(path)")
-            // Loop over all innder counters
-            value.CounterProperty.forEach { (counter) in
-                let colorID = counter.color
-                let color = (counter.color == CounterColor.blueColor.toInt()) ? CounterColor.blueColor : CounterColor.greenColor
-                if counter.counterChanged {
-                    let counterChanged = counter.counterChanged == true
-                    print(" \(colorID) -> \(color) -> \(counterChanged)")
-                }
-            }
-        }
-        print("*_______________*")
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
         print("viewWillAppear was called")
+        
     }
-    
 }
 
 extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSource {
@@ -84,6 +84,11 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.LevelsViewControllerCell, for: indexPath) as! GameLevelCollectionViewCell
             cell.loadingCellAnimation()
             cell.levelText = "Module \(indexPath.item)"
+            if !levelsStatus.isEmpty {
+                let imageNme = levelsStatus[indexPath.item].flag ? "unlock" : "lock"
+                cell.imageName = imageNme
+                print("levelsStatus index: \(levelsStatus[2])")
+            }
             return cell
         }
     }
@@ -101,6 +106,7 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
                         destination.folderName = foldernames[indexPathItem.advanced(by: -1)]
                         destination.testPlayButton = playButton
                         destination.levelIndex = indexPathItem
+                        destination.updatedLevelStatusDelegate = self
                     }
                 }
             }
@@ -114,8 +120,11 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         selectedCell?.bounceCellEffect()
         if indexPath.item == 0 {
             playVido()
+        } else if levelsStatus[indexPath.item].flag {
+            performSegue(withIdentifier: Identifiers.presentGameViewSegue, sender: nil)
+        } else {
+            print("Level is locked for now")
         }
-        performSegue(withIdentifier: Identifiers.presentGameViewSegue, sender: nil)
     }
     
     fileprivate func playVido() {
@@ -133,4 +142,3 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
         }
     }
 }
-
