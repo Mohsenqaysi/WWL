@@ -18,13 +18,20 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setButtonsActions()
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if user != nil {
-                debugPrint("user is signed as: \(String(describing: user?.email?.debugDescription))")
-                self.performSegue(withIdentifier: Identifiers.AlreadyLoggedIn, sender: nil)
+        let isUserExisits = UserDefaults.standard.bool(forKey: Keys.isLoggedIn.rawValue)
+        print("isUserExisits: \(isUserExisits)")
+        if isUserExisits {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    debugPrint("user is signed as: \(String(describing: user?.email?.description))")
+                    self.performSegue(withIdentifier: Identifiers.AlreadyLoggedIn, sender: nil)
+                } else {
+                    print("no user: \(String(describing: user))")
+                }
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = navigationBarState

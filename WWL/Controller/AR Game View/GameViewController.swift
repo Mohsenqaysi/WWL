@@ -11,13 +11,16 @@ import ARKit
 import AVFoundation
 
 class GameViewController: UIViewController,ARSCNViewDelegate {
-    @IBOutlet weak var countersCollectionView: UICollectionView!
     
+    @IBOutlet weak var countersCollectionView: UICollectionView!
     var expectedCounterColor = [String]()
     
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         stopWatchTimer.stopTimer()
+        sound = nil
+        startingSound = nil
+        swishSound = nil
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -36,6 +39,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     var startingSound: Sound!
     var swishSound: Sound!
     var sounFileName: String!
+    var numberOfInccorectAnswersCheked: Int = 0
     
     var didFinishedPlayingFlag: Bool = false {
         didSet {
@@ -64,13 +68,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
 
     }
     
-    //   var startGameButton: UIButton = {
-    //        var button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    //        let image = #imageLiteral(resourceName: "StartButton")
-    //        button.setImage(image, for: UIControlState.normal)
-    //        button.addTarget(self, action: #selector(GameViewController.handelStartGamePlay), for: .touchUpInside)
-    //        return button
-    //    }()
    var stopWatchTimer = StopWatchTimer()
     @objc func handelStartGamePlay(sender: UIButton) {
         // Start the timer
@@ -127,9 +124,11 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 stopWatchTimer.stopTimer()
                 let totalTime = stopWatchTimer.getTimer()
                 print("total Time played = \(totalTime / 60) mins")
+                print("numberOfInccorectAnswersCheked: \(numberOfInccorectAnswersCheked)")
             }
         } else {
             flashScreen(text: "Wrong Answer", color: .red)
+            numberOfInccorectAnswersCheked = numberOfInccorectAnswersCheked + 1
             print("checkAnswerButtonAction... ERORR : \(String(describing: expectedCounterColor.first))")
         }
     }
@@ -795,47 +794,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
         lastContactNodeColor = getNodeColor(detectedColor: detectedColor)
         print("LastContactNodeColor: \(lastContactNodeColor)")
     }
-    
-    //    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-    //        // checkAnswerButton
-    //        DispatchQueue.main.asyncAfter(deadline: .now()) {
-    //            self.checkAnswerButton.isHidden = true
-    //        }
-    //    }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-//        print("didBegin I was called")
-//        lastContactNode = nil
-        
-        //        var contactNode: SCNNode!
-        //
-        //        if contact.nodeA.name == BoxBodyTypeName.counter.toString() {
-        //            contactNode = contact.nodeA
-        //            print("node A \(String(describing: contact.nodeA.name)) was assigned to contactNode")
-        //        } else {
-        //            contactNode = contact.nodeB
-        //            print("node B \(String(describing: contact.nodeA.name)) was assigned to contactNode")
-        //        }
-        //
-        //        if self.lastContactNode != nil && self.lastContactNode == contactNode {
-        //            return
-        //        }
-        //        self.lastContactNode = contactNode
-        //        guard let detectedColor = lastContactNode.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
-        //        print("Box Materials: \(detectedColor)")
-        //        print("********************* Color **************************")
-        //
-        //        if UIExtendedSRGBColorSpaceToUIColor2.green.keys.first == detectedColor {
-        //            print(UIExtendedSRGBColorSpaceToUIColor2.green.values.first as Any)
-        //        } else if UIExtendedSRGBColorSpaceToUIColor2.blue.keys.first == detectedColor {
-        //            print(UIExtendedSRGBColorSpaceToUIColor2.blue.values.first as Any)
-        //        } else {
-        //            print("new color: \(detectedColor) ")
-        //        }
-        //        print("node name: \(String(describing: lastContactNode.name?.description))")
-        //        print("**********************************************")
-    }
 }
+
 extension GameViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     // How many cells the colection displays
