@@ -12,6 +12,9 @@ import AVFoundation
 
 class GameViewController: UIViewController,ARSCNViewDelegate {
     
+    var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
+
+    
     @IBOutlet weak var countersCollectionView: UICollectionView!
     var expectedCounterColor = [String]()
     
@@ -125,6 +128,9 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 let totalTime = stopWatchTimer.getTimer()
                 print("total Time played = \(totalTime / 60) mins")
                 print("numberOfInccorectAnswersCheked: \(numberOfInccorectAnswersCheked)")
+                
+                // Log data to Firebase
+                self.FirebaseNetworkingCallRef.saveUserProgres(modle: folderName, time: totalTime, inconrrectAnswers: numberOfInccorectAnswersCheked)
             }
         } else {
             flashScreen(text: "Wrong Answer", color: .red)

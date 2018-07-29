@@ -18,18 +18,37 @@ struct Levels {
 enum FirebasePaths: String {
     case users = "users"
     case levels_status = "levels_status"
+    case user_progress = "user_progress"
+    func toString() -> String {
+        return self.rawValue
+    }
 }
+
 
 struct FirebaseNetworkingCall {
     fileprivate var levelsArray = [Dictionary<String, Bool>]()
+    
     var ref: DatabaseReference!
     init() {
         ref = Database.database().reference()
     }
     
      func saveUserSignUpData(withUserName username: String, email: String, uid: String) {
-        self.ref.child(FirebasePaths.users.rawValue).child(uid).setValue(["username": username, "email": email])
+        let dic = ["username": username, "email": email]
+        self.ref.child(FirebasePaths.users.rawValue).child(uid).setValue(dic)
         modulesAccess(uid: uid)
+    }
+    
+    // user_progress/gF6HZq7d9GbBwYJpUklslSupn642/module02
+
+    mutating func saveUserProgres(modle: String, time: Double, inconrrectAnswers: Int) {
+        guard let userID = Auth.auth().currentUser?.uid, Auth.auth().currentUser?.uid != nil else {
+            fatalError("No User exsists")
+        }
+        
+        let dic: [String : Double]
+        dic = ["incorrect_answers" : Double(inconrrectAnswers), "total_time" : time]
+        self.ref.child(FirebasePaths.user_progress.toString()).child(userID).child(modle).setValue(dic)
     }
     
     fileprivate func modulesAccess(uid: String){

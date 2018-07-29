@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var soundIsON: UISwitch!
     var stackViews: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -132,6 +132,8 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
         stackViews = setUpEmmbededViews(ArrayViews: [toolBar,datePicker])
         self.settingsContainorView.addSubview(stackViews)
         stackViews.frame = settingsContainorView.frame
+        stackViews.clipsToBounds = true
+        stackViews.layer.masksToBounds = false
     }
     
     

@@ -23,6 +23,7 @@
 		FC8A06F320E2C044002E367A /* Extensions+enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A06F220E2C044002E367A /* Extensions+enum.swift */; };
 		FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */; };
 		FCC919E4210D34050007AA85 /* StopWatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC919E3210D34050007AA85 /* StopWatchTimer.swift */; };
+		FCD473F5210E03EA00EAFF3A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD473F4210E03EA00EAFF3A /* UserProfileViewController.swift */; };
 		FCD5AA5F20E2951C00535845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD5AA5E20E2951C00535845 /* AppDelegate.swift */; };
 		FCD5AA6620E2951C00535845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6420E2951C00535845 /* Main.storyboard */; };
 		FCD5AA6B20E2951D00535845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD5AA6920E2951D00535845 /* LaunchScreen.storyboard */; };
@@ -54,6 +55,7 @@
 		FC8A06F220E2C044002E367A /* Extensions+enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+enum.swift"; sourceTree = "<group>"; };
 		FCC73DA320EAC8C500F015D9 /* GameLevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCC919E3210D34050007AA85 /* StopWatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchTimer.swift; sourceTree = "<group>"; };
+		FCD473F4210E03EA00EAFF3A /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		FCD5AA5B20E2951B00535845 /* WWL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD5AA5E20E2951C00535845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCD5AA6520E2951C00535845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		FC8A06E920E2ADEF002E367A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FCD473F3210E03CA00EAFF3A /* Profile */,
 				FCC919E2210D33ED0007AA85 /* Timer */,
 				FC8A06EA20E2AE06002E367A /* Registration */,
 				FCF3CEAE20E915D500817259 /* Main */,
@@ -162,6 +165,14 @@
 				FCC919E3210D34050007AA85 /* StopWatchTimer.swift */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		FCD473F3210E03CA00EAFF3A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FCD473F4210E03EA00EAFF3A /* UserProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		FCD5AA5220E2951B00535845 = {
@@ -350,6 +361,7 @@
 				FC2AA13C2106801C00A93417 /* Sound.swift in Sources */,
 				FC587D9A20FA3BBE0011C22A /* itemCell.swift in Sources */,
 				FCC73DA420EAC8C500F015D9 /* GameLevelCollectionViewCell.swift in Sources */,
+				FCD473F5210E03EA00EAFF3A /* UserProfileViewController.swift in Sources */,
 				FCE86C8620FB95E5005AD411 /* GameModel.swift in Sources */,
 				FCDE6EF220E942A9004348F0 /* MyAudioPlayer.swift in Sources */,
 				FC8A06EC20E2AE45002E367A /* AuthViewController.swift in Sources */,

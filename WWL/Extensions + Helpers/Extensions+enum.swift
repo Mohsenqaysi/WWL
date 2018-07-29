@@ -93,6 +93,7 @@ struct Identifiers {
     static let CellID = "CellID"
     static let LevelsViewControllerCell = "LevelsViewControllerCell"
     static let itemID = "item"
+    static let profileCellID = "profileCellID"
     // Nodes IDs
     static let blueCounter = "blueCounter"
     static let greenCounter = "greenCounter"

@@ -88,7 +88,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                 //MARK:- Tey to save the user data to Firebase real-time database
                 // MARK: if successfully logged in a user ... naviagte the user to the login page
                 let authResult = authResult?.user
-                
                 if let userEmail = authResult?.email, let userUID = authResult?.uid {
                     debugPrint("nmae: \(userName) - email: \(userEmail) - uid: \(userUID)")
                     self.FirebaseNetworkingCallRef.saveUserSignUpData(withUserName: userName, email: email, uid: userUID)
