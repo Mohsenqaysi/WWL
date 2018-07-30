@@ -13,8 +13,9 @@ struct LevelStatusModel {
     var flag: Bool
 }
 struct LevelProgress {
-    var incorrect_answers: String
-    var total_time: Double
+    var section: String
+    var incorrect_answers: NSNumber
+    var total_time: NSNumber
 }
 //  [String : Double]
 // ["incorrect_answers": 0.0, "total_time": 12.99999999999997]

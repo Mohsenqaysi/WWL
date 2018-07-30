@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileCell: UITableViewCell {
 
+    @IBOutlet weak var sectionLabel: UILabel!
     @IBOutlet weak var inccorectAnswers: UILabel!
     @IBOutlet weak var totalTime: UILabel!
     override func awakeFromNib() {
