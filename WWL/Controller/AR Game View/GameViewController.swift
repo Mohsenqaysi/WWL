@@ -56,7 +56,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-    var nextSound: Int = 19 {
+    var nextSound: Int = 17 {
         didSet {
             print("updated Value: \(nextSound)")
         }
@@ -71,7 +71,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 self.checkAnswerButton.isHidden = true
                 self.itemCollectionViewController(isOn: true)
                 self.statusLable.statusShowLabelAnimation(isHidden: false)
-                self.status = "'Long Press' on the coundter that changes sound to remove it and replace it with another one"
+                self.status = AlertsMessages.longPress
                 [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
             }
 
@@ -290,7 +290,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         self.initialViewSetUp()
         registerGestures()
         statusLable.statusShowLabelAnimation(isHidden: false)
-        status = "Move your device around in a circular motion to allow the camera to view larger area"
+        status = AlertsMessages.findARPlane
     }
     
     fileprivate func initialViewSetUp() {

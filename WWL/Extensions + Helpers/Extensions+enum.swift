@@ -80,7 +80,8 @@ struct AlertsMessages {
     static let emilIsUsed = "The email address is already in use by another account."
     static let emilBadFormt = "The email address is badly formatted."
     static let CongratulationFinishedLevel = "Congratulation you have completed the level 😃"
-
+    static let longPress = "'Long Press' on the coundter that changes sound to remove it and replace it with another one"
+    static let findARPlane = "Move your device 'Letf/Right' and 'Up/Down' motion to allow the camera to view larger area"
 }
 
 // Identifiers IDs
