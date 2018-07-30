@@ -10,10 +10,10 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-struct Levels {
-    let index: String
-    let is_open: Bool
-}
+//struct Levels {
+//    let index: String
+//    let is_open: Bool
+//}
 
 enum FirebasePaths: String {
     case users = "users"

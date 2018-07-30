@@ -12,6 +12,16 @@ struct LevelStatusModel {
     var key: Int
     var flag: Bool
 }
+struct LevelProgress {
+    var incorrect_answers: String
+    var total_time: Double
+}
+//  [String : Double]
+// ["incorrect_answers": 0.0, "total_time": 12.99999999999997]
+struct UserProgressModel {
+    var levelKey: String
+    var LevelAnsers: [[String : Double]]
+}
 
 enum CounterColor: Int {
     case blueColor = 1

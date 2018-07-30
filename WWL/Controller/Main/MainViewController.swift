@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     
     var levelsStatus = [LevelStatusModel]() {
         didSet {
-            print("levelsStatus: \(levelsStatus)")
+//            print("levelsStatus: \(levelsStatus)")
         }
     }
     
@@ -46,7 +46,7 @@ class MainViewController: UIViewController {
                 for snap in snapshot {
                     if let flag = snap.value as?  Int {
                         let key = Int(snap.key)
-                        print("key: \(String(describing: key)) - value: \(flag)")
+//                        print("key: \(String(describing: key)) - value: \(flag)")
                         let value = flag == 1 ? true : false
                         self.levelsStatus.append(LevelStatusModel(key: key!, flag: value))
                     } else {
