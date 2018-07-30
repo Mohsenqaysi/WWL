@@ -99,31 +99,15 @@ extension UserProfileViewController: UITableViewDataSource {
         print(" numberOfRowsInSection: \(userProgressArray.count)")
         return userProgressArray.count
     }
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        print("numberOfSections: \(userProgressArray.count)")
-//        return userProgressArray.count
-//    }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return userProgressArray[section]
-//    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.profileCellID, for: indexPath) as! ProfileCell
         
-//        if let _ = userProgressArray[indexPath.row],
-//           if let total_time = userProgressArray[indexPath.row].total_time,
-//            let incorrect_answers = userProgressArray[indexPath.row].incorrect_answers {
-//            cell.inccorectAnswers.text = "\(incorrect_answers)"
-//            let time = Double().NSNumberFormater(Double(exactly: total_time)!)
-//            cell.totalTime.text = "\(time) Mins:Sec"
-        //        }
-        
         let total_time = userProgressArray[indexPath.row].total_time
         let time = Double().NSNumberFormater(Double(exactly: total_time)!)
         let incorrect_answers = userProgressArray[indexPath.row].incorrect_answers
-        cell.sectionLabel.text =  userProgressArray[indexPath.row].section
+        cell.sectionLabel.text =  userProgressArray[indexPath.row].section.uppercased()
         cell.totalTime.text = time//"\(total_time)"
         cell.inccorectAnswers.text = "\(incorrect_answers)"
         return cell
