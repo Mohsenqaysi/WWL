@@ -61,7 +61,7 @@ class UserProfileViewController: UIViewController {
     }
     
     func getlevelsProgress() {
-        userProgressArray.removeAll()
+        userProgressArray2.removeAll()
         let userID = FirebaseNetworkingCallRef.getUserID()
         var valueList = [NSNumber]()
         var sectionKey: String!
