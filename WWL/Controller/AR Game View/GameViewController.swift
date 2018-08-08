@@ -21,12 +21,34 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBOutlet weak var exitGameButton: UIButton!
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
-        stopWatchTimer.stopTimer()
-        sound = nil
-        startingSound = nil
-        swishSound = nil
-        self.dismiss(animated: true, completion: nil)
+        if stopWatchTimer != nil { stopWatchTimer.stopTimer() }
+        //TODO: check this part of the  code
+//        self.dismiss(animated: true)
+            // push to the start playing view
+        self.performSegue(withIdentifier: Identifiers.unwindToMainView, sender: nil)
+//        }
     }
+    
+//
+//    deinit {
+//        if sound != nil {
+//            sound.stopSoundTrack()
+//        }
+//        if startingSound != nil {
+//            startingSound.stopSoundTrack()
+//        }
+//        if swishSound != nil {
+//            swishSound.stopSoundTrack()
+//        }
+//    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+//        sound = nil
+//        startingSound = nil
+//        swishSound = nil
+    }
+    
     var levelIndex: Int? {
         didSet {
             print("levelIndex: \(String(describing: levelIndex))")
@@ -44,10 +66,27 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         handelStartGamePlay(sender: sender)
     }
     
-    var sound: Sound!
-    var startingSound: Sound!
-    var swishSound: Sound!
-    var sounFileName: String!
+    var sound: Sound! {
+        didSet {
+            print("sound was init: \(sound)")
+        }
+    }
+    var startingSound: Sound! {
+        didSet {
+            print("startingSound was init: \(startingSound)")
+        }
+    }
+    var swishSound: Sound! {
+        didSet {
+            print("swishSound was init: \(swishSound)")
+        }
+    }
+    var sounFileName: String! {
+        didSet {
+            print("sounFileName was init: \(sounFileName)")
+        }
+    }
+    
     var numberOfInccorectAnswersCheked: Int = 0
     
     var didFinishedPlayingFlag: Bool = false {
@@ -139,7 +178,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 
                 // Log data to Firebase
                 self.FirebaseNetworkingCallRef.saveUserProgres(modle: folderName, time: totalTime, inconrrectAnswers: numberOfInccorectAnswersCheked)
-                // Open nex level
+                // Open next level
                 let openNextLevel = (levelIndex?.advanced(by: 1))!
                 if openNextLevel <= 6 {
                     self.updatedLevelStatusDelegate?.didUpdateIndex(index: openNextLevel, flag: true)
@@ -170,7 +209,8 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     }
     func handelOkButton() {
         print("ok button was pressed")
-        self.dismiss(animated: true, completion: nil)
+        // TODO: unwindToMainView
+        self.performSegue(withIdentifier: Identifiers.unwindToMainView, sender: nil)
     }
 
     func hideContolers(){

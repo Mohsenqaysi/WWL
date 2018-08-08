@@ -56,7 +56,7 @@ class LevelsViewController: UIViewController,UpdatedLevelStatusDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+//        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
         print("viewWillAppear was called")
         
     }
@@ -115,7 +115,7 @@ extension LevelsViewController: UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath)
-        isSoundON(isON: false)
+//        isSoundON(isON: false)
         // Animate selected cell
         selectedCell?.bounceCellEffect()
         if indexPath.item == 0 {

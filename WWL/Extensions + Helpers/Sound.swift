@@ -14,7 +14,6 @@ import UIKit
 class Sound: NSObject {
 
     lazy var gameController = GameViewController()
-    
     var avPlayer: AVAudioPlayer!
     var filename: String!
     var withExtension: String!
@@ -36,6 +35,7 @@ class Sound: NSObject {
         self.withExtension = withExtension
         readFile()
     }
+    
     fileprivate func readFile(){
         let path = "\(folderName!)/\(filename!)"
         print("path: \(path)")
@@ -68,6 +68,7 @@ class Sound: NSObject {
         if avPlayer.isPlaying {
             avPlayer.stop()
         }
+        avPlayer = nil
     }
     
     func playSoundTrack(sender: UIButton?, completion: (()->())?)  {
@@ -95,12 +96,14 @@ extension Sound: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         gameController.didFinishedPalying(successfully: flag)
         if flag {
+            debugPrint("Sound index: \(index)")
             if index == 0 && !didPlayStartingCounters {
                 didPlayStartingCounters = true
                 let path = "\(folderName!)/\(startingCounter!)"
                 print("startingFilePath is: \(path)")
                 readFileIntoAVPlayer(path: path)
                 playSoundTrack(sender: nil, completion: nil)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                     if self.playingButton != nil && self.playingButton.alpha == 0.0 {
                         self.playingButton.alpha = 1.0
@@ -120,7 +123,8 @@ extension Sound: AVAudioPlayerDelegate {
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let e = error {
-            print("\(e.localizedDescription)")
+            
+            print("audioPlayerDecodeErrorDidOccur: \(e.localizedDescription)")
         }
     }
 }

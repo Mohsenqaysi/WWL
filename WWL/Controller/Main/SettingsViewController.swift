@@ -65,8 +65,10 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
-        soundIsON.setOn(userDefult.bool(forKey: Keys.menuSoundKye.rawValue), animated: true)
-        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+       
+//        soundIsON.setOn(userDefult.bool(forKey: Keys.menuSoundKye.rawValue), animated: true)
+//        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+       
         if let time = userDefult.string(forKey: "time"){
             print("userDefults time: \(time)")
             setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
@@ -82,9 +84,8 @@ class SettingsViewController: UIViewController {
             try Auth.auth().signOut()
             UserDefaults.standard.set(false, forKey: Keys.isLoggedIn.rawValue)
             UserDefaults.standard.synchronize()
-            isSoundON(isON: false)
+//            isSoundON(isON: false)
             self.performSegue(withIdentifier: Identifiers.LoggedOut, sender: nil)
-            
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
@@ -95,7 +96,8 @@ class SettingsViewController: UIViewController {
         soundIsON.setOn(sender.isOn, animated: true)
         userDefult.set(sender.isOn, forKey: Keys.menuSoundKye.rawValue)
         userDefult.synchronize()
-        isSoundON(isON: sender.isOn)
+        
+//        isSoundON(isON: sender.isOn)
     }
     
     @IBAction func setLocalNotifications(_ sender: UISwitch) {
@@ -155,8 +157,6 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
     }
     
     fileprivate func formatAndSetTimeLable() {
-        
-        
         if let time = try? formateTime(dateComponents: notificatioRequestDateComponents!) {
             setDataPickerTimeButton.setTitle("Daily remider at \(time)", for: .normal)
             userDefult.set(time, forKey: "time")

@@ -94,6 +94,7 @@ struct Identifiers {
     static let LoggedOut = "LoggedOut"
     static let presentGameViewSegue = "presentGameViewSegue"
     static let LevelsViewControllerSegue = "LevelsViewControllerSegue"
+    static let unwindToMainView = "unwindToMainView"
     static let CellID = "CellID"
     static let LevelsViewControllerCell = "LevelsViewControllerCell"
     static let itemID = "item"

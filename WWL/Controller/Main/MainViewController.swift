@@ -12,6 +12,10 @@ import Firebase
 class MainViewController: UIViewController {
     let userDefult = UserDefaults.standard
 
+    @IBAction func unwindToMainView(_ sender: UIStoryboardSegue) {
+        print("unwindToMainView...")
+    }
+    
     var FirebaseNetworkingCallRef = FirebaseNetworkingCall()
     var ref: DatabaseReference!
     
@@ -23,9 +27,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        debugPrint(userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
-        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
-        
+//        debugPrint(userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
+//        isSoundON(isON: userDefult.bool(forKey: Keys.menuSoundKye.rawValue))
         print("new levelsStatus: \(levelsStatus)")
 //        FirebaseNetworkingCallRef.getlevelsStatus()
 //        levelsStatus = FirebaseNetworkingCallRef.getLevelsStatsArry()
