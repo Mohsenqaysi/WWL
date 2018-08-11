@@ -24,6 +24,12 @@ struct UserProgressModel {
     var LevelAnsers: [[String : Double]]
 }
 
+
+struct UserAnswerModel {
+    let expectedCounterColor: String!
+    let submittedCounterColor: String?
+}
+
 enum CounterColor: Int {
     case blueColor = 1
     case greenColor = 2
@@ -35,11 +41,6 @@ enum CounterColor: Int {
 struct CounterProperty {
     let color: Int
     let counterChanged: Bool
-}
-
-struct UserAnswerModel {
-    let expectedCounterColor: String!
-    let submittedCounterColor: String?
 }
 
 struct GameModel {
