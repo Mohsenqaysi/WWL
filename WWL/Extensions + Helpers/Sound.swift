@@ -103,7 +103,6 @@ extension Sound: AVAudioPlayerDelegate {
                 print("startingFilePath is: \(path)")
                 readFileIntoAVPlayer(path: path)
                 playSoundTrack(sender: nil, completion: nil)
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                     if self.playingButton != nil && self.playingButton.alpha == 0.0 {
                         self.playingButton.alpha = 1.0
@@ -115,10 +114,6 @@ extension Sound: AVAudioPlayerDelegate {
                 playingButton.isEnabled = true
             }
         }
-        
-//        if playingButton != nil && didPlayStartingCounters {
-
-//        }
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

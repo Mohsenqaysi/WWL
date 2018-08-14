@@ -22,31 +22,11 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     @IBAction func exitGame(_ sender: UIButton) {
         sender.bounceButtonEffect()
         if stopWatchTimer != nil { stopWatchTimer.stopTimer() }
-        //TODO: check this part of the  code
-//        self.dismiss(animated: true)
-            // push to the start playing view
         self.performSegue(withIdentifier: Identifiers.unwindToMainView, sender: nil)
-//        }
     }
-    
-//
-//    deinit {
-//        if sound != nil {
-//            sound.stopSoundTrack()
-//        }
-//        if startingSound != nil {
-//            startingSound.stopSoundTrack()
-//        }
-//        if swishSound != nil {
-//            swishSound.stopSoundTrack()
-//        }
-//    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-//        sound = nil
-//        startingSound = nil
-//        swishSound = nil
     }
     
     var levelIndex: Int? {
@@ -57,8 +37,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     var testPlayButton: UIButton! {
         didSet {
-            //            testPlayButton.alpha = 0.3
-            //            testPlayButton.isEnabled = false
             print("testPlayButton: \(testPlayButton)")
         }
     }
@@ -104,19 +82,19 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     var userAnswersArray = [UserAnswerModel]()
     
     fileprivate func UpDateUIView() {
-            DispatchQueue.main.async {
-                self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
-                self.nodesThatDidNotChnage.removeAll()
-                self.checkAnswerButton.isHidden = true
-                self.itemCollectionViewController(isOn: true)
-                self.statusLable.statusShowLabelAnimation(isHidden: false)
-                self.status = AlertsMessages.longPress
-                [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
-            }
-
+        DispatchQueue.main.async {
+            self.countersArray.forEach { (counter) in counter.removeFromParentNode() }
+            self.nodesThatDidNotChnage.removeAll()
+            self.checkAnswerButton.isHidden = true
+            self.itemCollectionViewController(isOn: true)
+            self.statusLable.statusShowLabelAnimation(isHidden: false)
+            self.status = AlertsMessages.longPress
+            [self.counterBaseOneNode,self.counterBaseTwoNode,self.counterBaseThreeNode,self.counterBaseFourNode].forEach { $0?.isHidden = true }
+        }
+        
     }
     
-   var stopWatchTimer = StopWatchTimer()
+    var stopWatchTimer = StopWatchTimer()
     @objc func handelStartGamePlay(sender: UIButton) {
         // Start the timer
         stopWatchTimer.startTimer()
@@ -212,7 +190,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         // TODO: unwindToMainView
         self.performSegue(withIdentifier: Identifiers.unwindToMainView, sender: nil)
     }
-
+    
     func hideContolers(){
         self.checkAnswerButton.isHidden = true
         self.playSoundButton.isHidden = true
@@ -378,7 +356,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     }
     //MARK:- Hit tests against the `sceneView` to find an object at the provided point.
     fileprivate func removeVirtualObject(at point: CGPoint) {
-        let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode : true]
+        let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode: true]
         let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
         if !hitTestResults.isEmpty {
             let hitNode = hitTestResults.first!
@@ -386,7 +364,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             if !doesNotEqualToStaticNodes(nodeName: nodeName) {
                 //TODO: check this line ... for user answer
                 guard let removedNodeColor = hitNode.node.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
-               
+                
                 if self.expectedCounterColor.isEmpty {
                     self.expectedCounterColor.append(self.getNodeColor(detectedColor: removedNodeColor))
                     print("removeVirtualObject expectedCounterColor: \(self.expectedCounterColor)")
@@ -529,7 +507,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             // Position of detected surface is in 3rd column of transform matrix
             let thirdColumn = transform.columns.3
             // Position the Object node right where the detected surface is
-            
             node.position = SCNVector3(thirdColumn.x,thirdColumn.y + yChildNodePosition,thirdColumn.z)
             print("added node location: \(node.position)")
             // MARK: add SCNPhysicsBody and BitMask to add Nodes
@@ -773,7 +750,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         completed()
     }
     
-    
     func addStartingCounters(index: Int = 0){
         createAndSetUpCounterPostionsOnView(index: index)
     }
@@ -818,6 +794,10 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         if uuidString != nil {
             if anchor.identifier.uuidString == uuidString {
                 didAddedParentNode = true
+                // Stop the plane detection
+                self.configuration.planeDetection = []
+                // Run the view's session
+                self.sceneView.session.run(configuration)
             }
         }
     }
@@ -853,7 +833,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
 // MARK: - PhysicsWorld
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-//        print("didEnd I was called...")
+        //        print("didEnd I was called...")
         lastContactNode = nil
         var contactNode: SCNNode!
         
