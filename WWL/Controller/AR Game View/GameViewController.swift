@@ -73,7 +73,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     
-    var nextSound: Int = 17 {
+    var nextSound: Int = 1 {
         didSet {
             print("updated Value: \(nextSound)")
         }
@@ -166,7 +166,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 }
             }
         } else {
-            flashScreen(text: "Wrong Answer", color: .red)
+            flashScreen(text: "Try Again", color: #colorLiteral(red: 1, green: 0.4980392157, blue: 0, alpha: 1))
             numberOfInccorectAnswersCheked = numberOfInccorectAnswersCheked + 1
             print("checkAnswerButtonAction... ERORR : \(String(describing: expectedCounterColor.first))")
         }
@@ -187,7 +187,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     }
     func handelOkButton() {
         print("ok button was pressed")
-        // TODO: unwindToMainView
+        // unwindToMainView
         self.performSegue(withIdentifier: Identifiers.unwindToMainView, sender: nil)
     }
     
@@ -362,7 +362,6 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             let hitNode = hitTestResults.first!
             guard let nodeName = hitNode.node.name else {return}
             if !doesNotEqualToStaticNodes(nodeName: nodeName) {
-                //TODO: check this line ... for user answer
                 guard let removedNodeColor = hitNode.node.geometry?.firstMaterial?.diffuse.contents.debugDescription else {return}
                 
                 if self.expectedCounterColor.isEmpty {
@@ -391,7 +390,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     }
     
     // MARK: GestureRecognizer
-    // TODO: - LongPress
+    // - LongPress
     @objc func longPress(sender: UILongPressGestureRecognizer){
         guard let sceneView = sender.view as? ARSCNView, sender.view != nil else {return}
         let pressedAtLoction = sender.location(in: sceneView)

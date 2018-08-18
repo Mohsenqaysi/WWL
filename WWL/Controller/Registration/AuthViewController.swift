@@ -34,11 +34,7 @@ class AuthViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = navigationBarState
-        // TODO: - Check is the user did logged in breofre
-        // If did use the token to authanticated the user
-        // else ask them to login.
-        
+        self.navigationController?.navigationBar.isHidden = navigationBarState        
     }
     fileprivate func setButtonsActions(){
         self.loginButoon.addTarget(self, action: #selector(handelLogin), for: .touchUpInside)
