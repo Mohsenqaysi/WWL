@@ -129,7 +129,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             flashScreen(text: "Correct 😊", color: .green)
             nextSound = nextSound + 1
             print("new checkAnswer index value: \(nextSound)")
-            if nextSound < levelDataArray.count{
+            if nextSound < levelDataArray.count {
                 self.expectedCounterColor.removeAll()
                 self.setSoundtrack(index: self.nextSound)
                 // update The UI with the new data
@@ -355,9 +355,9 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         }
     }
     //MARK:- Hit tests against the `sceneView` to find an object at the provided point.
-    fileprivate func removeVirtualObject(at point: CGPoint) {
+    fileprivate func removeVirtualObject(at point: CGPoint, view: ARSCNView ) {
         let hitTestOptions: [SCNHitTestOption : Any] = [SCNHitTestOption.searchMode: true]
-        let hitTestResults = sceneView.hitTest(point, options: hitTestOptions)
+        let hitTestResults = view.hitTest(point, options: hitTestOptions)
         if !hitTestResults.isEmpty {
             let hitNode = hitTestResults.first!
             guard let nodeName = hitNode.node.name else {return}
@@ -394,10 +394,10 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     @objc func longPress(sender: UILongPressGestureRecognizer){
         guard let sceneView = sender.view as? ARSCNView, sender.view != nil else {return}
         let pressedAtLoction = sender.location(in: sceneView)
-        print("longPress was detected: \(pressedAtLoction.debugDescription)")
+//        print("longPress was detected: \(pressedAtLoction.debugDescription)")
         let hitTest = sceneView.hitTest(pressedAtLoction, types: .existingPlaneUsingExtent)
         if !hitTest.isEmpty {
-            removeVirtualObject(at: pressedAtLoction)
+            removeVirtualObject(at: pressedAtLoction, view: sceneView)
         }
     }
     
@@ -700,11 +700,13 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
         for (indexOfCounterProperty,counterProperty) in CounterPropertyArray.enumerated() {
             print("CounterProperty Index: \(indexOfCounterProperty) CounterProperty: \(counterProperty)")
             switch indexOfCounterProperty {
-            case 0...3:
+            case 0...4:
                 let counter = self.countersArray[indexOfCounterProperty]
                 if !counterProperty.counterChanged {
                     print("counterProperty counter name: \(counter.name!)")
                     self.nodesThatDidNotChnage.append(counter.name!)
+                } else {
+                    print("counter is chnaged: \(counter.name!)")
                 }
             default:
                 return
@@ -716,6 +718,10 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
     
     fileprivate func createCountersFromCounterPropertyModel(_ index: Int, completed: (()-> ())) {
         countersArray = []
+        blueCounterNodeOne = nil
+        blueCounterNodeTwo = nil
+        blueCounterNodeThree = nil
+        greenCounterNodeOne = nil
         // Take the CounterProperty at index:
         levelDataArray[index].CounterProperty.forEach { (counter) in
             if counter.color == CounterColor.blueColor.toInt() {
@@ -727,6 +733,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
                 } else if blueCounterNodeTwo == nil {
                     blueCounterNodeTwo = createCounterNode(counterColorID: counter.color)
                     blueCounterNodeTwo.name = Identifiers.blueCounterNodeTwo
+                    // Add to array
                     countersArray.append(blueCounterNodeTwo)
                 } else {
                     blueCounterNodeThree = createCounterNode(counterColorID: counter.color)
@@ -758,6 +765,7 @@ class GameViewController: UIViewController,ARSCNViewDelegate {
             //MARK: Gamge counters Positioning
             print("countersArray index: \(index)")
             // setup the Counters spostions in the view
+            print("countersArray: \(countersArray)")
             self.setUpCounterspostionsInView(self.countersArray)
         }
         let counterPropertyArray = self.levelDataArray[index].CounterProperty

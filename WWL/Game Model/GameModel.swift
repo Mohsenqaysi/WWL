@@ -110,9 +110,9 @@ var Model04: [GameModel] = [
     GameModel(key: "13-l_ou_J", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: true)]),
     GameModel(key: "14-CH_ou_j", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: false)]),
     GameModel(key: "15-ch_E_j", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true),CounterProperty(color: 1, counterChanged: false)]),
-    GameModel(key: "16-K_e_j", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: true)]),
-    GameModel(key: "17-k_e_M", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: false)]),
-    GameModel(key: "18-F_e_m", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "16-K_e_j", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "17-k_e_M", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true),CounterProperty(color: 1, counterChanged: false)]),
+    GameModel(key: "18-F_e_m", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true),CounterProperty(color: 1, counterChanged: false)]),
     GameModel(key: "19-f_AU_m", CounterProperty: [CounterProperty(color: 1, counterChanged: true), CounterProperty(color: 2, counterChanged: false),CounterProperty(color: 1, counterChanged: false)]),
     GameModel(key: "20-S_au_m", CounterProperty: [CounterProperty(color: 1, counterChanged: false), CounterProperty(color: 2, counterChanged: true), CounterProperty(color: 1, counterChanged: false)])
 ]
