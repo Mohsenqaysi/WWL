@@ -123,12 +123,14 @@ extension UserProfileViewController: UITableViewDataSource {
 //        cell.sectionLabel.text =  userProgressArray[indexPath.row].section.uppercased()
 //        cell.totalTime.text = time//"\(total_time)"
 //        cell.inccorectAnswers.text = "\(incorrect_answers)"
-        
-        let incorrect_answers = userProgressArray2[indexPath.row].incorrect_answers
-        let total_time = userProgressArray2[indexPath.row].total_time
         cell.sectionLabel.text = userProgressArray2[indexPath.row].title.uppercased()
-        cell.totalTime.text = "\(String(describing: total_time))"
-        cell.inccorectAnswers.text = "\(String(describing: incorrect_answers))"
+
+        if let incorrect_answers = userProgressArray2[indexPath.row].incorrect_answers {
+            cell.inccorectAnswers.text = "\(incorrect_answers)"
+        }
+        if let total_time = userProgressArray2[indexPath.row].total_time {
+            cell.totalTime.text = "\(Int(truncating: total_time)) second(s)"
+        }
         return cell
     }
 }
